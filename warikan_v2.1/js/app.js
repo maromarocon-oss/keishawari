@@ -611,22 +611,20 @@ function stepAmt(k,delta){
   if(!amount){showAlert('先に合計金額を入力してください','金額未入力');return;}
   const el=document.getElementById('ramt-'+k);if(!el)return;
   const raw=parseFloat(el.value);
-  const cur=isNaN(raw)?0:raw;
-  const onBoundary=Math.abs(cur-Math.round(cur/100)*100)<0.001;
+  const cur=isNaN(raw)?0:Math.round(raw);
+  const onBoundary=cur%100===0;
   let next;
   if(delta>0){
-    // first press (not on boundary): snap UP to 100-yen ceiling
-    // subsequent (on boundary): +100
     next=onBoundary?cur+100:Math.ceil(cur/100)*100;
   }else{
-    // first press: snap DOWN to 100-yen floor
-    // subsequent: -100
     next=onBoundary?cur-100:Math.floor(cur/100)*100;
   }
   // clamp 0 〜 合計金額
   next=Math.max(0,Math.min(amount,next));
   el.value=next;
   syncRatioFromAmt(k,String(next));
+  // re-assert after syncRatioFromAmt may overwrite via updateRatioPreviews
+  el.value=next;
 }
 
 /* 金額直接入力 → 比率を逆算 */
@@ -654,10 +652,15 @@ function syncRatioFromAmt(k,val){
   const groupSize=g.mems.length;
   const totalOthers=Object.keys(groups).filter(kk=>kk!==k)
     .reduce((s,kk)=>s+groups[kk].mems.length*getColRatio(kk),0);
+  // 単一グループの場合は比率を変えても按分は変わらないため、ratioは変更しない
+  if(totalOthers<0.001){
+    updateRatioPreviews();
+    return;
+  }
   // Solve: targetAmt = amount * ratio_k / (groupSize*ratio_k + totalOthers)
   const denom=amount-targetAmt*groupSize;
   let r=Math.abs(denom)<0.01
-    ?(totalOthers>0?targetAmt*totalOthers/0.01:1)
+    ?(targetAmt*totalOthers/0.01)
     :(targetAmt*totalOthers)/denom;
   if(r<0||!isFinite(r))r=0;
   colorRatios[k]=Math.round(r*100)/100;
