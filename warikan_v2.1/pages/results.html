@@ -1,0 +1,89 @@
+<div id="s3" class="screen">
+  <div class="app-header">
+    <button class="back-btn" id="s3-back-btn" onclick="goBack('s2')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>修正する
+    </button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="share-btn" id="share-btn" onclick="copyResult()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        結果をコピー
+      </button>
+    </div>
+  </div>
+  <div class="stepper" id="s3-steps">
+    <div class="step-item">
+      <div class="step-circle done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="step-text"><span class="step-num-lbl">STEP 1</span><span class="step-name done">グループ設定</span></div>
+    </div>
+    <div class="step-connector done"></div>
+    <div class="step-item">
+      <div class="step-circle done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="step-text"><span class="step-num-lbl">STEP 2</span><span class="step-name done">支払入力</span></div>
+    </div>
+    <div class="step-connector done"></div>
+    <div class="step-item">
+      <div class="step-circle active">3</div>
+      <div class="step-text"><span class="step-num-lbl">STEP 3</span><span class="step-name active">精算結果</span></div>
+    </div>
+  </div>
+  <div class="screen-body" style="padding-top:20px">
+    <div id="shared-banner-wrap"></div>
+    <div class="section-title" id="s3-title">精算結果</div>
+    <div class="section-sub" id="result-sub"></div>
+    <div id="result-container"></div>
+    <button class="reset-lnk" id="reset-lnk" onclick="resetAll()">🔄 最初からやり直す</button>
+
+    <div class="feedback-wrap" id="feedback-section">
+      <div class="feedback-ttl">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        不具合報告・ご意見欄
+      </div>
+      <select class="feedback-select" id="fb-type">
+        <option value="">種別を選択してください</option>
+        <option value="bug">🐛 不具合・バグ報告</option>
+        <option value="request">💡 ご意見・ご要望</option>
+        <option value="other">💬 その他</option>
+      </select>
+      <textarea class="feedback-textarea" id="fb-message" placeholder="内容を入力してください（例：○○の画面で△△が表示されない）" maxlength="1000"></textarea>
+      <button class="feedback-submit" id="fb-submit-btn" onclick="submitFeedback()" type="button" aria-label="フィードバックを送信">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        内容を確認して送信
+      </button>
+      <div class="feedback-note">いただいた内容はサービス改善に活用します。氏名・連絡先など個人情報は入力しないでください。</div>
+      <div class="fb-confirm-wrap" id="fb-confirm-wrap">
+        <div style="text-align:center">
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px">送信内容を確認してください</div>
+          <span class="fb-email-badge" id="fb-email-disp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+          </span>
+        </div>
+        <div class="fb-result-box" id="fb-preview"></div>
+        <a id="fb-send-link" href="#" class="fb-send-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+          メールアプリで送信
+        </a>
+        <button class="fb-copy-btn" id="fb-copy-btn" type="button" onclick="fbCopy()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          テキストをコピー
+        </button>
+        <button class="fb-back-btn" type="button" onclick="fbReset()">← 編集に戻る</button>
+      </div>
+    </div>
+
+    <div class="legal-footer" id="legal-footer">
+      <div class="legal-section">
+        <strong>🔒 データのお取り扱いについて</strong>
+        入力されたグループ名・メンバー名・金額等のすべてのデータは、お使いのデバイス（ブラウザ）内のみで処理されます。外部サーバーへの送信・保存は一切行っておりません。アプリを閉じるとデータは消去されます。
+        <button class="privacy-modal-link" onclick="showPrivacyPage()">プライバシーポリシーを確認</button>
+      </div>
+      <div class="legal-section">
+        <strong>™ 商標に関する表記</strong>
+        「PayPay」は株式会社PayPayの登録商標です。本サービスはPayPay株式会社およびその関連会社とは一切関係ありません。本サービスにおけるスマホ決済への誘導はPayPay公式機能（ディープリンク）を利用した機能のご案内であり、PayPayの商標・ロゴ・デザインは使用しておりません。
+      </div>
+      <div class="legal-section" style="color:var(--faint)">
+        本サービスは無料のウェブツールです。サービスの利用により生じた損害について、開発者は責任を負いません。<br>
+        ご意見・不具合報告は上記フォームよりお送りください。
+      </div>
+    </div>
+  </div>
+</div>
