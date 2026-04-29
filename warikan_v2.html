@@ -325,28 +325,61 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .cookie-ok-btn{padding:7px 16px;border-radius:var(--r-full);background:var(--green);color:#fff;font-weight:700;font-size:12px;white-space:nowrap;flex-shrink:0;border:none;cursor:pointer}
 /* ── INTRO PAGE ── */
 .intro-body{flex:1;padding:24px 18px 120px;display:flex;flex-direction:column;align-items:center;max-width:480px;width:100%;margin:0 auto}
-.intro-hero{text-align:center;margin-bottom:20px;padding-top:4px;width:100%}
-.intro-appname{font-size:32px;font-weight:900;color:var(--green);letter-spacing:-.03em;margin-top:10px;margin-bottom:6px}
-.intro-tagline{font-size:15px;font-weight:700;line-height:1.7;color:var(--text);margin-bottom:14px}
+.intro-hero{text-align:center;margin-bottom:24px;padding-top:8px;width:100%}
+.intro-appname{font-size:34px;font-weight:900;color:var(--green);letter-spacing:-.03em;margin-top:12px;margin-bottom:8px}
+.intro-tagline{font-size:17px;font-weight:800;line-height:1.7;color:var(--text);margin-bottom:16px;letter-spacing:-.01em}
 .intro-badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .intro-badge{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:700;border-width:1.5px;border-style:solid}
 .intro-badge.green{background:var(--green-lt);color:var(--green);border-color:var(--green)}
 .intro-badge.red{background:#fdeaea;color:#C0000A;border-color:#D3000D}
-.intro-features{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:12px;display:flex;flex-direction:column;gap:12px}
-.intro-feat{display:flex;align-items:flex-start;gap:12px}
-.intro-feat-icon{font-size:22px;flex-shrink:0;line-height:1;margin-top:2px}
-.intro-feat-body strong{font-size:13px;font-weight:800;color:var(--text);display:block;margin-bottom:3px}
-.intro-feat-body span{font-size:12px;color:var(--muted);line-height:1.55}
-.intro-steps-wrap{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:12px}
-.intro-steps-ttl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:12px}
-.intro-step{display:flex;align-items:flex-start;gap:13px;padding:9px 0;border-bottom:1px solid var(--border)}
+.intro-features{width:100%;margin-bottom:18px;display:flex;flex-direction:column;gap:12px}
+.intro-feat{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--sh-sm)}
+.intro-feat.green-accent{border-color:var(--green);background:linear-gradient(135deg,var(--green-lt) 0%,#fff 60%)}
+.intro-feat.red-accent{border-color:#D3000D;background:linear-gradient(135deg,#fdeaea 0%,#fff 60%)}
+.intro-feat-icon{font-size:32px;flex-shrink:0;line-height:1;margin-top:2px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:50%;box-shadow:var(--sh-sm)}
+.intro-feat-body{flex:1;min-width:0}
+.intro-feat-body strong{font-size:16px;font-weight:900;color:var(--text);display:block;margin-bottom:6px;letter-spacing:-.01em}
+.intro-feat-body span{font-size:13px;color:var(--muted);line-height:1.65;display:block}
+.intro-steps-wrap{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px;margin-bottom:14px;box-shadow:var(--sh-sm)}
+.intro-steps-ttl{font-size:13px;font-weight:900;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.intro-steps-ttl::before{content:'';width:24px;height:3px;background:var(--green);border-radius:2px}
+.intro-step{padding:14px 0;border-bottom:1px solid var(--border)}
 .intro-step:last-child{border-bottom:none;padding-bottom:0}
 .intro-step:first-child{padding-top:0}
-.intro-step-num{width:26px;height:26px;border-radius:var(--r-full);background:var(--green);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.intro-step-ttl{font-size:13px;font-weight:700;margin-bottom:2px}
-.intro-step-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.intro-step-head{display:flex;align-items:center;gap:11px;margin-bottom:8px}
+.intro-step-num{width:30px;height:30px;border-radius:var(--r-full);background:var(--green);color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.intro-step-ttl{font-size:15px;font-weight:900;letter-spacing:-.01em}
+.intro-step-desc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:9px;padding-left:41px}
+.intro-mock{margin-left:41px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);padding:9px 11px;font-size:11px}
+.intro-mock-label{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.intro-mock-input{background:#fff;border:1.5px solid var(--border);border-radius:6px;padding:5px 8px;font-weight:700;color:var(--text);font-size:11px}
+.intro-mock-member{display:flex;align-items:center;gap:6px;padding:3px 0;font-weight:600;font-size:11px}
+.intro-mock-av{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:9px;color:#fff;flex-shrink:0}
+.intro-mock-tag{font-size:9px;padding:1px 6px;border-radius:6px;font-weight:700;margin-left:auto}
+.intro-mock-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.intro-mock-row:last-child{margin-bottom:0}
+.intro-mock-chips{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.intro-mock-chip{background:#fff;border:1.5px solid var(--border);border-radius:9999px;padding:3px 9px 3px 5px;font-size:10px;font-weight:700;color:var(--muted);display:inline-flex;align-items:center;gap:3px}
+.intro-mock-chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.intro-mock-chip-av{width:13px;height:13px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:7px;color:#fff;flex-shrink:0;background:rgba(255,255,255,.3)}
+.intro-mock-flow{display:flex;align-items:center;gap:6px;font-weight:700;font-size:11px}
+.intro-mock-amount{margin-left:auto;font-weight:900;color:var(--green);font-size:13px}
+.intro-mock-paypay{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;padding:7px;background:#D3000D;color:#fff;font-weight:800;font-size:11px;border-radius:9999px;border:none;margin-top:7px}
+.intro-mock-section{margin-bottom:7px}
+.intro-mock-section:last-child{margin-bottom:0}
 /* ── RESTORE BANNER ── */
 .restore-banner{background:var(--green-lt);border:1.5px solid var(--green);border-radius:var(--r-md);padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--green);display:flex;align-items:center;gap:8px}
+/* ── PRIVACY POLICY PAGE ── */
+.privacy-body{flex:1;padding:24px 18px 60px;max-width:560px;width:100%;margin:0 auto}
+.privacy-title{font-size:24px;font-weight:900;letter-spacing:-.02em;margin-bottom:6px}
+.privacy-sub{font-size:12px;color:var(--muted);margin-bottom:20px}
+.privacy-section{margin-bottom:18px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-md);padding:14px 16px}
+.privacy-section h3{font-size:14px;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-.01em}
+.privacy-section p,.privacy-section li{font-size:13px;color:var(--muted);line-height:1.75}
+.privacy-section p+p{margin-top:8px}
+.privacy-section ul{padding-left:20px;margin-top:6px}
+.privacy-section a{color:var(--green);word-break:break-all}
+.privacy-meta{font-size:11px;color:var(--faint);margin-top:18px;padding:12px 14px;background:var(--bg);border-radius:var(--r-md);line-height:1.8}
 </style>
 </head>
 <body>
@@ -357,61 +390,109 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
       <svg width="80" height="80" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <line x1="4.5" y1="1" x2="4.5" y2="31.5" stroke="#0E5C32" stroke-width="1.2" stroke-linecap="round"/>
         <line x1="4.5" y1="31.5" x2="37.5" y2="31.5" stroke="#0E5C32" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M 1,2 L 3.5,5.5 L 6,2" stroke="#0E5C32" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <line x1="1.3" y1="6.3" x2="5.7" y2="6.3" stroke="#0E5C32" stroke-width="0.7" stroke-linecap="round"/>
-        <line x1="1.3" y1="7.8" x2="5.7" y2="7.8" stroke="#0E5C32" stroke-width="0.7" stroke-linecap="round"/>
-        <line x1="3.5" y1="5.5" x2="3.5" y2="9.8" stroke="#0E5C32" stroke-width="0.8" stroke-linecap="round"/>
+        <!-- yen mark (entirely left of y-axis, no overlap with lines) -->
+        <path d="M 0.5,1.8 L 2.25,4.4 L 4,1.8" stroke="#0E5C32" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <line x1="0.7" y1="5.3" x2="3.8" y2="5.3" stroke="#0E5C32" stroke-width="0.55" stroke-linecap="round"/>
+        <line x1="0.7" y1="6.5" x2="3.8" y2="6.5" stroke="#0E5C32" stroke-width="0.55" stroke-linecap="round"/>
+        <line x1="2.25" y1="4.4" x2="2.25" y2="8.2" stroke="#0E5C32" stroke-width="0.65" stroke-linecap="round"/>
         <polyline points="6,25 14.5,25 14.5,18 23,18 23,9" fill="none" stroke="#0E5C32" stroke-width="0.65" stroke-dasharray="1.2,1.2" opacity="0.28"/>
         <path d="M 6.5,25 C 6.5,26.8 8,27.5 8,28.8 C 8,30 7.2,30.5 7.2,31.5 L 12.8,31.5 C 12.8,30.5 12,30 12,28.8 C 12,27.5 13.5,26.8 13.5,25 Z" fill="#2A9055" opacity="0.45"/>
         <path d="M 6,25 C 6,26.8 7.8,27.5 7.8,28.8 C 7.8,30 7,30.5 7,31.5 L 13,31.5 C 13,30.5 12.2,30 12.2,28.8 C 12.2,27.5 14,26.8 14,25 Z" fill="none" stroke="#0E5C32" stroke-width="1.1" stroke-linejoin="round"/>
-        <circle cx="5.4"  cy="24.9" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.83"/>
-        <circle cx="7.6"  cy="24"   r="1.5"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-        <circle cx="9.9"  cy="23.1" r="2"    fill="white" stroke="#0E5C32" stroke-width="0.93"/>
-        <circle cx="12.4" cy="23.7" r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-        <circle cx="14.7" cy="24.6" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.82"/>
-        <circle cx="8.3"  cy="22"   r="1.3"  fill="white" stroke="#0E5C32" stroke-width="0.84"/>
-        <circle cx="11.1" cy="21.6" r="1.4"  fill="white" stroke="#0E5C32" stroke-width="0.86"/>
-        <circle cx="9.7"  cy="20.6" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
+        <!-- foam 1: fine particles, flat top -->
+        <circle cx="5.6"  cy="24.9" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="6.8"  cy="24.6" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="8"    cy="24.4" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="9.2"  cy="24.3" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="10.5" cy="24.3" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="11.7" cy="24.4" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="12.9" cy="24.6" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="14.4" cy="24.9" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="6.4"  cy="23.5" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="7.6"  cy="23.2" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="8.9"  cy="23"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="10.2" cy="23"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="11.5" cy="23.1" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="12.8" cy="23.3" r="0.6"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="13.7" cy="23.7" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="7.4"  cy="22.3" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="8.5"  cy="22.1" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="9.6"  cy="22"   r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="10.7" cy="22"   r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="11.8" cy="22.1" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="12.6" cy="22.4" r="0.4"  fill="white" stroke="#0E5C32" stroke-width="0.4"/>
         <circle cx="9"    cy="28.5" r="0.55" fill="#0E5C32" opacity="0.3"/>
         <circle cx="11.5" cy="29.8" r="0.45" fill="#0E5C32" opacity="0.25"/>
         <path d="M 15,18 C 15,20.5 16.5,21.8 16.5,23.5 C 16.5,25.5 15.5,27.5 15.5,31.5 L 21.5,31.5 C 21.5,27.5 20.5,25.5 20.5,23.5 C 20.5,21.8 22,20.5 22,18 Z" fill="#2A9055" opacity="0.6"/>
         <path d="M 14.5,18 C 14.5,20.5 16,21.8 16,23.5 C 16,25.5 15,27.5 15,31.5 L 22,31.5 C 22,27.5 21,25.5 21,23.5 C 21,21.8 22.5,20.5 22.5,18 Z" fill="none" stroke="#0E5C32" stroke-width="1.15" stroke-linejoin="round"/>
-        <circle cx="13.2" cy="17.8" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.85"/>
-        <circle cx="15.8" cy="16.9" r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-        <circle cx="18.4" cy="15.8" r="2.2"  fill="white" stroke="#0E5C32" stroke-width="0.96"/>
-        <circle cx="21"   cy="16.8" r="1.7"  fill="white" stroke="#0E5C32" stroke-width="0.91"/>
-        <circle cx="24"   cy="17.6" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.84"/>
-        <circle cx="16.7" cy="14.7" r="1.4"  fill="white" stroke="#0E5C32" stroke-width="0.85"/>
-        <circle cx="19.6" cy="14.2" r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.88"/>
-        <circle cx="22.1" cy="15.1" r="1.2"  fill="white" stroke="#0E5C32" stroke-width="0.82"/>
-        <circle cx="18.3" cy="12.8" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.8"/>
+        <!-- foam 2: fine particles, flat top -->
+        <circle cx="13.5" cy="17.9" r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="14.8" cy="17.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="16.2" cy="17.2" r="0.95" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="17.6" cy="17"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="19"   cy="17"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="20.3" cy="17.1" r="0.95" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="21.6" cy="17.4" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="22.8" cy="17.7" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="24"   cy="18"   r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="14.5" cy="16.3" r="0.6"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="15.8" cy="15.9" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="17.1" cy="15.6" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="18.4" cy="15.5" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="19.7" cy="15.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="21"   cy="15.7" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="22.2" cy="16"   r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="23.3" cy="16.5" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="15.7" cy="14.7" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="16.9" cy="14.4" r="0.6"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="18.2" cy="14.2" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="19.5" cy="14.2" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="20.7" cy="14.4" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="21.8" cy="14.8" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="17.2" cy="13.4" r="0.4"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="18.4" cy="13.3" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="19.5" cy="13.3" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="20.6" cy="13.5" r="0.4"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
         <circle cx="16.5" cy="25.5" r="0.6"  fill="#0E5C32" opacity="0.3"/>
         <circle cx="20.2" cy="29.2" r="0.55" fill="#0E5C32" opacity="0.25"/>
         <circle cx="21"   cy="22.5" r="0.5"  fill="#0E5C32" opacity="0.22"/>
         <path d="M 23.8,9 C 23.8,13.5 25.5,16.5 25.5,20 C 25.5,24 24.5,27 24.5,31.5 L 32.5,31.5 C 32.5,27 31.5,24 31.5,20 C 31.5,16.5 33.2,13.5 33.2,9 Z" fill="#2A9055" opacity="0.82"/>
         <path d="M 23,9 C 23,13.5 25,16.5 25,20 C 25,24 24,27 24,31.5 L 33,31.5 C 33,27 32,24 32,20 C 32,16.5 34,13.5 34,9 Z" fill="none" stroke="#0E5C32" stroke-width="1.3" stroke-linejoin="round"/>
-        <circle cx="21"   cy="8.5"  r="1.2"  fill="white" stroke="#0E5C32" stroke-width="0.87"/>
-        <circle cx="22.6" cy="9.8"  r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
-        <circle cx="24.6" cy="7.4"  r="1.8"  fill="white" stroke="#0E5C32" stroke-width="0.97"/>
-        <circle cx="27"   cy="6"    r="2.4"  fill="white" stroke="#0E5C32" stroke-width="1.06"/>
-        <circle cx="29.7" cy="7.1"  r="2"    fill="white" stroke="#0E5C32" stroke-width="1.01"/>
-        <circle cx="32.2" cy="8"    r="1.5"  fill="white" stroke="#0E5C32" stroke-width="0.91"/>
-        <circle cx="35.3" cy="9.1"  r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.82"/>
-        <circle cx="25.8" cy="4.5"  r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.94"/>
-        <circle cx="28.6" cy="3.9"  r="1.9"  fill="white" stroke="#0E5C32" stroke-width="0.96"/>
-        <circle cx="31.2" cy="5.2"  r="1.4"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-        <circle cx="27.6" cy="2.4"  r="1.2"  fill="white" stroke="#0E5C32" stroke-width="0.84"/>
-        <circle cx="30.2" cy="3.1"  r="1"    fill="white" stroke="#0E5C32" stroke-width="0.8"/>
-        <circle cx="29.1" cy="1.4"  r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.72"/>
-        <ellipse cx="22.1" cy="11.6" rx="0.9" ry="1.3" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
-        <ellipse cx="35"   cy="11.4" rx="0.8" ry="1.2" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <!-- foam 3: fine particles, flat top -->
+        <circle cx="21.8" cy="9"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="23.2" cy="8.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="24.7" cy="8.2" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="26.2" cy="8"   r="1.05" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="27.7" cy="7.9" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
+        <circle cx="29.2" cy="7.9" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
+        <circle cx="30.7" cy="8"   r="1.05" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="32.2" cy="8.2" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="33.6" cy="8.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="35"   cy="9"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="22.8" cy="6.9" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="24.3" cy="6.5" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="25.8" cy="6.2" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="27.3" cy="6"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="28.8" cy="6"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+        <circle cx="30.3" cy="6.1" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+        <circle cx="31.8" cy="6.4" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="33.2" cy="6.8" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="24.5" cy="5"   r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="25.9" cy="4.7" r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="27.3" cy="4.5" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="28.8" cy="4.5" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+        <circle cx="30.2" cy="4.7" r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+        <circle cx="31.5" cy="5.1" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="26.4" cy="3.5" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+        <circle cx="27.6" cy="3.3" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="28.7" cy="3.2" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+        <circle cx="29.8" cy="3.4" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
         <circle cx="26.5" cy="19"   r="0.8"  fill="white" opacity="0.5"/>
         <circle cx="30"   cy="24.5" r="0.75" fill="white" opacity="0.45"/>
         <circle cx="27.5" cy="28"   r="0.7"  fill="white" opacity="0.4"/>
         <circle cx="31.5" cy="15"   r="0.65" fill="white" opacity="0.38"/>
       </svg>
       <div class="intro-appname">けいしゃ割</div>
-      <div class="intro-tagline">飲み会後の「けいしゃ割り勘」も<br>かんたんに計算できます！</div>
+      <div class="intro-tagline">飲み会後の「けいしゃ割り勘」も<br>カンタン計算！</div>
       <div class="intro-badge-row">
         <span class="intro-badge green">🍺 傾斜支払い対応</span>
         <span class="intro-badge red">📱 PayPay連携</span>
@@ -419,18 +500,18 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
     </div>
 
     <div class="intro-features">
-      <div class="intro-feat">
+      <div class="intro-feat green-accent">
         <div class="intro-feat-icon">🍺</div>
         <div class="intro-feat-body">
-          <strong>傾斜支払いをかんたん設定</strong>
-          <span>先輩は多め・後輩は少なめ。カラーグループで傾斜比率をかんたんに設定できます。割り勘と傾斜を1つのアプリで。</span>
+          <strong>傾斜支払いをカンタン設定</strong>
+          <span>先輩は多め・後輩は少なめ。<br>カラーグループで傾斜比率もカンタン設定。<br>割り勘と傾斜を1つのアプリで一括管理。</span>
         </div>
       </div>
-      <div class="intro-feat">
+      <div class="intro-feat red-accent">
         <div class="intro-feat-icon">📱</div>
         <div class="intro-feat-body">
           <strong>PayPay連携で即送金</strong>
-          <span>精算結果からPayPayをワンタップで起動。その場でスムーズに送金できます。</span>
+          <span>精算結果からPayPayをワンタップで起動。<br>その場でスムーズに送金完了。<br>面倒な金額計算とお金のやり取りを最短化。</span>
         </div>
       </div>
     </div>
@@ -438,24 +519,61 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
     <div class="intro-steps-wrap">
       <div class="intro-steps-ttl">使い方は3ステップ</div>
       <div class="intro-step">
-        <div class="intro-step-num">1</div>
-        <div>
+        <div class="intro-step-head">
+          <div class="intro-step-num">1</div>
           <div class="intro-step-ttl">グループ設定</div>
-          <div class="intro-step-desc">メンバーを登録し、傾斜グループをカラーで分類</div>
+        </div>
+        <div class="intro-step-desc">メンバー登録と傾斜グループのカラー分類</div>
+        <div class="intro-mock">
+          <div class="intro-mock-section">
+            <div class="intro-mock-label">グループ名</div>
+            <div class="intro-mock-input">花見会2026</div>
+          </div>
+          <div class="intro-mock-section">
+            <div class="intro-mock-label">参加メンバー</div>
+            <div class="intro-mock-member"><div class="intro-mock-av" style="background:#E8453C">太</div>太郎<span class="intro-mock-tag" style="background:#fdeaea;color:#E8453C">先輩</span></div>
+            <div class="intro-mock-member"><div class="intro-mock-av" style="background:#3B82F6">花</div>花子<span class="intro-mock-tag" style="background:#eff6ff;color:#3B82F6">後輩</span></div>
+          </div>
         </div>
       </div>
       <div class="intro-step">
-        <div class="intro-step-num">2</div>
-        <div>
+        <div class="intro-step-head">
+          <div class="intro-step-num">2</div>
           <div class="intro-step-ttl">支払入力</div>
-          <div class="intro-step-desc">割り勘・傾斜どちらでも1件ずつかんたん登録</div>
+        </div>
+        <div class="intro-step-desc">割り勘・傾斜どちらも1件ずつ登録</div>
+        <div class="intro-mock">
+          <div class="intro-mock-section">
+            <div class="intro-mock-label">居酒屋</div>
+            <div class="intro-mock-row"><span style="color:var(--muted)">合計 ¥</span><span style="font-weight:900;color:var(--green);font-size:15px">12,000</span><span style="color:var(--muted);font-size:10px">かかった</span></div>
+            <div class="intro-mock-row"><span style="color:var(--muted)">立替：</span><span style="font-weight:700">太郎</span><span style="color:var(--muted);font-size:10px">が支払</span></div>
+          </div>
+          <div class="intro-mock-section">
+            <div class="intro-mock-label">対象者</div>
+            <div class="intro-mock-chips">
+              <span class="intro-mock-chip on" style="background:#E8453C;border-color:#E8453C"><span class="intro-mock-chip-av">太</span>太郎</span>
+              <span class="intro-mock-chip on" style="background:#3B82F6;border-color:#3B82F6"><span class="intro-mock-chip-av">花</span>花子</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="intro-step">
-        <div class="intro-step-num">3</div>
-        <div>
+        <div class="intro-step-head">
+          <div class="intro-step-num">3</div>
           <div class="intro-step-ttl">精算＆PayPay送金</div>
-          <div class="intro-step-desc">精算フローを確認し、PayPayですぐに送金完了！</div>
+        </div>
+        <div class="intro-step-desc">精算フロー確認＋PayPayで送金完了</div>
+        <div class="intro-mock">
+          <div class="intro-mock-flow">
+            <div class="intro-mock-av" style="background:#3B82F6">花</div>花子
+            <span style="color:var(--faint)">→</span>
+            <div class="intro-mock-av" style="background:#E8453C">太</div>太郎
+            <span class="intro-mock-amount">¥4,000</span>
+          </div>
+          <button class="intro-mock-paypay" type="button" disabled>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            PayPayを開く
+          </button>
         </div>
       </div>
     </div>
@@ -474,26 +592,39 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
   <!-- axes -->
   <line x1="4.5" y1="1" x2="4.5" y2="31.5" stroke="#0E5C32" stroke-width="1.2" stroke-linecap="round"/>
   <line x1="4.5" y1="31.5" x2="37.5" y2="31.5" stroke="#0E5C32" stroke-width="1.2" stroke-linecap="round"/>
-  <!-- yen mark (path-only, no text element) -->
-  <path d="M 1,2 L 3.5,5.5 L 6,2" stroke="#0E5C32" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <line x1="1.3" y1="6.3" x2="5.7" y2="6.3" stroke="#0E5C32" stroke-width="0.7" stroke-linecap="round"/>
-  <line x1="1.3" y1="7.8" x2="5.7" y2="7.8" stroke="#0E5C32" stroke-width="0.7" stroke-linecap="round"/>
-  <line x1="3.5" y1="5.5" x2="3.5" y2="9.8" stroke="#0E5C32" stroke-width="0.8" stroke-linecap="round"/>
+  <!-- yen mark (entirely left of y-axis, no overlap) -->
+  <path d="M 0.5,1.8 L 2.25,4.4 L 4,1.8" stroke="#0E5C32" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="0.7" y1="5.3" x2="3.8" y2="5.3" stroke="#0E5C32" stroke-width="0.55" stroke-linecap="round"/>
+  <line x1="0.7" y1="6.5" x2="3.8" y2="6.5" stroke="#0E5C32" stroke-width="0.55" stroke-linecap="round"/>
+  <line x1="2.25" y1="4.4" x2="2.25" y2="8.2" stroke="#0E5C32" stroke-width="0.65" stroke-linecap="round"/>
   <!-- staircase guide -->
   <polyline points="6,25 14.5,25 14.5,18 23,18 23,9" fill="none" stroke="#0E5C32" stroke-width="0.65" stroke-dasharray="1.2,1.2" opacity="0.28"/>
 
   <!-- GLASS 1 short: wide-top narrow-waist tulip shape, y=25..31.5 -->
   <path d="M 6.5,25 C 6.5,26.8 8,27.5 8,28.8 C 8,30 7.2,30.5 7.2,31.5 L 12.8,31.5 C 12.8,30.5 12,30 12,28.8 C 12,27.5 13.5,26.8 13.5,25 Z" fill="#2A9055" opacity="0.45"/>
   <path d="M 6,25 C 6,26.8 7.8,27.5 7.8,28.8 C 7.8,30 7,30.5 7,31.5 L 13,31.5 C 13,30.5 12.2,30 12.2,28.8 C 12.2,27.5 14,26.8 14,25 Z" fill="none" stroke="#0E5C32" stroke-width="1.1" stroke-linejoin="round"/>
-  <!-- foam 1: natural asymmetric bubbles -->
-  <circle cx="5.4"  cy="24.9" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.83"/>
-  <circle cx="7.6"  cy="24"   r="1.5"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-  <circle cx="9.9"  cy="23.1" r="2"    fill="white" stroke="#0E5C32" stroke-width="0.93"/>
-  <circle cx="12.4" cy="23.7" r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-  <circle cx="14.7" cy="24.6" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.82"/>
-  <circle cx="8.3"  cy="22"   r="1.3"  fill="white" stroke="#0E5C32" stroke-width="0.84"/>
-  <circle cx="11.1" cy="21.6" r="1.4"  fill="white" stroke="#0E5C32" stroke-width="0.86"/>
-  <circle cx="9.7"  cy="20.6" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
+  <!-- foam 1: fine particles, flat top -->
+  <circle cx="5.6"  cy="24.9" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="6.8"  cy="24.6" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="8"    cy="24.4" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="9.2"  cy="24.3" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="10.5" cy="24.3" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="11.7" cy="24.4" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="12.9" cy="24.6" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="14.4" cy="24.9" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="6.4"  cy="23.5" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="7.6"  cy="23.2" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="8.9"  cy="23"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="10.2" cy="23"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="11.5" cy="23.1" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="12.8" cy="23.3" r="0.6"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="13.7" cy="23.7" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="7.4"  cy="22.3" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="8.5"  cy="22.1" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="9.6"  cy="22"   r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="10.7" cy="22"   r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="11.8" cy="22.1" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="12.6" cy="22.4" r="0.4"  fill="white" stroke="#0E5C32" stroke-width="0.4"/>
   <!-- bubbles 1 -->
   <circle cx="9"  cy="28.5" r="0.55" fill="#0E5C32" opacity="0.3"/>
   <circle cx="11.5" cy="29.8" r="0.45" fill="#0E5C32" opacity="0.25"/>
@@ -501,16 +632,34 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
   <!-- GLASS 2 medium: wide-top narrow-waist, y=18..31.5 -->
   <path d="M 15,18 C 15,20.5 16.5,21.8 16.5,23.5 C 16.5,25.5 15.5,27.5 15.5,31.5 L 21.5,31.5 C 21.5,27.5 20.5,25.5 20.5,23.5 C 20.5,21.8 22,20.5 22,18 Z" fill="#2A9055" opacity="0.6"/>
   <path d="M 14.5,18 C 14.5,20.5 16,21.8 16,23.5 C 16,25.5 15,27.5 15,31.5 L 22,31.5 C 22,27.5 21,25.5 21,23.5 C 21,21.8 22.5,20.5 22.5,18 Z" fill="none" stroke="#0E5C32" stroke-width="1.15" stroke-linejoin="round"/>
-  <!-- foam 2: natural clustering -->
-  <circle cx="13.2" cy="17.8" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.85"/>
-  <circle cx="15.8" cy="16.9" r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-  <circle cx="18.4" cy="15.8" r="2.2"  fill="white" stroke="#0E5C32" stroke-width="0.96"/>
-  <circle cx="21"   cy="16.8" r="1.7"  fill="white" stroke="#0E5C32" stroke-width="0.91"/>
-  <circle cx="24"   cy="17.6" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.84"/>
-  <circle cx="16.7" cy="14.7" r="1.4"  fill="white" stroke="#0E5C32" stroke-width="0.85"/>
-  <circle cx="19.6" cy="14.2" r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.88"/>
-  <circle cx="22.1" cy="15.1" r="1.2"  fill="white" stroke="#0E5C32" stroke-width="0.82"/>
-  <circle cx="18.3" cy="12.8" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.8"/>
+  <!-- foam 2: fine particles, flat top -->
+  <circle cx="13.5" cy="17.9" r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="14.8" cy="17.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="16.2" cy="17.2" r="0.95" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="17.6" cy="17"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="19"   cy="17"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="20.3" cy="17.1" r="0.95" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="21.6" cy="17.4" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="22.8" cy="17.7" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="24"   cy="18"   r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="14.5" cy="16.3" r="0.6"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="15.8" cy="15.9" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="17.1" cy="15.6" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="18.4" cy="15.5" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="19.7" cy="15.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="21"   cy="15.7" r="0.75" fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="22.2" cy="16"   r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="23.3" cy="16.5" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="15.7" cy="14.7" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="16.9" cy="14.4" r="0.6"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="18.2" cy="14.2" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="19.5" cy="14.2" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="20.7" cy="14.4" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="21.8" cy="14.8" r="0.5"  fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="17.2" cy="13.4" r="0.4"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="18.4" cy="13.3" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="19.5" cy="13.3" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="20.6" cy="13.5" r="0.4"  fill="white" stroke="#0E5C32" stroke-width="0.45"/>
   <!-- bubbles 2 -->
   <circle cx="16.5" cy="25.5" r="0.6"  fill="#0E5C32" opacity="0.3"/>
   <circle cx="20.2" cy="29.2" r="0.55" fill="#0E5C32" opacity="0.25"/>
@@ -519,23 +668,35 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
   <!-- GLASS 3 tall: wide-top narrow-waist, y=9..31.5 -->
   <path d="M 23.8,9 C 23.8,13.5 25.5,16.5 25.5,20 C 25.5,24 24.5,27 24.5,31.5 L 32.5,31.5 C 32.5,27 31.5,24 31.5,20 C 31.5,16.5 33.2,13.5 33.2,9 Z" fill="#2A9055" opacity="0.82"/>
   <path d="M 23,9 C 23,13.5 25,16.5 25,20 C 25,24 24,27 24,31.5 L 33,31.5 C 33,27 32,24 32,20 C 32,16.5 34,13.5 34,9 Z" fill="none" stroke="#0E5C32" stroke-width="1.3" stroke-linejoin="round"/>
-  <!-- foam 3: natural dense overflow -->
-  <circle cx="21"   cy="8.5"  r="1.2"  fill="white" stroke="#0E5C32" stroke-width="0.87"/>
-  <circle cx="22.6" cy="9.8"  r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
-  <circle cx="24.6" cy="7.4"  r="1.8"  fill="white" stroke="#0E5C32" stroke-width="0.97"/>
-  <circle cx="27"   cy="6"    r="2.4"  fill="white" stroke="#0E5C32" stroke-width="1.06"/>
-  <circle cx="29.7" cy="7.1"  r="2"    fill="white" stroke="#0E5C32" stroke-width="1.01"/>
-  <circle cx="32.2" cy="8"    r="1.5"  fill="white" stroke="#0E5C32" stroke-width="0.91"/>
-  <circle cx="35.3" cy="9.1"  r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.82"/>
-  <circle cx="25.8" cy="4.5"  r="1.6"  fill="white" stroke="#0E5C32" stroke-width="0.94"/>
-  <circle cx="28.6" cy="3.9"  r="1.9"  fill="white" stroke="#0E5C32" stroke-width="0.96"/>
-  <circle cx="31.2" cy="5.2"  r="1.4"  fill="white" stroke="#0E5C32" stroke-width="0.9"/>
-  <circle cx="27.6" cy="2.4"  r="1.2"  fill="white" stroke="#0E5C32" stroke-width="0.84"/>
-  <circle cx="30.2" cy="3.1"  r="1"    fill="white" stroke="#0E5C32" stroke-width="0.8"/>
-  <circle cx="29.1" cy="1.4"  r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.72"/>
-  <!-- drip shapes from overflow -->
-  <ellipse cx="22.1" cy="11.6" rx="0.9" ry="1.3" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
-  <ellipse cx="35"   cy="11.4" rx="0.8" ry="1.2" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <!-- foam 3: fine particles, flat top -->
+  <circle cx="21.8" cy="9"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="23.2" cy="8.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="24.7" cy="8.2" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="26.2" cy="8"   r="1.05" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="27.7" cy="7.9" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
+  <circle cx="29.2" cy="7.9" r="1.1"  fill="white" stroke="#0E5C32" stroke-width="0.75"/>
+  <circle cx="30.7" cy="8"   r="1.05" fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="32.2" cy="8.2" r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="33.6" cy="8.5" r="0.85" fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="35"   cy="9"   r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="22.8" cy="6.9" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="24.3" cy="6.5" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="25.8" cy="6.2" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="27.3" cy="6"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="28.8" cy="6"   r="1"    fill="white" stroke="#0E5C32" stroke-width="0.7"/>
+  <circle cx="30.3" cy="6.1" r="0.9"  fill="white" stroke="#0E5C32" stroke-width="0.65"/>
+  <circle cx="31.8" cy="6.4" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="33.2" cy="6.8" r="0.65" fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="24.5" cy="5"   r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="25.9" cy="4.7" r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="27.3" cy="4.5" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="28.8" cy="4.5" r="0.8"  fill="white" stroke="#0E5C32" stroke-width="0.6"/>
+  <circle cx="30.2" cy="4.7" r="0.7"  fill="white" stroke="#0E5C32" stroke-width="0.55"/>
+  <circle cx="31.5" cy="5.1" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="26.4" cy="3.5" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
+  <circle cx="27.6" cy="3.3" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="28.7" cy="3.2" r="0.55" fill="white" stroke="#0E5C32" stroke-width="0.5"/>
+  <circle cx="29.8" cy="3.4" r="0.45" fill="white" stroke="#0E5C32" stroke-width="0.45"/>
   <!-- bubbles 3 -->
   <circle cx="26.5" cy="19"   r="0.8"  fill="white" opacity="0.5"/>
   <circle cx="30"   cy="24.5" r="0.75" fill="white" opacity="0.45"/>
@@ -710,7 +871,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
       <div class="legal-section">
         <strong>🔒 データのお取り扱いについて</strong>
         入力されたグループ名・メンバー名・金額等のすべてのデータは、お使いのデバイス（ブラウザ）内のみで処理されます。外部サーバーへの送信・保存は一切行っておりません。アプリを閉じるとデータは消去されます。
-        <button class="privacy-modal-link" onclick="showPrivacyModal()">プライバシーポリシーを確認</button>
+        <button class="privacy-modal-link" onclick="showPrivacyPage()">プライバシーポリシーを確認</button>
       </div>
       <div class="legal-section">
         <strong>™ 商標に関する表記</strong>
@@ -1075,12 +1236,14 @@ function resetAll(){
 function buildResultText(){
   computeSettlements();
   const total=payments.reduce((s,p)=>s+p.amount,0);
-  let txt=`【${groupName}の精算結果】\n\n`;
+  // Header + summary
+  let txt=`【${groupName}の精算結果】\n`;
   txt+=`合計：${fmt(total)}\n`;
   payments.forEach(p=>{
     txt+=`　・${p.label}・${p.participantIds.length}人：${fmt(p.amount)}\n`;
   });
-  txt+='\n【精算フロー】\n\n';
+  // Settlement flow
+  txt+='\n【精算フロー】\n';
   if(settlements.length===0){
     txt+='精算不要！\n';
   }else{
@@ -1090,7 +1253,8 @@ function buildResultText(){
       txt+=`${fr.name} → ${to.name}：${fmt(s.amount)}\n`;
     });
   }
-  txt+='\n【個人別内訳】\n\n';
+  // Per-person breakdown
+  txt+='\n【個人別内訳】\n';
   const pTot={},pBk={};
   members.forEach(m=>{pTot[m.id]=0;pBk[m.id]=[];});
   payments.forEach(p=>{
@@ -1327,22 +1491,28 @@ function updateRatioPreviews(){
   });
 }
 
-/* ±100円ステッパー: first press snaps to nearest 100, then steps */
+/* ±100円ステッパー:
+   first press → snap to 100-yen ceiling (＋) or floor (−)
+   subsequent → ±100 in steps; clamped to 0 〜 total amount */
 function stepAmt(k,delta){
   const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
-  if(!amount){alert('先に合計金額を入力してください');return;}
+  if(!amount){showAlert('先に合計金額を入力してください','金額未入力');return;}
   const el=document.getElementById('ramt-'+k);if(!el)return;
   const raw=parseFloat(el.value);
   const cur=isNaN(raw)?0:raw;
+  const onBoundary=Math.abs(cur-Math.round(cur/100)*100)<0.001;
   let next;
   if(delta>0){
-    const snapped=Math.ceil((cur+0.5)/100)*100;
-    next=snapped>cur?snapped:cur+100;
+    // first press (not on boundary): snap UP to 100-yen ceiling
+    // subsequent (on boundary): +100
+    next=onBoundary?cur+100:Math.ceil(cur/100)*100;
   }else{
-    const snapped=Math.floor((cur-0.5)/100)*100;
-    next=snapped<cur?snapped:Math.max(0,cur-100);
+    // first press: snap DOWN to 100-yen floor
+    // subsequent: -100
+    next=onBoundary?cur-100:Math.floor(cur/100)*100;
   }
-  next=Math.max(0,next);
+  // clamp 0 〜 合計金額
+  next=Math.max(0,Math.min(amount,next));
   el.value=next;
   syncRatioFromAmt(k,String(next));
 }
@@ -1793,48 +1963,24 @@ function showFbDone(){
   setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},5000);
 }
 
-function showPrivacyModal(){
-  const existing=document.getElementById('privacy-modal');if(existing)existing.remove();
-  const el=document.createElement('div');el.id='privacy-modal';el.className='modal-bg';el.style.display='flex';
-  el.onclick=e=>{if(e.target===el)el.remove();};
-  el.innerHTML=`<div class="modal-sheet" style="max-height:85dvh;overflow-y:auto">
-    <div class="modal-ttl">プライバシーポリシー</div>
-    <div style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:18px">けいしゃ割</div>
-    <div style="font-size:13px;color:var(--text);line-height:1.9">
-
-      <div style="font-weight:700;margin-bottom:6px;margin-top:0">1. 収集する情報</div>
-      <p style="margin-bottom:14px;color:var(--muted)">本サービスはグループ名・メンバー名・支払金額などの情報を処理しますが、これらのデータは<strong style="color:var(--text)">お使いのデバイス（ブラウザ）内のみ</strong>で処理されます。外部サーバーへの送信・記録・保存は一切行いません。</p>
-
-      <div style="font-weight:700;margin-bottom:6px">2. Cookieおよびトラッキング</div>
-      <p style="margin-bottom:14px;color:var(--muted)">本サービスは広告配信（Google AdSense等）を実施する場合があり、その際に第三者がCookieを使用して広告を配信することがあります。ユーザーはブラウザの設定によりCookieを無効にできます。本サービス自身のCookieおよびローカルストレージは使用しません。</p>
-
-      <div style="font-weight:700;margin-bottom:6px">3. 第三者への提供</div>
-      <p style="margin-bottom:14px;color:var(--muted)">入力されたデータを第三者に提供することはありません。「不具合報告・ご意見欄」からの送信はメールアプリを通じて運営者へ送られますが、その内容は改善目的のみに使用します。</p>
-
-      <div style="font-weight:700;margin-bottom:6px">4. 外部サービスへの遷移</div>
-      <p style="margin-bottom:14px;color:var(--muted)">「PayPayを開く」ボタンはPayPay等の外部アプリのディープリンクを利用します。遷移先のサービスにおける個人情報の取り扱いは、各サービスのプライバシーポリシーに従います。</p>
-
-      <div style="font-weight:700;margin-bottom:6px">5. データの削除</div>
-      <p style="margin-bottom:14px;color:var(--muted)">入力データはブラウザを閉じると自動的に消去されます。「結果を共有」で生成されるリンクはURLに情報が含まれますが、サーバーには保存されません。</p>
-
-      <div style="font-weight:700;margin-bottom:6px">6. 免責事項</div>
-      <p style="margin-bottom:14px;color:var(--muted)">本サービスの利用により生じた損害について、開発者はいかなる責任も負いません。計算結果は参考値としてご利用ください。</p>
-
-      <div style="font-weight:700;margin-bottom:6px">7. 改定</div>
-      <p style="margin-bottom:18px;color:var(--muted)">本ポリシーは予告なく改定する場合があります。</p>
-
-      <div style="background:var(--bg);border-radius:var(--r-md);padding:10px 12px;font-size:11px;color:var(--faint)">
-        最終更新：2025年<br>
-        お問い合わせ：keishawari.tool@gmail.com
-      </div>
-    </div>
-    <button onclick="document.getElementById('privacy-modal').remove()"
-      style="display:block;width:100%;padding:13px;margin-top:20px;border-radius:var(--r-full);background:var(--green);color:#fff;font-weight:700;font-size:14px;cursor:pointer;border:none">
-      閉じる
-    </button>
-  </div>`;
-  document.body.appendChild(el);
+let _privacyReturnId=null;
+function showPrivacyPage(){
+  // Remember current screen to return to
+  const cur=document.querySelector('.screen.active');
+  _privacyReturnId=cur?cur.id:'s0';
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
+  const el=document.getElementById('s_privacy');
+  el.style.display='flex';el.classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
 }
+function goBackFromPrivacy(){
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
+  const el=document.getElementById(_privacyReturnId||'s0');
+  el.style.display='flex';el.classList.add('back');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+// Backward-compat: any old showPrivacyModal call routes to the page
+function showPrivacyModal(){ showPrivacyPage(); }
 
 function toggleSettle(id){
   const s=settlements.find(x=>x.id===id);if(!s)return;
@@ -1847,9 +1993,110 @@ function acceptCookies(){
 }
 </script>
 
+<div id="s_privacy" class="screen">
+  <div class="app-header">
+    <button class="back-btn" onclick="goBackFromPrivacy()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>戻る
+    </button>
+    <span class="step-badge">プライバシーポリシー</span>
+  </div>
+  <div class="privacy-body">
+    <div class="privacy-title">プライバシーポリシー</div>
+    <div class="privacy-sub">けいしゃ割（本サービス）</div>
+
+    <div class="privacy-section">
+      <h3>個人情報の管理</h3>
+      <p>個人情報を取り扱うにあたっては、「個人情報の保護に関する法律」をはじめとする個人情報の保護に関する法令、ガイドラインおよび本プライバシーポリシーを遵守いたします。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>個人情報の利用目的</h3>
+      <p>本サービスでは、ご意見・不具合報告フォームをご利用いただく際、ご連絡先（メールアドレス等）をお預かりする場合があります。</p>
+      <p>取得した個人情報は、お問い合わせに対する回答や必要なご連絡をする場合に利用させていただくものであり、これらの目的以外で第三者に個人情報を開示いたしません。</p>
+      <p>なお、本サービスで入力されたグループ名・メンバー名・支払金額等のデータはお使いのデバイス（ブラウザ）内のみで処理され、外部サーバーへの送信・保存は一切行いません。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>個人情報の第三者提供について</h3>
+      <p>本サービスでは、個人情報は適切に管理し、法律の適用を受ける場合や法的強制力のある請求の場合を除いて、第三者に開示することはありません。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>クッキー（Cookie）について</h3>
+      <p>本サービスでは、一部のコンテンツについて情報の収集にクッキーを使用する場合があります。</p>
+      <p>クッキーとは、WebサーバーからWebブラウザに送信されるデータのことであり、ユーザーがサイトを訪れた際に、そのユーザーのコンピュータ内に記録されます。</p>
+      <p>ただし、本サービスがクッキーとして送るファイルには、ユーザー名やメールアドレスなど、個人を特定するものは一切含まれません。</p>
+      <p>また、入力データの一時保存にはセッションストレージを使用しており、ブラウザのタブを閉じることでデータは消去されます。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>本サービスが使用しているアクセス解析ツールについて</h3>
+      <p>本サービスでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用する場合があります。</p>
+      <p>このGoogleアナリティクスはトラフィックデータの収集のためにクッキーを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。</p>
+      <p>この機能はCookieを無効にすることで収集を拒否することができますので、お使いのブラウザの設定をご確認ください。</p>
+      <p>規約の詳細につきましては、<a href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" rel="noopener noreferrer">https://marketingplatform.google.com/about/analytics/terms/jp/</a> をご覧ください。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>本サービスの広告について</h3>
+      <p>本サービスでは、第三者配信の広告サービス「Google AdSense」を利用する場合があります。</p>
+      <p>Google AdSenseでは広告配信プロセスにおいてデータを収集するためにCookieを使用しています。GoogleでCookieを使用することにより、インターネット上のサイトへのアクセス情報に基づいてユーザーに広告を配信することが可能になります。</p>
+      <p>Cookieを使用しないように設定するには、<a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener noreferrer">https://policies.google.com/technologies/ads?hl=ja</a> をご参照ください。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>情報の外部送信について</h3>
+      <p>広告を掲載する際に、本サービスでは広告の効果を測定するため、以下のような利用者のアクセス情報を外部へ送信する場合があります。</p>
+      <p><strong>送信情報</strong></p>
+      <ul>
+        <li>閲覧したサイトのURL</li>
+        <li>クリック報酬型または成果報酬型広告を表示した日時</li>
+        <li>クリック報酬型または成果報酬型広告をクリックした日時</li>
+        <li>クリック報酬型または成果報酬型広告を計測するために必要なクッキー情報</li>
+        <li>広告表示時および広告クリック時のIPアドレス</li>
+        <li>広告表示時および広告クリック時に使用されたインターネット端末およびブラウザの種類</li>
+      </ul>
+      <p><strong>外部送信先：</strong>Google LLC</p>
+      <p><strong>利用目的：</strong>クリック報酬型広告の効果測定および不正防止のために利用しております。当該情報は個人を特定する情報ではなく、上記目的以外で利用されることは一切ありません。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>外部サービスへの遷移</h3>
+      <p>「PayPayを開く」ボタンはPayPay等の外部アプリのディープリンクを利用します。遷移先のサービスにおける個人情報の取り扱いは、各サービスのプライバシーポリシーに従います。本サービスはPayPay株式会社およびその関連会社とは一切関係ありません。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>著作権について</h3>
+      <p>本サービスに掲載されている情報についての著作権は放棄しておりません。著作権法により認められている引用の範囲である場合を除き「内容、テキスト、画像等」の無断転載・使用を固く禁じます。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>免責事項</h3>
+      <p>本サービスに掲載されている内容につきましては、正しい情報を提供することに務めてはおりますが、提供している内容およびリンク先からいかなる損失や損害などの被害が発生したとしても、本サービスでは責任を負いかねますのでご了承ください。</p>
+      <p>本免責事項、および、本サービスに掲載しているコンテンツ・情報は、予告なしに変更・削除されることがあります。計算結果は参考値としてご利用ください。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>プライバシーポリシーの変更について</h3>
+      <p>本サービスは、個人情報に関して適用される日本の法令を遵守するとともに、本ポリシーの内容を適宜見直しその改善に努めます。修正された最新のプライバシーポリシーは常に本ページにて開示されます。</p>
+    </div>
+
+    <div class="privacy-section">
+      <h3>お問い合わせ</h3>
+      <p>本サービスへのお問い合わせは、不具合報告・ご意見欄、または下記メールアドレスまでお寄せください。</p>
+      <p>keishawari.tool@gmail.com</p>
+    </div>
+
+    <div class="privacy-meta">
+      制定日：2026年4月<br>
+      お問い合わせ：keishawari.tool@gmail.com
+    </div>
+  </div>
+</div>
+
 <div id="cookie-banner" class="cookie-banner" role="region" aria-label="Cookie通知" style="display:none">
   <span>本サービスは広告配信のためCookieを使用することがあります。
-    <button class="cookie-banner a" onclick="showPrivacyModal()">プライバシーポリシー</button>をご確認ください。
+    <button class="cookie-banner a" onclick="showPrivacyPage()">プライバシーポリシー</button>をご確認ください。
   </span>
   <button class="cookie-ok-btn" onclick="acceptCookies()">同意して閉じる</button>
 </div>
