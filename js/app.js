@@ -480,24 +480,28 @@ function renderForm(){
     </div>`;
   }).join('');
   const showRatio=tabMode==='keisha';
+  const tabHint=showRatio
+    ?`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px;line-height:1.7">グループ別に<strong style="color:var(--text)">1人あたりの金額</strong>を設定します。グループ設定でカラーを割り当てていない場合は全員均等扱いです。</div>`
+    :`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は「傾斜入力」タブをご利用ください。</div>`;
   card.innerHTML=`
     <div class="s-row">
-      <input class="s-input" type="text" id="p-label" placeholder="必須：支払名称（例：タクシー代）" maxlength="30" style="flex:1"/>
+      <input class="s-input" type="text" id="p-label" placeholder="必須：支払名称（例：タクシー代、二次会）" maxlength="30" style="flex:1"/>
     </div>
     <div class="s-row">
       <span class="kw">合計 ¥</span>
-      <input class="s-input amt" type="number" id="p-amount" autocomplete="off" min="0" placeholder="4,800" oninput="${showRatio?'updateRatioSection()':''}"/>
+      <input class="s-input amt" type="number" id="p-amount" autocomplete="off" min="0" placeholder="12,000" oninput="${showRatio?'updateRatioSection()':''}"/>
       <span class="kw">かかった。</span>
     </div>
     <div class="s-row">
       <select class="payer-sel" id="payer-sel" onchange="document.getElementById('form-card').dataset.payerId=this.value">${payerOpts}</select>
-      <span class="kw">が立替</span>
+      <span class="kw">が立替払い</span>
     </div>
-    <div class="chips-lbl">対象者</div>
+    <div class="chips-lbl">対象者（タップで選択・解除）</div>
     <div class="chips-wrap">${chipsHtml}</div>
+    ${tabHint}
     ${showRatio?'<div id="ratio-wrap"></div>':''}
     <button class="reg-btn" id="reg-btn" onclick="registerPayment()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>登録
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>登録する
     </button>
     <button class="clr-btn" onclick="clearForm()">クリア</button>`;
   const sel=document.getElementById('payer-sel');
@@ -565,7 +569,9 @@ function updateRatioSection(){
     </div>`;
   }).join('');
   wrap.innerHTML=`<div class="ratio-box">
-    <div class="ratio-box-ttl">傾斜設定（比率 → 1人あたりの概算金額）</div>${rows}
+    <div class="ratio-box-ttl">傾斜設定</div>
+    <div style="font-size:11px;color:var(--muted);margin:-4px 0 10px;line-height:1.7">右の金額欄に<strong>1人あたりの金額</strong>を入力（±ボタンで100円単位に調整）。比率（×）を直接変更することもできます。</div>
+    ${rows}
   </div>`;
 }
 function setColorRatio(k,val){
