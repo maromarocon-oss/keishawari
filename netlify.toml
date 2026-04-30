@@ -1,5 +1,5 @@
 [build]
-  publish = "warikan_v2.1"
+  publish = "."
 
 [[headers]]
   for = "/*"
