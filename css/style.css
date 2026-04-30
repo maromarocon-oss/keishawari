@@ -101,12 +101,18 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .step-circle.done{background:var(--success);border-color:var(--success);color:#fff}
 .step-circle.active{background:var(--green);border-color:var(--green);color:#fff}
 .step-text{display:flex;flex-direction:column}
-.step-num-lbl{font-size:9px;font-weight:700;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;line-height:1}
-.step-name{font-size:12px;font-weight:700;color:var(--muted);line-height:1.3;margin-top:1px}
+.step-num-lbl{font-size:9px;font-weight:700;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap}
+.step-name{font-size:12px;font-weight:700;color:var(--muted);line-height:1.3;margin-top:1px;white-space:nowrap}
 .step-name.active{color:var(--green)}
 .step-name.done{color:var(--success)}
-.step-connector{flex:1;height:2px;background:var(--border);border-radius:var(--r-full);margin:0 6px;transition:background .3s}
+.step-connector{flex:1;height:2px;background:var(--border);border-radius:var(--r-full);margin:0 4px;transition:background .3s}
 .step-connector.done{background:var(--success)}
+@media(max-width:374px){
+  .step-item{gap:4px}
+  .step-circle{width:22px;height:22px;font-size:9px}
+  .step-num-lbl{font-size:8px}
+  .step-name{font-size:10px}
+}
 
 /* ── TYPOGRAPHY ── */
 .section-title{font-size:20px;font-weight:900;letter-spacing:-.02em;margin-bottom:5px}
