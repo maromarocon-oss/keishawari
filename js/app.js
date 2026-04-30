@@ -656,6 +656,13 @@ function syncRatioFromAmt(k,val){
   });
   const g=groups[k];if(!g||!g.mems.length)return;
   const groupSize=g.mems.length;
+  // guard: per-person × group size must not exceed total
+  const amtEl=document.getElementById('ramt-'+k);
+  if(targetAmt*groupSize>amount+0.5){
+    if(amtEl)amtEl.style.outline='2px solid #E8453C';
+    return;
+  }
+  if(amtEl)amtEl.style.outline='';
   const totalOthers=Object.keys(groups).filter(kk=>kk!==k)
     .reduce((s,kk)=>s+groups[kk].mems.length*getColRatio(kk),0);
   // 単一グループの場合は比率を変えても按分は変わらないため、ratioは変更しない
@@ -720,20 +727,33 @@ function registerPayment(){
     showAlert('全員の傾斜比率が0です。\n少なくとも1人以上の比率を設定してください。','比率エラー');
     return;
   }
-  // 傾斜モード：概算合計が入力合計と一致するか検証
+  // 傾斜モード：グループ別(1人あたり×人数)の合計が支払合計と一致するか検証
   if(tabMode==='keisha'){
-    const payingParts=partIds.filter(id=>(ratios[id]??1)>0);
-    const tu=payingParts.reduce((s,id)=>s+(ratios[id]??1),0);
-    if(tu>0){
-      const computed=payingParts.reduce((s,id)=>s+(amount*(ratios[id]??1)/tu),0);
-      const diff=Math.abs(Math.round(computed)-Math.round(amount));
-      if(diff>1){
-        showAlert(
-          `概算金額の合計（${fmt(Math.round(computed))}）が\n入力合計（${fmt(amount)}）と一致していません。\n\n各グループの金額欄を調整するか、\n合計金額を修正してください。`,
-          '合計金額不一致'
-        );
-        return;
-      }
+    const grpMap={};
+    partIds.forEach(id=>{
+      const m=getMember(id);if(!m)return;
+      const k=m.color||NO_COL;
+      if(!grpMap[k])grpMap[k]={count:0,label:k===NO_COL?'カラーなし':(colorLabels[k]||'グループ')};
+      grpMap[k].count++;
+    });
+    const tu=Object.keys(grpMap).reduce((s,k)=>s+grpMap[k].count*getColRatio(k),0);
+    let dispTotal=0;
+    const lines=[];
+    Object.keys(grpMap).forEach(k=>{
+      const el=document.getElementById('ramt-'+k);
+      const ppRatio=tu>0?Math.round(amount*getColRatio(k)/tu):0;
+      const pp=el&&el.value!==''?Math.round(parseFloat(el.value)||0):ppRatio;
+      dispTotal+=pp*grpMap[k].count;
+      lines.push({label:grpMap[k].label,pp,count:grpMap[k].count});
+    });
+    const diff=Math.abs(Math.round(dispTotal)-Math.round(amount));
+    if(diff>1){
+      const detail=lines.map(l=>`${esc(l.label)}：${fmt(l.pp)}/人 × ${l.count}人 = ${fmt(l.pp*l.count)}`).join('\n');
+      showAlert(
+        `グループ別金額の合計（${fmt(Math.round(dispTotal))}）が\n支払合計（${fmt(amount)}）と一致していません。\n\n${detail}\n\n± ボタンで合計が一致するよう調整してください。`,
+        '傾斜金額の合計が不一致'
+      );
+      return;
     }
   }
   if(editingPaymentId!==null){
