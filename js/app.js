@@ -28,6 +28,7 @@ let expandedPal = new Set();
 let tabMode = 'easy';
 let selParts = new Set();
 let colorRatios = {};
+let colorAmounts = {};
 let isSharedView = false;
 
 /* ══════════════════════
@@ -267,7 +268,7 @@ function goTo(id){
   const el=document.getElementById(id);
   el.style.display='flex';el.classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
-  if(id==='s2'){selParts=new Set(members.map(m=>m.id));colorRatios={};renderForm();renderPaymentList();}
+  if(id==='s2'){selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};renderForm();renderPaymentList();}
 }
 function goBackToSetup(){
   if(payments.length===0&&settlements.length===0){
@@ -278,7 +279,7 @@ function goBackToSetup(){
     '支払入力データがすべて削除されます。\nメンバーと属性の変更後、もう一度入力してください。',
     ()=>{
       payments=[];settlements=[];editingPaymentId=null;
-      selParts=new Set(members.map(m=>m.id));colorRatios={};
+      selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};
       renderPaymentList();
       goBack('s1');
     }
@@ -334,7 +335,7 @@ function resetAll(){
     '登録済みの支払データがすべて削除されます。\nメンバー設定・グループ名はそのまま残ります。',
     ()=>{
       payments=[];settlements=[];editingPaymentId=null;
-      selParts=new Set(members.map(m=>m.id));colorRatios={};
+      selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};
       saveSession();
       renderPaymentList();
       goBack('s2');
@@ -481,7 +482,7 @@ function renderForm(){
   }).join('');
   const showRatio=tabMode==='keisha';
   const tabHint=showRatio
-    ?`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px;line-height:1.7">グループ別に<strong style="color:var(--text)">1人あたりの金額</strong>を設定します。グループ設定でカラーを割り当てていない場合は全員均等扱いです。</div>`
+    ?''
     :`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は「傾斜入力」タブをご利用ください。</div>`;
   card.innerHTML=`
     <div class="s-row">
@@ -533,47 +534,74 @@ function updateRatioSection(){
   });
   const keys=Object.keys(groups);
   if(keys.length===0){wrap.innerHTML='';return;}
-  const totalUnits=keys.reduce((s,k)=>s+groups[k].mems.length*getColRatio(k),0);
-  const rows=keys.map(k=>{
-    const g=groups[k],ratio=getColRatio(k);
-    const pp=totalUnits>0?(amount*ratio/totalUnits):0;
-    const colLabel=(g.color&&colorLabels[g.color])||(!g.color?'（カラーなし）':'グループ');
+
+  // Initialize colorAmounts for new groups
+  if(amount>0){
+    const totalUnits=keys.reduce((s,k)=>s+groups[k].mems.length*getColRatio(k),0);
+    keys.forEach(k=>{
+      if(!Object.prototype.hasOwnProperty.call(colorAmounts,k)){
+        colorAmounts[k]=totalUnits>0?Math.round(amount*getColRatio(k)/totalUnits):0;
+        colorRatios[k]=colorAmounts[k];
+      }
+    });
+  }
+
+  const cards=keys.map(k=>{
+    const g=groups[k];
+    const colLabel=(g.color&&colorLabels[g.color])||(!g.color?'カラーなし':'グループ');
+    const borderCol=g.color||'var(--border)';
+    const textCol=g.color||'var(--muted)';
+    const pp=amount>0?(colorAmounts[k]??0):0;
+    const subtotal=pp*g.mems.length;
     const mnames=g.mems.map(m=>m.name||'?').join('・');
-    const sw=g.color
-      ?`<div class="ratio-sw" style="background:${g.color}">${g.mems.length}</div>`
-      :`<div class="ratio-sw" style="background:var(--faint)">${g.mems.length}</div>`;
-    const prevTxt=!amount?'¥—':ratio===0?'¥0（支払なし）':fmt(pp);
-    const prevCol=ratio===0?'var(--faint)':'var(--green)';
-    return `<div class="ratio-group">
-      <div class="ratio-left">${sw}
-        <div><div class="ratio-nm">${esc(colLabel)}</div><div class="ratio-members">${esc(mnames)}</div></div>
+    return `<div style="flex:1;min-width:130px;background:#fff;border:2px solid ${borderCol};border-radius:10px;padding:9px 10px">
+      <div style="font-size:10px;font-weight:800;color:${textCol};margin-bottom:2px">${esc(colLabel)} × ${g.mems.length}人</div>
+      <div style="font-size:9px;color:var(--muted);margin-bottom:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(mnames)}</div>
+      <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px">
+        <button class="amt-step-btn" type="button" onclick="stepAmt('${k}',-100)">&#8722;</button>
+        <input id="ramt-${k}" type="text" inputmode="numeric"
+          value="${amount>0?pp:''}" placeholder="¥—"
+          style="flex:1;min-width:0;padding:4px 2px;text-align:center;border:1.5px solid var(--border);border-radius:6px;font-size:13px;font-weight:900;color:var(--text);font-family:inherit;background:var(--bg)"
+          oninput="syncRatioFromAmt('${k}',this.value)"
+        />
+        <button class="amt-step-btn" type="button" onclick="stepAmt('${k}',100)">&#43;</button>
       </div>
-      <div style="display:flex;align-items:center;gap:4px;flex-shrink:0">
-        <span style="font-size:13px;color:var(--muted);font-weight:700">×</span>
-        <input class="ratio-input" type="text" inputmode="decimal" value="${ratio}"
-          oninput="setColorRatio('${k}',this.value)"/>
-      </div>
-      <div class="ratio-preview">
-        <div class="ratio-prev-amt" id="rprev-${k}" style="color:${prevCol}">${prevTxt}</div>
-        <div class="ratio-prev-lbl">/ 1人</div>
-        <div class="amt-stepper">
-          <button class="amt-step-btn" type="button" onclick="stepAmt('${k}',-100)">&#8722;</button>
-          <input class="amt-step-input" id="ramt-${k}" type="text" inputmode="numeric"
-            value="${amount>0&&ratio>0?Math.round(amount*ratio/Math.max(totalUnits,0.001)):''}"
-            placeholder="¥—"
-            oninput="syncRatioFromAmt('${k}',this.value)"
-          />
-          <button class="amt-step-btn" type="button" onclick="stepAmt('${k}',100)">&#43;</button>
-        </div>
-      </div>
+      <div style="font-size:10px;color:var(--muted)">小計 <span id="rsubt-${k}" style="font-weight:700">${amount>0?'¥'+Math.round(subtotal).toLocaleString('ja-JP'):'—'}</span></div>
     </div>`;
   }).join('');
-  wrap.innerHTML=`<div class="ratio-box">
-    <div class="ratio-box-ttl">傾斜設定</div>
-    <div style="font-size:11px;color:var(--muted);margin:-4px 0 10px;line-height:1.7">右の金額欄に<strong>1人あたりの金額</strong>を入力（±ボタンで100円単位に調整）。比率（×）を直接変更することもできます。</div>
-    ${rows}
+
+  const dispTotal=amount>0?keys.reduce((s,k)=>s+(colorAmounts[k]??0)*groups[k].mems.length,0):0;
+  const matched=amount>0&&Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
+  const statusHtml=amount?`<div id="keisha-status" style="font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}">${matched?`支払合計 ${fmt(amount)} と一致 ✓`:`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))} — ±ボタンで調整してください`}</div>`:'';
+
+  wrap.innerHTML=`<div style="margin-bottom:12px">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">グループ別・1人あたりの負担額</div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">±ボタンで100円単位に調整。一方を変えると、他が自動で調整されます。</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px">${cards}</div>
+    ${statusHtml}
   </div>`;
 }
+function _refreshKeishaCards(groups,amount){
+  let dispTotal=0;
+  Object.keys(groups).forEach(k=>{
+    const pp=colorAmounts[k]??0;
+    const subtotal=pp*(groups[k].mems.length||1);
+    dispTotal+=subtotal;
+    const el=document.getElementById('ramt-'+k);
+    if(el&&document.activeElement!==el)el.value=pp;
+    const sel=document.getElementById('rsubt-'+k);
+    if(sel)sel.textContent='¥'+Math.round(subtotal).toLocaleString('ja-JP');
+  });
+  const statusEl=document.getElementById('keisha-status');
+  if(statusEl&&amount){
+    const matched=Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
+    statusEl.style.cssText=`font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}`;
+    statusEl.textContent=matched
+      ?`支払合計 ${fmt(amount)} と一致 ✓`
+      :`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))} — ±ボタンで調整してください`;
+  }
+}
+
 function setColorRatio(k,val){
   const t=String(val).trim();
   if(t===''||t==='-')return; // partial input — don't overwrite ratio
@@ -609,44 +637,12 @@ function updateRatioPreviews(){
   });
 }
 
-/* ±100円ステッパー:
-   first press → snap to 100-yen ceiling (＋) or floor (−)
-   subsequent → ±100 in steps; clamped to 0 〜 total amount */
+/* ±100円ステッパー: one group changes → others auto-balance */
 function stepAmt(k,delta){
   const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
   if(!amount){showAlert('先に合計金額を入力してください','金額未入力');return;}
-  const el=document.getElementById('ramt-'+k);if(!el)return;
-  const raw=parseFloat(el.value);
-  const cur=isNaN(raw)?0:Math.round(raw);
-  const onBoundary=cur%100===0;
-  let next;
-  if(delta>0){
-    next=onBoundary?cur+100:Math.ceil(cur/100)*100;
-  }else{
-    next=onBoundary?cur-100:Math.floor(cur/100)*100;
-  }
-  // clamp 0 〜 合計金額
-  next=Math.max(0,Math.min(amount,next));
-  el.value=next;
-  syncRatioFromAmt(k,String(next));
-  // re-assert after syncRatioFromAmt may overwrite via updateRatioPreviews
-  el.value=next;
-}
 
-/* 金額直接入力 → 比率を逆算 */
-function syncRatioFromAmt(k,val){
-  if(val===''||val===null){
-    // blank → restore default ratio so it's not stuck as "no payment"
-    delete colorRatios[k];
-    const ri=document.querySelector('.ratio-input[oninput*="\''+k+'\'"]');
-    if(ri&&document.activeElement!==ri)ri.value=getColRatio(k);
-    updateRatioPreviews();
-    return;
-  }
-  const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
-  if(!amount)return;
-  const targetAmt=parseFloat(val);
-  if(isNaN(targetAmt)||targetAmt<0)return;
+  // Build groups map
   const groups={};
   Array.from(selParts).forEach(id=>{
     const m=getMember(id);if(!m)return;
@@ -654,37 +650,71 @@ function syncRatioFromAmt(k,val){
     if(!groups[key])groups[key]={mems:[]};
     groups[key].mems.push(m);
   });
-  const g=groups[k];if(!g||!g.mems.length)return;
-  const groupSize=g.mems.length;
-  // guard: per-person × group size must not exceed total
-  const amtEl=document.getElementById('ramt-'+k);
-  if(targetAmt*groupSize>amount+0.5){
-    if(amtEl)amtEl.style.outline='2px solid #E8453C';
+
+  const el=document.getElementById('ramt-'+k);if(!el)return;
+  const raw=parseFloat(el.value);
+  const cur=isNaN(raw)?colorAmounts[k]??0:Math.round(raw);
+  const onBoundary=cur%100===0;
+  let next;
+  if(delta>0){next=onBoundary?cur+100:Math.ceil(cur/100)*100;}
+  else{next=onBoundary?cur-100:Math.floor(cur/100)*100;}
+
+  const countK=groups[k]?.mems.length||1;
+  next=Math.max(0,Math.min(Math.floor(amount/countK)*100,next));
+  colorAmounts[k]=next;
+
+  // Auto-balance other groups to keep total = amount
+  const otherKeys=Object.keys(groups).filter(kk=>kk!==k);
+  if(otherKeys.length>0){
+    const remaining=amount-next*countK;
+    const otherSubtotalSum=otherKeys.reduce((s,kk)=>s+(colorAmounts[kk]??0)*groups[kk].mems.length,0);
+    let assigned=next*countK;
+    otherKeys.forEach((kk,i)=>{
+      const cnt=groups[kk].mems.length;
+      if(i===otherKeys.length-1){
+        // Last group absorbs exact remainder
+        colorAmounts[kk]=Math.max(0,Math.round((amount-assigned)/cnt));
+      }else{
+        const proportion=otherSubtotalSum>0?(colorAmounts[kk]??0)*cnt/otherSubtotalSum:1/otherKeys.length;
+        const pp=Math.max(0,Math.round(remaining*proportion/cnt));
+        colorAmounts[kk]=pp;
+        assigned+=pp*cnt;
+      }
+    });
+  }
+
+  // Sync colorRatios from amounts
+  Object.keys(groups).forEach(kk=>{colorRatios[kk]=colorAmounts[kk]??0;});
+  _refreshKeishaCards(groups,amount);
+}
+
+/* 金額直接入力 → colorAmounts更新 → ステータスバー更新（他グループは変更しない） */
+function syncRatioFromAmt(k,val){
+  const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
+  const groups={};
+  Array.from(selParts).forEach(id=>{
+    const m=getMember(id);if(!m)return;
+    const key=m.color||NO_COL;
+    if(!groups[key])groups[key]={mems:[]};
+    groups[key].mems.push(m);
+  });
+  if(val===''||val===null){
+    delete colorAmounts[k];delete colorRatios[k];
+    if(amount)_refreshKeishaCards(groups,amount);
     return;
   }
-  if(amtEl)amtEl.style.outline='';
-  const totalOthers=Object.keys(groups).filter(kk=>kk!==k)
-    .reduce((s,kk)=>s+groups[kk].mems.length*getColRatio(kk),0);
-  // 単一グループの場合は比率を変えても按分は変わらないため、ratioは変更しない
-  if(totalOthers<0.001){
-    updateRatioPreviews();
-    return;
-  }
-  // Solve: targetAmt = amount * ratio_k / (groupSize*ratio_k + totalOthers)
-  const denom=amount-targetAmt*groupSize;
-  let r=Math.abs(denom)<0.01
-    ?(targetAmt*totalOthers/0.01)
-    :(targetAmt*totalOthers)/denom;
-  if(r<0||!isFinite(r))r=0;
-  colorRatios[k]=Math.round(r*100)/100;
-  // Sync the ratio input (×) display
-  const ri=document.querySelector('.ratio-input[oninput*="\''+k+'\'"]');
-  if(ri&&document.activeElement!==ri)ri.value=colorRatios[k];
-  updateRatioPreviews();
+  if(!amount)return;
+  const targetAmt=parseFloat(val);
+  if(isNaN(targetAmt)||targetAmt<0)return;
+  colorAmounts[k]=Math.round(targetAmt);
+  colorRatios[k]=Math.round(targetAmt);
+  const subtEl=document.getElementById('rsubt-'+k);
+  if(subtEl)subtEl.textContent='¥'+Math.round(targetAmt*(groups[k]?.mems.length||1)).toLocaleString('ja-JP');
+  _refreshKeishaCards(groups,amount);
 }
 function clearForm(){
   editingPaymentId=null;
-  selParts=new Set(members.map(m=>m.id));colorRatios={};renderForm();renderPaymentList();
+  selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};renderForm();renderPaymentList();
 }
 
 /* ══════════════════════
@@ -736,13 +766,10 @@ function registerPayment(){
       if(!grpMap[k])grpMap[k]={count:0,label:k===NO_COL?'カラーなし':(colorLabels[k]||'グループ')};
       grpMap[k].count++;
     });
-    const tu=Object.keys(grpMap).reduce((s,k)=>s+grpMap[k].count*getColRatio(k),0);
     let dispTotal=0;
     const lines=[];
     Object.keys(grpMap).forEach(k=>{
-      const el=document.getElementById('ramt-'+k);
-      const ppRatio=tu>0?Math.round(amount*getColRatio(k)/tu):0;
-      const pp=el&&el.value!==''?Math.round(parseFloat(el.value)||0):ppRatio;
+      const pp=colorAmounts[k]??0;
       dispTotal+=pp*grpMap[k].count;
       lines.push({label:grpMap[k].label,pp,count:grpMap[k].count});
     });
@@ -797,6 +824,12 @@ function editPayment(id){
     const k=m.color||NO_COL;
     if(!Object.prototype.hasOwnProperty.call(colorRatios,k)) colorRatios[k]=p.ratios[mid]??1;
   });
+  // Restore colorAmounts (per-person amounts derived from ratios)
+  colorAmounts={};
+  {const _grps={};
+  p.participantIds.forEach(mid=>{const m=getMember(mid);if(!m)return;const k=m.color||NO_COL;_grps[k]=(_grps[k]||0)+1;});
+  const _tu=Object.keys(_grps).reduce((s,k)=>s+_grps[k]*(colorRatios[k]??1),0);
+  Object.keys(_grps).forEach(k=>{colorAmounts[k]=_tu>0?Math.round(p.amount*(colorRatios[k]??1)/_tu):0;});}
   // Switch to appropriate tab
   const hasRatio=Object.values(p.ratios).some(r=>r!==1);
   if(hasRatio) switchTab('keisha'); else switchTab('easy');
