@@ -490,7 +490,7 @@ function renderForm(){
     </div>
     <div class="s-row">
       <span class="kw">合計 ¥</span>
-      <input class="s-input amt" type="number" id="p-amount" autocomplete="off" min="0" placeholder="12,000" oninput="${showRatio?'updateRatioSection()':''}"/>
+      <input class="s-input amt" type="number" id="p-amount" autocomplete="off" min="0" placeholder="12,000" oninput="${showRatio?'onAmountChange()':''}"/>
       <span class="kw">かかった。</span>
     </div>
     <div class="s-row">
@@ -522,15 +522,37 @@ function toggleChip(mid){
 // Helper: undefined → 1 (default), explicitly set 0 → 0
 function getColRatio(k){ return Object.prototype.hasOwnProperty.call(colorRatios,k)?colorRatios[k]:1; }
 
+/* 合計金額入力時：選択中の対象者で均等割した金額をグループに反映 */
+function onAmountChange(){
+  const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
+  if(amount>0){
+    const grpKeys=new Set();
+    let totalSelected=0;
+    selParts.forEach(id=>{
+      const m=getMember(id);if(!m)return;
+      grpKeys.add(m.color||NO_COL);
+      totalSelected++;
+    });
+    if(totalSelected>0){
+      const perPerson=Math.round(amount/totalSelected);
+      grpKeys.forEach(k=>{
+        colorAmounts[k]=perPerson;
+        colorRatios[k]=perPerson;
+      });
+    }
+  }
+  updateRatioSection();
+}
+
 function updateRatioSection(){
   const wrap=document.getElementById('ratio-wrap');if(!wrap)return;
   const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
+  // グループはメンバー全員の色から構築（対象者全削除でもグループは残す）
   const groups={};
-  Array.from(selParts).forEach(id=>{
-    const m=getMember(id);if(!m)return;
+  members.forEach(m=>{
     const key=m.color||NO_COL;
     if(!groups[key])groups[key]={color:m.color,mems:[]};
-    groups[key].mems.push(m);
+    if(selParts.has(m.id))groups[key].mems.push(m);
   });
   const keys=Object.keys(groups);
   if(keys.length===0){wrap.innerHTML='';return;}
@@ -659,7 +681,15 @@ function stepAmt(k,delta){
   if(delta>0){next=onBoundary?cur+100:Math.ceil(cur/100)*100;}
   else{next=onBoundary?cur-100:Math.floor(cur/100)*100;}
 
-  const countK=groups[k]?.mems.length||1;
+  const countK=groups[k]?.mems.length||0;
+  // 対象者0人のグループ：合計に影響しないので、値だけ保持して終了
+  if(countK===0){
+    next=Math.max(0,next);
+    colorAmounts[k]=next;
+    colorRatios[k]=next;
+    if(document.activeElement!==el)el.value=next;
+    return;
+  }
   next=Math.max(0,Math.min(Math.floor(amount/countK)*100,next));
   colorAmounts[k]=next;
 
@@ -709,7 +739,7 @@ function syncRatioFromAmt(k,val){
   colorAmounts[k]=Math.round(targetAmt);
   colorRatios[k]=Math.round(targetAmt);
   const subtEl=document.getElementById('rsubt-'+k);
-  if(subtEl)subtEl.textContent='¥'+Math.round(targetAmt*(groups[k]?.mems.length||1)).toLocaleString('ja-JP');
+  if(subtEl)subtEl.textContent='¥'+Math.round(targetAmt*(groups[k]?.mems.length||0)).toLocaleString('ja-JP');
   _refreshKeishaCards(groups,amount);
 }
 function clearForm(){
