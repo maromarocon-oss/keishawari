@@ -1156,7 +1156,7 @@ function renderResults(){
   // PayPay app button below settlement
   const ppWrap=document.createElement('div');ppWrap.style.cssText='margin-top:12px;margin-bottom:4px';
   ppWrap.innerHTML=`
-    <a href="paypay://" onclick="setTimeout(()=>window.open('https://paypay.ne.jp/','_blank','noopener,noreferrer'),1200)"
+    <a href="paypay://payment2d" onclick="setTimeout(()=>window.open('https://paypay.ne.jp/','_blank','noopener,noreferrer'),1200)"
       style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:var(--r-full);background:#D3000D;color:#fff;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 4px 14px rgba(211,0,13,.28);transition:all .2s"
       onmouseenter="this.style.background='#AA000A'" onmouseleave="this.style.background='#D3000D'">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
