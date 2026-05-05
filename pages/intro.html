@@ -114,7 +114,7 @@
         <!-- ② 傾斜入力 -->
         <div style="padding-left:41px">
           <div style="font-size:10px;font-weight:800;color:var(--green);margin-bottom:3px">② 傾斜入力（先輩・後輩対応）</div>
-          <div style="font-size:10px;color:var(--muted);line-height:1.6;margin-bottom:6px">グループ別に1人あたりの負担額を個別設定。合計金額を入力すると自動で按分金額を計算。±ボタンで100円単位に微調整でき、合計が一致したら登録完了。傾斜の計算はアプリにおまかせ！</div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.6;margin-bottom:6px">グループ別に1人あたりの負担額を個別設定。合計金額を入力すると自動で按分金額を計算。±ボタンで100円単位に調整、🔒で金額を固定、「調整」ボタンで固定/直近編集以外を均等に再配分。合計が一致したら登録完了！</div>
           <div class="intro-mock" style="margin-left:0">
             <div style="display:flex;gap:4px;margin-bottom:7px">
               <span style="flex:1;text-align:center;padding:3px 0;background:#fff;border:1.5px solid var(--border);border-radius:5px;font-size:8px;font-weight:700;color:var(--muted)">かんたん入力</span>
@@ -124,7 +124,10 @@
             <div class="intro-mock-label" style="margin-bottom:5px">グループ別・1人あたりの負担額</div>
             <div style="display:flex;gap:4px;margin-bottom:6px">
               <div style="flex:1;padding:5px 6px;background:#fff;border:1.5px solid #E8453C;border-radius:7px">
-                <div style="font-size:8px;font-weight:800;color:#E8453C;margin-bottom:3px">先輩 × 2人</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:3px">
+                  <div style="font-size:8px;font-weight:800;color:#E8453C">先輩 × 2人</div>
+                  <span style="width:13px;height:13px;border-radius:50%;border:1px solid var(--green);background:var(--green);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:7px;line-height:1;flex-shrink:0">🔒</span>
+                </div>
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
                   <span style="font-size:9px;color:var(--faint);font-weight:800;border:1px solid var(--border);border-radius:3px;padding:0 3px;line-height:14px">－</span>
                   <span style="font-size:11px;font-weight:900;color:var(--text)">¥4,000</span>
@@ -133,7 +136,10 @@
                 <div style="font-size:8px;color:var(--muted)">小計 ¥8,000</div>
               </div>
               <div style="flex:1;padding:5px 6px;background:#fff;border:1.5px solid #3B82F6;border-radius:7px">
-                <div style="font-size:8px;font-weight:800;color:#3B82F6;margin-bottom:3px">後輩 × 2人</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:3px">
+                  <div style="font-size:8px;font-weight:800;color:#3B82F6">後輩 × 2人</div>
+                  <span style="width:13px;height:13px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;font-size:7px;line-height:1;flex-shrink:0">🔓</span>
+                </div>
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
                   <span style="font-size:9px;color:var(--faint);font-weight:800;border:1px solid var(--border);border-radius:3px;padding:0 3px;line-height:14px">－</span>
                   <span style="font-size:11px;font-weight:900;color:var(--text)">¥2,000</span>
@@ -142,7 +148,10 @@
                 <div style="font-size:8px;color:var(--muted)">小計 ¥4,000</div>
               </div>
             </div>
-            <div style="font-size:9px;text-align:center;padding:4px;background:var(--green-lt);border:1.5px solid var(--green);border-radius:6px;color:var(--green);font-weight:700">支払合計 ¥12,000 と一致 ✓</div>
+            <div style="display:flex;gap:5px;align-items:stretch">
+              <div style="flex:1;font-size:9px;text-align:center;padding:4px;background:var(--green-lt);border:1.5px solid var(--green);border-radius:6px;color:var(--green);font-weight:700">支払合計 ¥12,000 と一致 ✓</div>
+              <span style="flex-shrink:0;padding:3px 8px;border-radius:9999px;border:1.5px solid var(--green);background:#fff;color:var(--green);font-size:9px;font-weight:800;display:inline-flex;align-items:center">⟳ 調整</span>
+            </div>
           </div>
         </div>
       </div>
@@ -168,6 +177,7 @@
     </div>
   </div>
   <div class="btn-fixed"><div class="btn-inner">
+    <div class="intro-cta-note">登録不要・無料・データはお使いの端末にのみ保存</div>
     <button class="primary-btn" onclick="startApp()">
       はじめる
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
