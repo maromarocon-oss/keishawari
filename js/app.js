@@ -200,19 +200,29 @@ function updateMemberName(id,val){
   const m=members.find(x=>x.id===id);if(!m)return;
   m.name=val;
   const av=document.getElementById('av-'+id);if(av)av.textContent=ini(val);
+  saveSession();
 }
 function updateMemberColor(id,col){
   const m=members.find(x=>x.id===id);if(!m)return;
   m.color=m.color===col?null:col;
   renderMemberItem(id);
   if(document.getElementById('s2').classList.contains('active')) renderForm();
+  saveSession();
 }
 function updateColorLabel(col,val){
+  if(!isValidColor(col)) return;
   colorLabels[col]=val;
-  document.querySelectorAll(`.color-name-input[data-color-label="${col}"]`).forEach(inp=>{
-    if(inp!==document.activeElement && inp.value!==val) inp.value=val;
+  // 同色グループの全メンバー欄を同期（フォーカス中の入力欄は維持）
+  document.querySelectorAll('.color-name-input').forEach(inp=>{
+    if(inp.dataset.colorLabel!==col) return;
+    if(inp===document.activeElement) return;
+    if(inp.value!==val){
+      inp.value=val;
+      inp.setAttribute('value',val);
+    }
   });
   if(tabMode==='keisha') updateRatioSection();
+  saveSession();
 }
 function getMember(id){return members.find(m=>m.id===id);}
 
