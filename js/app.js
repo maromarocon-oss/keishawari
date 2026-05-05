@@ -1156,7 +1156,7 @@ function renderResults(){
   // PayPay app button below settlement
   const ppWrap=document.createElement('div');ppWrap.style.cssText='margin-top:12px;margin-bottom:4px';
   ppWrap.innerHTML=`
-    <a href="paypay://payment2d" onclick="event.preventDefault();var t=Date.now();location.href='paypay://payment2d';setTimeout(function(){if(!document.hidden&&Date.now()-t<2500){location.href='https://www.paypay.ne.jp/';}},1500);"
+    <a href="paypay://payment2d" id="pp-open-btn"
       style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:var(--r-full);background:#D3000D;color:#fff;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 4px 14px rgba(211,0,13,.28);transition:all .2s"
       onmouseenter="this.style.background='#AA000A'" onmouseleave="this.style.background='#D3000D'">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
@@ -1166,6 +1166,34 @@ function renderResults(){
       ※ スマートフォンにPayPayがインストールされている場合に起動します
     </p>`;
   c.appendChild(ppWrap);
+  const ppBtn=ppWrap.querySelector('#pp-open-btn');
+  if(ppBtn) ppBtn.addEventListener('click',openPayPayMyCode);
+}
+
+function openPayPayMyCode(e){
+  if(e) e.preventDefault();
+  const ua=navigator.userAgent||'';
+  const isAndroid=/Android/i.test(ua);
+  const isIOS=/iPhone|iPad|iPod/i.test(ua);
+  const fallback='https://www.paypay.ne.jp/';
+  if(isAndroid){
+    // Android: Intent URL でアプリを直接起動。未インストール時は browser_fallback_url へ
+    location.href='intent://payment2d#Intent;scheme=paypay;package=jp.ne.paypay.android.app;S.browser_fallback_url='+encodeURIComponent(fallback)+';end';
+    return;
+  }
+  if(isIOS){
+    // iOS: カスタムスキームでマイコードを開く。アプリが起動しなければフォールバック
+    const start=Date.now();
+    location.href='paypay://payment2d';
+    setTimeout(function(){
+      if(!document.hidden && Date.now()-start<2500){
+        location.href=fallback;
+      }
+    },1500);
+    return;
+  }
+  // PC等: PayPayサイトを開く
+  window.open(fallback,'_blank','noopener,noreferrer');
 }
 
 function renderSettlements(){
