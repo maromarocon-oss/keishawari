@@ -209,6 +209,9 @@ function updateMemberColor(id,col){
 }
 function updateColorLabel(col,val){
   colorLabels[col]=val;
+  document.querySelectorAll(`.color-name-input[data-color-label="${col}"]`).forEach(inp=>{
+    if(inp!==document.activeElement && inp.value!==val) inp.value=val;
+  });
   if(tabMode==='keisha') updateRatioSection();
 }
 function getMember(id){return members.find(m=>m.id===id);}
@@ -235,6 +238,7 @@ function renderMemberItem(id,container){
   const nameArea=m.color?`<div class="color-name-wrap">
     <div class="color-name-swatch" style="background:${m.color}"></div>
     <input class="color-name-input" type="text" placeholder="任意：カラー名（例：先輩、後輩）"
+      data-color-label="${m.color}"
       value="${esc(colorLabels[m.color]||'')}" oninput="updateColorLabel('${m.color}',this.value)"/>
   </div>`:'';
   el.innerHTML=`
