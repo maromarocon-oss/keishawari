@@ -29,6 +29,8 @@ let tabMode = 'easy';
 let selParts = new Set();
 let colorRatios = {};
 let colorAmounts = {};
+let lockedGroups = new Set();
+let lastEditedGroup = null;
 let isSharedView = false;
 
 /* ══════════════════════
@@ -268,7 +270,7 @@ function goTo(id){
   const el=document.getElementById(id);
   el.style.display='flex';el.classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
-  if(id==='s2'){selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};renderForm();renderPaymentList();}
+  if(id==='s2'){selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;renderForm();renderPaymentList();}
 }
 function goBackToSetup(){
   if(payments.length===0&&settlements.length===0){
@@ -279,7 +281,7 @@ function goBackToSetup(){
     '支払入力データがすべて削除されます。\nメンバーと属性の変更後、もう一度入力してください。',
     ()=>{
       payments=[];settlements=[];editingPaymentId=null;
-      selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};
+      selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;
       renderPaymentList();
       goBack('s1');
     }
@@ -335,7 +337,7 @@ function resetAll(){
     '登録済みの支払データがすべて削除されます。\nメンバー設定・グループ名はそのまま残ります。',
     ()=>{
       payments=[];settlements=[];editingPaymentId=null;
-      selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};
+      selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;
       saveSession();
       renderPaymentList();
       goBack('s2');
@@ -522,23 +524,39 @@ function toggleChip(mid){
 // Helper: undefined → 1 (default), explicitly set 0 → 0
 function getColRatio(k){ return Object.prototype.hasOwnProperty.call(colorRatios,k)?colorRatios[k]:1; }
 
-/* 合計金額入力時：選択中の対象者で均等割した金額をグループに反映 */
+/* 合計金額入力時：選択中の対象者で均等割した金額をグループに反映（固定グループは値を保持） */
 function onAmountChange(){
   const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
+  lastEditedGroup=null;
   if(amount>0){
-    const grpKeys=new Set();
-    let totalSelected=0;
+    const groupCount={};
     selParts.forEach(id=>{
       const m=getMember(id);if(!m)return;
-      grpKeys.add(m.color||NO_COL);
-      totalSelected++;
+      const k=m.color||NO_COL;
+      groupCount[k]=(groupCount[k]||0)+1;
     });
-    if(totalSelected>0){
-      const perPerson=Math.round(amount/totalSelected);
-      grpKeys.forEach(k=>{
+    const allKeys=Object.keys(groupCount);
+    const lockedKeys=allKeys.filter(k=>lockedGroups.has(k));
+    const unlockedKeys=allKeys.filter(k=>!lockedGroups.has(k));
+    let lockedTotal=0;
+    lockedKeys.forEach(k=>{lockedTotal+=(colorAmounts[k]??0)*groupCount[k];});
+    const remaining=amount-lockedTotal;
+    const totalUnlockedMems=unlockedKeys.reduce((s,k)=>s+groupCount[k],0);
+    if(totalUnlockedMems>0&&remaining>=0){
+      const perPerson=Math.round(remaining/totalUnlockedMems);
+      unlockedKeys.forEach(k=>{
         colorAmounts[k]=perPerson;
         colorRatios[k]=perPerson;
       });
+    }else{
+      const totalMems=allKeys.reduce((s,k)=>s+groupCount[k],0);
+      if(totalMems>0){
+        const perPerson=Math.round(amount/totalMems);
+        allKeys.forEach(k=>{
+          colorAmounts[k]=perPerson;
+          colorRatios[k]=perPerson;
+        });
+      }
     }
   }
   updateRatioSection();
@@ -576,8 +594,22 @@ function updateRatioSection(){
     const pp=amount>0?(colorAmounts[k]??0):0;
     const subtotal=pp*g.mems.length;
     const mnames=g.mems.map(m=>m.name||'?').join('・');
+    const isLocked=lockedGroups.has(k);
+    const lockBtn=`<button type="button" onclick="toggleLockGroup('${k}')"
+      title="${isLocked?'金額固定中（クリックで解除）':'金額を固定する'}"
+      aria-pressed="${isLocked}"
+      style="width:22px;height:22px;border-radius:var(--r-full);border:1.5px solid ${isLocked?'var(--green)':'var(--border)'};background:${isLocked?'var(--green)':'var(--card)'};color:${isLocked?'#fff':'var(--muted)'};display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;padding:0;font-family:inherit">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        ${isLocked
+          ?'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'
+          :'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7-2"/>'}
+      </svg>
+    </button>`;
     return `<div style="flex:1;min-width:130px;background:#fff;border:2px solid ${borderCol};border-radius:10px;padding:9px 10px">
-      <div style="font-size:10px;font-weight:800;color:${textCol};margin-bottom:2px">${esc(colLabel)} × ${g.mems.length}人</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:2px">
+        <div style="font-size:10px;font-weight:800;color:${textCol};line-height:1.3">${esc(colLabel)} × ${g.mems.length}人</div>
+        ${lockBtn}
+      </div>
       <div style="font-size:9px;color:var(--muted);margin-bottom:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(mnames)}</div>
       <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px">
         <button class="amt-step-btn" type="button" onclick="stepAmt('${k}',-100)">&#8722;</button>
@@ -594,11 +626,19 @@ function updateRatioSection(){
 
   const dispTotal=amount>0?keys.reduce((s,k)=>s+(colorAmounts[k]??0)*groups[k].mems.length,0):0;
   const matched=amount>0&&Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
-  const statusHtml=amount?`<div id="keisha-status" style="font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}">${matched?`支払合計 ${fmt(amount)} と一致 ✓`:`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))} — ±ボタンで調整してください`}</div>`:'';
+  const adjustBtn=`<button type="button" onclick="adjustAmounts()" title="固定/直近編集以外のグループで均等調整"
+    style="flex-shrink:0;padding:5px 10px;border-radius:var(--r-full);border:1.5px solid var(--green);background:var(--card);color:var(--green);font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:4px">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 4 21 10 15 10"/></svg>
+    調整
+  </button>`;
+  const statusHtml=amount?`<div style="display:flex;gap:6px;align-items:stretch">
+    <div id="keisha-status" style="flex:1;min-width:0;font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;display:flex;align-items:center;justify-content:center;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}">${matched?`支払合計 ${fmt(amount)} と一致 ✓`:`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))}`}</div>
+    ${adjustBtn}
+  </div>`:'';
 
   wrap.innerHTML=`<div style="margin-bottom:12px">
     <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">グループ別・1人あたりの負担額</div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">±ボタンで100円単位に調整。一方を変えると、他が自動で調整されます。</div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">±ボタンで100円単位に調整。鍵で金額を固定、「調整」で固定/直近編集以外を均等に再配分します。</div>
     <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px">${cards}</div>
     ${statusHtml}
   </div>`;
@@ -617,10 +657,10 @@ function _refreshKeishaCards(groups,amount){
   const statusEl=document.getElementById('keisha-status');
   if(statusEl&&amount){
     const matched=Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
-    statusEl.style.cssText=`font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}`;
+    statusEl.style.cssText=`flex:1;min-width:0;font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;display:flex;align-items:center;justify-content:center;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}`;
     statusEl.textContent=matched
       ?`支払合計 ${fmt(amount)} と一致 ✓`
-      :`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))} — ±ボタンで調整してください`;
+      :`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))}`;
   }
 }
 
@@ -659,7 +699,7 @@ function updateRatioPreviews(){
   });
 }
 
-/* ±100円ステッパー: one group changes → others auto-balance */
+/* ±100円ステッパー: one group changes → others auto-balance（固定グループは除外） */
 function stepAmt(k,delta){
   const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
   if(!amount){showAlert('先に合計金額を入力してください','金額未入力');return;}
@@ -687,25 +727,30 @@ function stepAmt(k,delta){
     next=Math.max(0,next);
     colorAmounts[k]=next;
     colorRatios[k]=next;
+    lastEditedGroup=k;
     if(document.activeElement!==el)el.value=next;
     return;
   }
   next=Math.max(0,Math.min(Math.floor(amount/countK)*100,next));
   colorAmounts[k]=next;
+  lastEditedGroup=k;
 
-  // Auto-balance other groups to keep total = amount
+  // Auto-balance other groups to keep total = amount（固定グループは除外）
   const otherKeys=Object.keys(groups).filter(kk=>kk!==k);
-  if(otherKeys.length>0){
-    const remaining=amount-next*countK;
-    const otherSubtotalSum=otherKeys.reduce((s,kk)=>s+(colorAmounts[kk]??0)*groups[kk].mems.length,0);
-    let assigned=next*countK;
-    otherKeys.forEach((kk,i)=>{
+  const lockedOtherSum=otherKeys.filter(kk=>lockedGroups.has(kk))
+    .reduce((s,kk)=>s+(colorAmounts[kk]??0)*groups[kk].mems.length,0);
+  const adjustableKeys=otherKeys.filter(kk=>!lockedGroups.has(kk));
+  if(adjustableKeys.length>0){
+    const remaining=amount-next*countK-lockedOtherSum;
+    const subtotalSum=adjustableKeys.reduce((s,kk)=>s+(colorAmounts[kk]??0)*groups[kk].mems.length,0);
+    let assigned=0;
+    adjustableKeys.forEach((kk,i)=>{
       const cnt=groups[kk].mems.length;
-      if(i===otherKeys.length-1){
-        // Last group absorbs exact remainder
-        colorAmounts[kk]=Math.max(0,Math.round((amount-assigned)/cnt));
+      if(i===adjustableKeys.length-1){
+        // Last adjustable group absorbs exact remainder
+        colorAmounts[kk]=Math.max(0,Math.round((remaining-assigned)/cnt));
       }else{
-        const proportion=otherSubtotalSum>0?(colorAmounts[kk]??0)*cnt/otherSubtotalSum:1/otherKeys.length;
+        const proportion=subtotalSum>0?(colorAmounts[kk]??0)*cnt/subtotalSum:1/adjustableKeys.length;
         const pp=Math.max(0,Math.round(remaining*proportion/cnt));
         colorAmounts[kk]=pp;
         assigned+=pp*cnt;
@@ -730,6 +775,7 @@ function syncRatioFromAmt(k,val){
   });
   if(val===''||val===null){
     delete colorAmounts[k];delete colorRatios[k];
+    if(lastEditedGroup===k)lastEditedGroup=null;
     if(amount)_refreshKeishaCards(groups,amount);
     return;
   }
@@ -738,13 +784,70 @@ function syncRatioFromAmt(k,val){
   if(isNaN(targetAmt)||targetAmt<0)return;
   colorAmounts[k]=Math.round(targetAmt);
   colorRatios[k]=Math.round(targetAmt);
+  lastEditedGroup=k;
   const subtEl=document.getElementById('rsubt-'+k);
   if(subtEl)subtEl.textContent='¥'+Math.round(targetAmt*(groups[k]?.mems.length||0)).toLocaleString('ja-JP');
   _refreshKeishaCards(groups,amount);
 }
+/* 金額固定トグル */
+function toggleLockGroup(k){
+  if(lockedGroups.has(k)) lockedGroups.delete(k);
+  else lockedGroups.add(k);
+  updateRatioSection();
+}
+
+/* 調整ボタン: 直近編集 + 固定グループは据え置き、残りを均等に再配分 */
+function adjustAmounts(){
+  const amount=parseFloat(document.getElementById('p-amount')?.value)||0;
+  if(!amount){showAlert('先に合計金額を入力してください','金額未入力');return;}
+
+  const groups={};
+  members.forEach(m=>{
+    const key=m.color||NO_COL;
+    if(!groups[key])groups[key]={mems:[]};
+    if(selParts.has(m.id))groups[key].mems.push(m);
+  });
+  const activeKeys=Object.keys(groups).filter(k=>groups[k].mems.length>0);
+  if(activeKeys.length===0){showAlert('対象者を選択してください','対象者未設定');return;}
+
+  const fixed=new Set();
+  activeKeys.forEach(k=>{if(lockedGroups.has(k))fixed.add(k);});
+  if(lastEditedGroup&&groups[lastEditedGroup]?.mems.length>0)fixed.add(lastEditedGroup);
+
+  const adjustableKeys=activeKeys.filter(k=>!fixed.has(k));
+  if(adjustableKeys.length===0){
+    showAlert('調整できるグループがありません。\n金額固定または直近編集の解除をしてください。','調整不可');
+    return;
+  }
+
+  let fixedTotal=0;
+  fixed.forEach(k=>{fixedTotal+=(colorAmounts[k]??0)*groups[k].mems.length;});
+  const remaining=amount-fixedTotal;
+  if(remaining<0){
+    showAlert(`固定額（${fmt(fixedTotal)}）が支払合計（${fmt(amount)}）を超えています。\n金額固定の解除をしてください。`,'固定額超過');
+    return;
+  }
+
+  const totalAdjMems=adjustableKeys.reduce((s,k)=>s+groups[k].mems.length,0);
+  const perPerson=Math.round(remaining/totalAdjMems);
+  let assigned=0;
+  adjustableKeys.forEach((k,i)=>{
+    const cnt=groups[k].mems.length;
+    if(i===adjustableKeys.length-1){
+      colorAmounts[k]=Math.max(0,Math.round((remaining-assigned)/cnt));
+    }else{
+      colorAmounts[k]=Math.max(0,perPerson);
+      assigned+=colorAmounts[k]*cnt;
+    }
+    colorRatios[k]=colorAmounts[k];
+  });
+
+  updateRatioSection();
+}
+
 function clearForm(){
   editingPaymentId=null;
-  selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};renderForm();renderPaymentList();
+  selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;renderForm();renderPaymentList();
 }
 
 /* ══════════════════════
@@ -820,7 +923,7 @@ function registerPayment(){
   }else{
     payments.push({id:++pId,payerId,participantIds:partIds,label,amount,ratios});
   }
-  selParts=new Set(members.map(m=>m.id));colorRatios={};
+  selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;
   saveSession();
   renderForm();renderPaymentList();
 }
@@ -845,6 +948,8 @@ function showAlert(msg,title){
 function editPayment(id){
   const p=payments.find(x=>x.id===id);if(!p)return;
   editingPaymentId=id;
+  lockedGroups=new Set();
+  lastEditedGroup=null;
   // Restore participants
   selParts=new Set(p.participantIds);
   // Restore colorRatios from per-member ratios (first member per color wins)
@@ -880,7 +985,7 @@ function editPayment(id){
   document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function removePayment(id){
-  if(editingPaymentId===id){editingPaymentId=null;selParts=new Set(members.map(m=>m.id));colorRatios={};renderForm();}
+  if(editingPaymentId===id){editingPaymentId=null;selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;renderForm();}
   payments=payments.filter(p=>p.id!==id);
   saveSession();
   renderPaymentList();
