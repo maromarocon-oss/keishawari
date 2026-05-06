@@ -5,6 +5,7 @@
     './pages/payments.html',
     './pages/results.html',
     './pages/privacy.html',
+    './pages/feedback.html',
     './components/cookie-banner.html'
   ];
 

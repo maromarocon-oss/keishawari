@@ -1,0 +1,55 @@
+<div id="s_feedback" class="screen">
+  <div class="app-header">
+    <button class="back-btn" onclick="goBackFromFeedback()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>戻る
+    </button>
+    <span class="step-badge">不具合報告・ご意見</span>
+  </div>
+  <div class="privacy-body">
+    <div class="privacy-title">不具合報告・ご意見</div>
+    <div class="privacy-sub">けいしゃ割（本サービス）</div>
+
+    <div class="privacy-section">
+      <h3>送信フォーム</h3>
+      <p>本サービスの不具合・ご意見・ご要望をお送りいただけます。いただいた内容はサービス改善に活用します。</p>
+      <p>送信時はメールアプリが起動します。氏名・連絡先など個人情報の入力はお控えください。</p>
+    </div>
+
+    <div class="feedback-wrap" id="feedback-section" style="margin-top:0;padding-top:0;border-top:none">
+      <div class="feedback-ttl">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        入力欄
+      </div>
+      <select class="feedback-select" id="fb-type">
+        <option value="">種別を選択してください</option>
+        <option value="bug">🐛 不具合・バグ報告</option>
+        <option value="request">💡 ご意見・ご要望</option>
+        <option value="other">💬 その他</option>
+      </select>
+      <textarea class="feedback-textarea" id="fb-message" placeholder="内容を入力してください（例：○○の画面で△△が表示されない）" maxlength="1000"></textarea>
+      <button class="feedback-submit" id="fb-submit-btn" onclick="submitFeedback()" type="button" aria-label="フィードバックを送信">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        内容を確認して送信
+      </button>
+      <div class="feedback-note">いただいた内容はサービス改善に活用します。氏名・連絡先など個人情報は入力しないでください。</div>
+      <div class="fb-confirm-wrap" id="fb-confirm-wrap">
+        <div style="text-align:center">
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px">送信内容を確認してください</div>
+          <span class="fb-email-badge" id="fb-email-disp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+          </span>
+        </div>
+        <div class="fb-result-box" id="fb-preview"></div>
+        <a id="fb-send-link" href="#" class="fb-send-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+          メールアプリで送信
+        </a>
+        <button class="fb-copy-btn" id="fb-copy-btn" type="button" onclick="fbCopy()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          テキストをコピー
+        </button>
+        <button class="fb-back-btn" type="button" onclick="fbReset()">← 編集に戻る</button>
+      </div>
+    </div>
+  </div>
+</div>
