@@ -205,8 +205,17 @@ function updateMemberName(id,val){
 function updateMemberColor(id,col){
   const m=members.find(x=>x.id===id);if(!m)return;
   m.color=m.color===col?null:col;
-  renderMemberItem(id);
-  if(document.getElementById('s2').classList.contains('active')) renderForm();
+  // s1 avatar: just update background (no full re-render to preserve focus)
+  const av=document.getElementById('av-'+id);
+  if(av) av.style.background=m.color||'var(--faint)';
+  // s2: refresh chips + keisha panel + ratio cards in place
+  if(document.getElementById('s2')?.classList.contains('active')){
+    renderChips();
+    if(tabMode==='keisha'){
+      renderKeishaMemberPanel();
+      updateRatioSection();
+    }
+  }
   saveSession();
 }
 function updateColorLabel(col,val){
@@ -237,20 +246,6 @@ function renderMemberItem(id,container){
   const isNew=!el;
   if(isNew){el=document.createElement('div');el.id='mi-'+id;c.appendChild(el);}
   el.className='member-item';
-  const exp=expandedPal.has(id);
-  const vis=exp?PAL:PAL.slice(0,PAL_SHOW);
-  const hidden=PAL.length-PAL_SHOW;
-  const dots=vis.map(col=>`<div class="color-dot${m.color===col?' sel':''}" style="background:${col}" onclick="updateMemberColor(${id},'${col}')"></div>`).join('');
-  const clearDot=`<div class="color-dot none-dot${m.color===null?' sel':''}" onclick="updateMemberColor(${id},null)" title="なし"></div>`;
-  const expandBtn=!exp&&hidden>0
-    ?`<button class="color-expand-btn" onclick="expandedPal.add(${id});renderMemberItem(${id})" title="全て表示">+${hidden}</button>`
-    :exp?`<button class="color-expand-btn" onclick="expandedPal.delete(${id});renderMemberItem(${id})">−</button>`:'';
-  const nameArea=m.color?`<div class="color-name-wrap">
-    <div class="color-name-swatch" style="background:${m.color}"></div>
-    <input class="color-name-input" type="text" placeholder="任意：カラー名（例：先輩、後輩）"
-      data-color-label="${m.color}"
-      value="${esc(colorLabels[m.color]||'')}" oninput="updateColorLabel('${m.color}',this.value)"/>
-  </div>`:'';
   el.innerHTML=`
     <div class="member-top">
       <div class="member-avatar" id="av-${id}" style="background:${m.color||'var(--faint)'}">${esc(ini(m.name))}</div>
@@ -259,11 +254,6 @@ function renderMemberItem(id,container){
       <button class="member-del" onclick="removeMember(${id})" ${members.length<=2?'disabled':''} title="削除">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-    </div>
-    <div class="color-section">
-      <span class="color-section-lbl">任意：傾斜入力が必要な時に設定（例：先輩→赤、後輩→青）</span>
-      <div class="color-row">${clearDot}${dots}${expandBtn}</div>
-      ${nameArea}
     </div>`;
 }
 
@@ -534,6 +524,7 @@ function renderForm(){
     <div class="chips-lbl">対象者（タップで選択・解除）</div>
     <div class="chips-wrap">${chipsHtml}</div>
     ${tabHint}
+    ${showRatio?'<div id="keisha-mem-panel"></div>':''}
     ${showRatio?'<div id="ratio-wrap"></div>':''}
     <button class="reg-btn" id="reg-btn" onclick="registerPayment()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>登録する
@@ -541,7 +532,61 @@ function renderForm(){
     <button class="clr-btn" onclick="clearForm()">クリア</button>`;
   const sel=document.getElementById('payer-sel');
   if(sel&&savedPayerId){sel.value=savedPayerId;if(!sel.value&&members.length)sel.value=members[0].id;}
-  if(showRatio) updateRatioSection();
+  if(showRatio){ renderKeishaMemberPanel(); updateRatioSection(); }
+}
+
+/* 対象者チップだけを再描画（メンバー色変更時に使用） */
+function renderChips(){
+  const wrap=document.querySelector('#form-card .chips-wrap');
+  if(!wrap) return;
+  wrap.innerHTML=members.map(m=>{
+    const on=selParts.has(m.id);const bg=m.color||'var(--faint)';
+    return `<div class="chip${on?' on':''}" style="${on?`background:${bg};border-color:${bg}`:''}" data-id="${m.id}" onclick="toggleChip(${m.id})">
+      <div class="chip-av" style="background:${on?'rgba(255,255,255,.25)':bg}">${esc(ini(m.name))}</div>
+      ${esc(m.name||'?')}
+      <div class="chip-ck${on?' on':''}">
+        ${on?`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* 傾斜入力モード：メンバーへ色（グループ）を割り当てるパネル */
+function renderKeishaMemberPanel(){
+  const wrap=document.getElementById('keisha-mem-panel');
+  if(!wrap) return;
+  const rows=members.map(m=>{
+    const id=m.id;
+    const exp=expandedPal.has(id);
+    const vis=exp?PAL:PAL.slice(0,PAL_SHOW);
+    const hidden=PAL.length-PAL_SHOW;
+    const dots=vis.map(col=>`<div class="color-dot${m.color===col?' sel':''}" style="background:${col}" onclick="updateMemberColor(${id},'${col}')"></div>`).join('');
+    const clearDot=`<div class="color-dot none-dot${m.color===null?' sel':''}" onclick="updateMemberColor(${id},null)" title="なし"></div>`;
+    const expandBtn=!exp&&hidden>0
+      ?`<button class="color-expand-btn" onclick="expandedPal.add(${id});renderKeishaMemberPanel()" title="全て表示">+${hidden}</button>`
+      :exp?`<button class="color-expand-btn" onclick="expandedPal.delete(${id});renderKeishaMemberPanel()">−</button>`:'';
+    const nameArea=m.color?`<div class="color-name-wrap">
+      <div class="color-name-swatch" style="background:${m.color}"></div>
+      <input class="color-name-input" type="text" placeholder="任意：カラー名（例：先輩、後輩）"
+        data-color-label="${m.color}"
+        value="${esc(colorLabels[m.color]||'')}" oninput="updateColorLabel('${m.color}',this.value)"/>
+    </div>`:'';
+    return `<div class="member-item">
+      <div class="member-top">
+        <div class="member-avatar" style="background:${m.color||'var(--faint)'};width:28px;height:28px;font-size:12px">${esc(ini(m.name))}</div>
+        <span style="flex:1;font-weight:600;font-size:14px;padding:3px 0">${esc(m.name||'?')}</span>
+      </div>
+      <div class="color-section">
+        <div class="color-row">${clearDot}${dots}${expandBtn}</div>
+        ${nameArea}
+      </div>
+    </div>`;
+  }).join('');
+  wrap.innerHTML=`<div style="margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">メンバーのグループ設定</div>
+    <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">同じ色を選んだメンバーは同じグループ（例：先輩→赤、後輩→青）になり、下の「グループ別・1人あたりの負担額」で一括設定できます。</div>
+    ${rows}
+  </div>`;
 }
 function toggleChip(mid){
   if(selParts.has(mid))selParts.delete(mid);else selParts.add(mid);
