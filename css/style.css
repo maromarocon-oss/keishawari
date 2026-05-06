@@ -117,6 +117,10 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 /* ── TYPOGRAPHY ── */
 .section-title{font-size:20px;font-weight:900;letter-spacing:-.02em;margin-bottom:5px}
 .section-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.65}
+.section-todos{list-style:none;margin:8px 0 18px;padding:12px 14px;background:var(--green-lt);border:1.5px solid var(--border);border-radius:var(--r-md);display:flex;flex-direction:column;gap:7px}
+.section-todos li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text);font-weight:600;line-height:1.5}
+.section-todos li::before{content:"";flex-shrink:0;width:17px;height:17px;border-radius:5px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232A9055' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/12px 12px no-repeat;border:1.5px solid var(--green);margin-top:1px}
+.section-todos .todo-note{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px;line-height:1.5}
 .card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px;box-shadow:var(--sh-sm);margin-bottom:12px}
 .field-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;display:block}
 .req{color:var(--green);margin-left:2px}
