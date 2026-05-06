@@ -470,13 +470,22 @@ function showCopyDoneModal(){
 }
 
 /* ══════════════════════
-   TAB
+   INPUT MODE SWITCH
 ══════════════════════ */
 function switchTab(mode){
+  if(mode!=='easy'&&mode!=='keisha') return;
+  if(tabMode===mode) return;
   tabMode=mode;
-  document.getElementById('tab-easy').classList.toggle('active',mode==='easy');
-  document.getElementById('tab-keisha').classList.toggle('active',mode==='keisha');
+  // Preserve current form values across re-render
+  const card=document.getElementById('form-card');
+  const label=document.getElementById('p-label')?.value||'';
+  const amount=document.getElementById('p-amount')?.value||'';
+  const payerId=parseInt(document.getElementById('payer-sel')?.value)||0;
+  if(card&&payerId) card.dataset.payerId=payerId;
   renderForm();
+  const la=document.getElementById('p-label');if(la)la.value=label;
+  const am=document.getElementById('p-amount');if(am){am.value=amount;if(mode==='keisha'&&amount) updateRatioSection();}
+  const ps=document.getElementById('payer-sel');if(ps&&payerId)ps.value=payerId;
 }
 
 /* ══════════════════════
@@ -499,7 +508,15 @@ function renderForm(){
   const showRatio=tabMode==='keisha';
   const tabHint=showRatio
     ?''
-    :`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は「傾斜入力」タブをご利用ください。</div>`;
+    :`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は上のスイッチで「傾斜入力」に切り替えてください。</div>`;
+  const modeSwitchHtml=`
+    <div class="mode-switch-row">
+      <span class="mode-switch-lbl">入力方法</span>
+      <div class="mode-switch" role="tablist" aria-label="入力方法の切り替え">
+        <button type="button" role="tab" class="mode-switch-btn${tabMode==='easy'?' active':''}" id="tab-easy" aria-selected="${tabMode==='easy'}" onclick="switchTab('easy')">均等入力</button>
+        <button type="button" role="tab" class="mode-switch-btn${tabMode==='keisha'?' active':''}" id="tab-keisha" aria-selected="${tabMode==='keisha'}" onclick="switchTab('keisha')">傾斜入力</button>
+      </div>
+    </div>`;
   card.innerHTML=`
     <div class="s-row">
       <input class="s-input" type="text" id="p-label" placeholder="必須：支払名称（例：タクシー代、二次会）" maxlength="30" style="flex:1"/>
@@ -509,6 +526,7 @@ function renderForm(){
       <input class="s-input amt" type="number" id="p-amount" autocomplete="off" min="0" placeholder="12,000" oninput="${showRatio?'onAmountChange()':''}"/>
       <span class="kw">かかった。</span>
     </div>
+    ${modeSwitchHtml}
     <div class="s-row">
       <select class="payer-sel" id="payer-sel" onchange="document.getElementById('form-card').dataset.payerId=this.value">${payerOpts}</select>
       <span class="kw">が立替払い</span>
