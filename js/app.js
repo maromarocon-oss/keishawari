@@ -1210,27 +1210,39 @@ function renderResults(){
   if(settlements.length===0){
     const ac=document.createElement('div');ac.className='all-clear';
     ac.innerHTML='<div style="font-size:30px;margin-bottom:6px">🎉</div><div style="font-weight:700">精算不要！全員清算済みです。</div>';
-    c.appendChild(ac);return;
+    c.appendChild(ac);
+  }else{
+    const sc=document.createElement('div');sc.className='settle-card';sc.id='sc';c.appendChild(sc);
+    renderSettlements();
   }
 
-  const sc=document.createElement('div');sc.className='settle-card';sc.id='sc';c.appendChild(sc);
-  renderSettlements();
-
-  // PayPay app button below settlement
-  const ppWrap=document.createElement('div');ppWrap.style.cssText='margin-top:12px;margin-bottom:4px';
-  ppWrap.innerHTML=`
-    <a href="paypay://payment2d" id="pp-open-btn"
-      style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:var(--r-full);background:#D3000D;color:#fff;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 4px 14px rgba(211,0,13,.28);transition:all .2s"
-      onmouseenter="this.style.background='#AA000A'" onmouseleave="this.style.background='#D3000D'">
+  // Action buttons below settlement flow: Copy / LINE share / PayPay
+  const actWrap=document.createElement('div');actWrap.className='result-actions';
+  actWrap.innerHTML=`
+    <button class="r-act-btn r-act-copy" type="button" onclick="copyResult()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      結果をコピー
+    </button>
+    <button class="r-act-btn r-act-line" type="button" onclick="shareToLine()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      LINEで共有
+    </button>
+    <a href="paypay://payment2d" id="pp-open-btn" class="r-act-btn r-act-paypay">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
       PayPayを開く
     </a>
-    <p style="text-align:center;font-size:11px;color:var(--faint);margin-top:6px">
-      ※ スマートフォンにPayPayがインストールされている場合に起動します
-    </p>`;
-  c.appendChild(ppWrap);
-  const ppBtn=ppWrap.querySelector('#pp-open-btn');
+    <p class="r-act-note">※ スマートフォンにPayPayがインストールされている場合に起動します</p>`;
+  c.appendChild(actWrap);
+  const ppBtn=actWrap.querySelector('#pp-open-btn');
   if(ppBtn) ppBtn.addEventListener('click',openPayPayMyCode);
+}
+
+function shareToLine(){
+  computeSettlements();
+  const text=buildResultText();
+  const url='https://line.me/R/msg/text/?'+encodeURIComponent(text);
+  // Mobile devices launch the LINE app; desktop opens the web share UI.
+  window.open(url,'_blank','noopener,noreferrer');
 }
 
 function openPayPayMyCode(e){
@@ -1395,6 +1407,27 @@ function goBackFromPrivacy(){
 }
 // Backward-compat: any old showPrivacyModal call routes to the page
 function showPrivacyModal(){ showPrivacyPage(); }
+
+let _feedbackReturnId=null;
+function showFeedbackPage(){
+  const cur=document.querySelector('.screen.active');
+  _feedbackReturnId=cur?cur.id:'s3';
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
+  const el=document.getElementById('s_feedback');
+  if(!el) return;
+  el.style.display='flex';el.classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  // Reset feedback form state when entering page
+  fbReset();
+  const t=document.getElementById('fb-type');if(t)t.value='';
+  const m=document.getElementById('fb-message');if(m)m.value='';
+}
+function goBackFromFeedback(){
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
+  const el=document.getElementById(_feedbackReturnId||'s3');
+  el.style.display='flex';el.classList.add('back');
+  window.scrollTo({top:0,behavior:'instant'});
+}
 
 function toggleSettle(id){
   const s=settlements.find(x=>x.id===id);if(!s)return;

@@ -50,7 +50,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .fb-back-btn:hover{color:var(--text)}
 .btn-fixed{padding-bottom:max(22px,env(safe-area-inset-bottom))}
 /* ── TOUCH TARGETS ── */
-.primary-btn,.reg-btn,.register-btn,.back-btn,.share-btn,.add-member-btn,.verify-chip,.tab-btn{min-height:44px}
+.primary-btn,.reg-btn,.register-btn,.back-btn,.add-member-btn,.verify-chip,.tab-btn{min-height:44px}
 /* ── TABLET ≥600px ── */
 @media(min-width:600px){
   .screen-body{padding-left:24px;padding-right:24px}
@@ -237,10 +237,6 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 /* ── RESULTS ── */
 /* shared banner */
 .shared-banner{background:linear-gradient(135deg,var(--green-lt),#fff5f3);border:1.5px solid var(--green);border-radius:var(--r-md);padding:12px 14px;margin-bottom:16px;font-size:13px;color:var(--green);display:flex;align-items:center;gap:8px}
-/* share button */
-.share-btn{display:flex;align-items:center;gap:7px;padding:10px 16px;border-radius:var(--r-full);background:var(--card);border:1.5px solid var(--border);font-size:13px;font-weight:700;color:var(--text);transition:all .15s;box-shadow:var(--sh-sm)}
-.share-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt)}
-.share-btn.copied{border-color:var(--success);color:var(--success);background:var(--success-lt)}
 .result-grand{background:var(--green-lt);border:2px solid var(--green);border-radius:var(--r-lg);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .result-grand-lbl{font-size:14px;font-weight:700;color:var(--green)}
 .result-grand-amt{font-size:28px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums}
@@ -279,6 +275,17 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .all-clear{background:var(--success-lt);border:1.5px solid var(--success);border-radius:var(--r-lg);padding:20px;text-align:center;color:var(--success)}
 .reset-lnk{display:block;text-align:center;padding:16px;color:var(--faint);font-size:13px;font-weight:600;margin-top:8px}
 .reset-lnk:hover{color:var(--green)}
+
+/* ── RESULT ACTION BUTTONS (under settlement flow) ── */
+.result-actions{display:flex;flex-direction:column;gap:10px;margin-top:14px;margin-bottom:6px}
+.r-act-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:var(--r-full);font-weight:800;font-size:15px;text-decoration:none;transition:all .2s;border:none;cursor:pointer;font-family:inherit;min-height:48px;box-sizing:border-box}
+.r-act-copy{background:var(--card);color:var(--text);border:1.5px solid var(--border);box-shadow:var(--sh-sm)}
+.r-act-copy:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt)}
+.r-act-line{background:#06C755;color:#fff;box-shadow:0 4px 14px rgba(6,199,85,.28)}
+.r-act-line:hover{background:#05A847}
+.r-act-paypay{background:#D3000D;color:#fff;box-shadow:0 4px 14px rgba(211,0,13,.28)}
+.r-act-paypay:hover{background:#AA000A}
+.r-act-note{text-align:center;font-size:11px;color:var(--faint);margin-top:2px;line-height:1.6}
 
 /* ── MODALS ── */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:999;display:flex;align-items:flex-end;justify-content:center;padding:0;animation:fadeIn .18s ease}
