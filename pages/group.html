@@ -69,18 +69,14 @@
       <span>前回のデータを復元しました（<strong id="restore-name"></strong>）</span>
     </div>
     <div class="section-title">グループを設定</div>
-    <ul class="section-todos">
-      <li>グループ名を入力する</li>
-      <li>参加メンバーを2人以上登録する<span class="todo-note">傾斜（先輩・後輩などの差）を付ける場合は、次の支払入力で「傾斜入力」に切り替えるとグループ分けができます。</span></li>
-    </ul>
 
     <div class="card">
-      <label class="field-label">グループ名<span class="req">必須</span></label>
+      <label class="field-label">グループ名</label>
       <input class="group-name-input" id="group-name" type="text" placeholder="例：4月花見会・〇〇部歓迎会" maxlength="40" />
     </div>
 
     <div class="card" style="margin-top:4px">
-      <label class="field-label">参加メンバー<span class="req">必須</span><span style="font-size:10px;color:var(--faint);margin-left:6px;font-weight:400">2人以上</span></label>
+      <label class="field-label">参加メンバー<span style="font-size:10px;color:var(--faint);margin-left:6px;font-weight:400">2人以上</span></label>
       <div id="member-list"></div>
       <button class="add-member-btn" onclick="addMember()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
