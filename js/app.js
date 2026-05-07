@@ -486,7 +486,7 @@ function renderForm(){
   const savedPayerId=parseInt(card.dataset.payerId)||members[0]?.id;
   const payerOpts=members.map(m=>`<option value="${m.id}">${esc(m.name||'?')}</option>`).join('');
   const chipsHtml=members.map(m=>{
-    const on=selParts.has(m.id);const bg=m.color||'var(--faint)';
+    const on=selParts.has(m.id);const bg=m.color||'#7DCDA3';
     return `<div class="chip${on?' on':''}" style="${on?`background:${bg};border-color:${bg}`:''}" data-id="${m.id}" onclick="toggleChip(${m.id})">
       <div class="chip-av" style="background:${on?'rgba(255,255,255,.25)':bg}">${esc(ini(m.name))}</div>
       ${esc(m.name||'?')}
@@ -498,9 +498,9 @@ function renderForm(){
   const showRatio=tabMode==='keisha';
   const tabHint=showRatio
     ?''
-    :`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は上のスイッチで「傾斜入力」に切り替えてください。</div>`;
+    :`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-top:12px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は上のスイッチで「傾斜入力」に切り替えてください。</div>`;
   const modeSwitchHtml=`
-    <div class="mode-switch-row">
+    <div class="mode-switch-row" style="margin:0 0 12px">
       <span class="mode-switch-lbl">入力方法</span>
       <div class="mode-switch" role="tablist" aria-label="入力方法の切り替え">
         <button type="button" role="tab" class="mode-switch-btn${tabMode==='easy'?' active':''}" id="tab-easy" aria-selected="${tabMode==='easy'}" onclick="switchTab('easy')">均等入力</button>
@@ -508,27 +508,29 @@ function renderForm(){
       </div>
     </div>`;
   card.innerHTML=`
-    <div class="s-row">
-      <input class="s-input" type="text" id="p-label" placeholder="必須：支払名称（例：タクシー代、二次会）" maxlength="30" style="flex:1"/>
-    </div>
-    <div class="s-row">
-      <span class="kw">合計 ¥</span>
-      <input class="s-input amt" type="number" id="p-amount" autocomplete="off" min="0" placeholder="12,000" oninput="${showRatio?'onAmountChange()':''}"/>
-      <span class="kw">かかった。</span>
-    </div>
     ${modeSwitchHtml}
-    <div class="s-row">
-      <select class="payer-sel" id="payer-sel" onchange="document.getElementById('form-card').dataset.payerId=this.value">${payerOpts}</select>
-      <span class="kw">が立替払い</span>
+    <div class="form-section">
+      <div class="s-row" style="margin-bottom:12px">
+        <input class="s-input" type="text" id="p-label" placeholder="支払名称（例：タクシー代、二次会）" maxlength="30" style="flex:1"/>
+      </div>
+      <div class="s-row" style="margin-bottom:0">
+        <span class="kw">合計 ¥</span>
+        <input class="s-input amt" type="number" id="p-amount" autocomplete="off" min="0" placeholder="12,000" oninput="${showRatio?'onAmountChange()':''}"/>
+        <span class="kw">かかった。</span>
+      </div>
     </div>
-    <div class="chips-lbl">対象者（タップで選択・解除）</div>
-    <div class="chips-wrap">${chipsHtml}</div>
-    ${tabHint}
-    ${showRatio?'<div id="keisha-mem-panel"></div>':''}
-    ${showRatio?'<div id="ratio-wrap"></div>':''}
-    <button class="reg-btn" id="reg-btn" onclick="registerPayment()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>登録する
-    </button>
+    <div class="form-section">
+      <div class="s-row" style="margin-bottom:12px">
+        <select class="payer-sel" id="payer-sel" onchange="document.getElementById('form-card').dataset.payerId=this.value">${payerOpts}</select>
+        <span class="kw">が立替払い</span>
+      </div>
+      <div class="chips-lbl">対象者（タップで選択・解除）</div>
+      <div class="chips-wrap" style="margin-bottom:0">${chipsHtml}</div>
+      ${tabHint}
+    </div>
+    ${showRatio?'<div id="keisha-mem-panel" class="form-section"></div>':''}
+    ${showRatio?'<div id="ratio-wrap" class="form-section"></div>':''}
+    <button class="reg-btn" id="reg-btn" onclick="registerPayment()">支払登録をする</button>
     <button class="clr-btn" onclick="clearForm()">クリア</button>`;
   const sel=document.getElementById('payer-sel');
   if(sel&&savedPayerId){sel.value=savedPayerId;if(!sel.value&&members.length)sel.value=members[0].id;}
@@ -540,7 +542,7 @@ function renderChips(){
   const wrap=document.querySelector('#form-card .chips-wrap');
   if(!wrap) return;
   wrap.innerHTML=members.map(m=>{
-    const on=selParts.has(m.id);const bg=m.color||'var(--faint)';
+    const on=selParts.has(m.id);const bg=m.color||'#7DCDA3';
     return `<div class="chip${on?' on':''}" style="${on?`background:${bg};border-color:${bg}`:''}" data-id="${m.id}" onclick="toggleChip(${m.id})">
       <div class="chip-av" style="background:${on?'rgba(255,255,255,.25)':bg}">${esc(ini(m.name))}</div>
       ${esc(m.name||'?')}
@@ -582,11 +584,10 @@ function renderKeishaMemberPanel(){
       </div>
     </div>`;
   }).join('');
-  wrap.innerHTML=`<div style="margin-bottom:14px">
+  wrap.innerHTML=`
     <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">メンバーのグループ設定</div>
     <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">同じ色を選んだメンバーは同じグループ（例：先輩→赤、後輩→青）になり、下の「グループ別・1人あたりの負担額」で一括設定できます。</div>
-    ${rows}
-  </div>`;
+    ${rows}`;
 }
 function toggleChip(mid){
   if(selParts.has(mid))selParts.delete(mid);else selParts.add(mid);
@@ -713,12 +714,11 @@ function updateRatioSection(){
     ${adjustBtn}
   </div>`:'';
 
-  wrap.innerHTML=`<div style="margin-bottom:12px">
+  wrap.innerHTML=`
     <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">グループ別・1人あたりの負担額</div>
     <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">±ボタンで100円単位に調整。鍵で金額を固定、「調整」で固定/直近編集以外を均等に再配分します。</div>
     <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px">${cards}</div>
-    ${statusHtml}
-  </div>`;
+    ${statusHtml}`;
 }
 function _refreshKeishaCards(groups,amount){
   let dispTotal=0;
@@ -1056,7 +1056,7 @@ function editPayment(id){
     const ps=document.getElementById('payer-sel');if(ps)ps.value=p.payerId;
     // Update register button label
     const btn=document.getElementById('reg-btn');
-    if(btn)btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>更新する`;
+    if(btn)btn.innerHTML=`更新する`;
   });
   // Scroll to form
   document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -1138,10 +1138,26 @@ function computeSettlements(){
 function renderResults(){
   const total=payments.reduce((s,p)=>s+p.amount,0);
   const c=document.getElementById('result-container');c.innerHTML='';
-  document.getElementById('result-sub').textContent=`合計 ${fmt(total)} ／ ${members.length}人 ／ ${payments.length}件`;
 
   const gt=document.createElement('div');gt.className='result-grand';
-  gt.innerHTML=`<span class="result-grand-lbl">合計お会計</span><span class="result-grand-amt">${fmt(total)}</span>`;
+  const paymentRows=payments.map(p=>{
+    const payer=getMember(p.payerId);
+    const payerName=payer?.name||'?';
+    const payerColor=payer?.color||'#7DCDA3';
+    return `<div class="rp-row">
+      <div class="rp-main">
+        <span class="rp-name">${esc(p.label)}</span>
+        <span class="rp-meta">${p.participantIds.length}人 ／ <span class="rp-payer"><span class="rp-payer-dot" style="background:${payerColor}"></span>${esc(payerName)}</span></span>
+      </div>
+      <span class="rp-amt">${fmt(p.amount)}</span>
+    </div>`;
+  }).join('');
+  gt.innerHTML=`
+    <div class="result-grand-top">
+      <span class="result-grand-lbl">合計お会計</span>
+      <span class="result-grand-amt">${fmt(total)}</span>
+    </div>
+    <div class="result-grand-list">${paymentRows}</div>`;
   c.appendChild(gt);
 
   // Per-person

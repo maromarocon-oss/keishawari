@@ -117,10 +117,6 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 /* ── TYPOGRAPHY ── */
 .section-title{font-size:20px;font-weight:900;letter-spacing:-.02em;margin-bottom:5px}
 .section-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.65}
-.section-todos{list-style:none;margin:8px 0 18px;padding:12px 14px;background:var(--green-lt);border:1.5px solid var(--border);border-radius:var(--r-md);display:flex;flex-direction:column;gap:7px}
-.section-todos li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--text);font-weight:600;line-height:1.5}
-.section-todos li::before{content:"";flex-shrink:0;width:17px;height:17px;border-radius:5px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232A9055' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/12px 12px no-repeat;border:1.5px solid var(--green);margin-top:1px}
-.section-todos .todo-note{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px;line-height:1.5}
 .card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px;box-shadow:var(--sh-sm);margin-bottom:12px}
 .field-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;display:block}
 .req{color:var(--green);margin-left:2px}
@@ -178,7 +174,10 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .mode-switch-btn:disabled{opacity:.5;cursor:not-allowed}
 
 /* ── SENTENCE FORM ── */
-.form-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:18px;box-shadow:var(--sh-sm);margin-bottom:12px}
+.form-card{background:transparent;border:none;padding:0;box-shadow:none;margin-bottom:12px}
+.form-section{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:16px;box-shadow:var(--sh-sm);margin-bottom:12px}
+@media(min-width:600px){.form-section{padding:20px}}
+@media(min-width:900px){.form-section{box-shadow:var(--sh-md)}}
 .s-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .kw{font-size:15px;font-weight:700;color:var(--muted);white-space:nowrap}
 .s-input{flex:1;min-width:0;padding:10px 13px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-md);font-size:15px;font-weight:500;transition:all .15s}
@@ -241,9 +240,18 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 /* ── RESULTS ── */
 /* shared banner */
 .shared-banner{background:linear-gradient(135deg,var(--green-lt),#fff5f3);border:1.5px solid var(--green);border-radius:var(--r-md);padding:12px 14px;margin-bottom:16px;font-size:13px;color:var(--green);display:flex;align-items:center;gap:8px}
-.result-grand{background:var(--green-lt);border:2px solid var(--green);border-radius:var(--r-lg);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.result-grand{background:var(--green-lt);border:2px solid var(--green);border-radius:var(--r-lg);padding:16px 18px;display:flex;flex-direction:column;margin-bottom:18px}
+.result-grand-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .result-grand-lbl{font-size:14px;font-weight:700;color:var(--green)}
 .result-grand-amt{font-size:28px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums}
+.result-grand-list{margin-top:12px;padding-top:10px;border-top:1.5px dashed var(--green);display:flex;flex-direction:column;gap:7px}
+.rp-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rp-main{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.rp-name{font-size:13px;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rp-meta{font-size:11px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rp-payer{display:inline-flex;align-items:center;gap:4px}
+.rp-payer-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.rp-amt{font-size:14px;font-weight:900;color:var(--green-dk);font-variant-numeric:tabular-nums;flex-shrink:0}
 .r-head{font-size:15px;font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .person-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:10px;box-shadow:var(--sh-sm)}
 .person-card-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
