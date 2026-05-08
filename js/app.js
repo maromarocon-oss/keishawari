@@ -267,7 +267,6 @@ function goTo(id){
     groupName=gn;
     const named=members.filter(m=>m.name.trim());
     if(named.length<2){alert('メンバーを2人以上入力してください');return;}
-    document.getElementById('s2-title').textContent=gn+'の支払入力';
     saveSession();
   }
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
@@ -498,17 +497,9 @@ function renderForm(){
   const showRatio=tabMode==='keisha';
   const tabHint=showRatio
     ?''
-    :`<div style="font-size:12px;color:var(--muted);padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-top:12px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は上のスイッチで「傾斜入力」に切り替えてください。</div>`;
-  const modeSwitchHtml=`
-    <div class="mode-switch-row" style="margin:0 0 12px">
-      <span class="mode-switch-lbl">入力方法</span>
-      <div class="mode-switch" role="tablist" aria-label="入力方法の切り替え">
-        <button type="button" role="tab" class="mode-switch-btn${tabMode==='easy'?' active':''}" id="tab-easy" aria-selected="${tabMode==='easy'}" onclick="switchTab('easy')">均等入力</button>
-        <button type="button" role="tab" class="mode-switch-btn${tabMode==='keisha'?' active':''}" id="tab-keisha" aria-selected="${tabMode==='keisha'}" onclick="switchTab('keisha')">傾斜入力</button>
-      </div>
-    </div>`;
+    :`<div style="font-size:14px;color:var(--muted);padding:10px 13px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-top:12px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は下の「割り勘方法の選択」で「傾斜入力」に切り替えてください。</div>`;
   card.innerHTML=`
-    ${modeSwitchHtml}
+    <div class="section-title">合計金額を入力</div>
     <div class="form-section">
       <div class="s-row" style="margin-bottom:12px">
         <input class="s-input" type="text" id="p-label" placeholder="支払名称（例：タクシー代、二次会）" maxlength="30" style="flex:1"/>
@@ -519,17 +510,36 @@ function renderForm(){
         <span class="kw">かかった。</span>
       </div>
     </div>
+
+    <div class="section-title">立替者を選択</div>
     <div class="form-section">
-      <div class="s-row" style="margin-bottom:12px">
+      <div class="s-row" style="margin-bottom:0">
         <select class="payer-sel" id="payer-sel" onchange="document.getElementById('form-card').dataset.payerId=this.value">${payerOpts}</select>
         <span class="kw">が立替払い</span>
       </div>
+    </div>
+
+    <div class="section-title">参加者を選択</div>
+    <div class="form-section">
       <div class="chips-lbl">対象者（タップで選択・解除）</div>
       <div class="chips-wrap" style="margin-bottom:0">${chipsHtml}</div>
+    </div>
+
+    <div class="section-title">割り勘方法の選択</div>
+    <div class="form-section">
+      <div class="mode-switch-row" style="margin:0">
+        <div class="mode-switch" role="tablist" aria-label="入力方法の切り替え" style="flex:1">
+          <button type="button" role="tab" class="mode-switch-btn${tabMode==='easy'?' active':''}" id="tab-easy" aria-selected="${tabMode==='easy'}" onclick="switchTab('easy')">均等入力</button>
+          <button type="button" role="tab" class="mode-switch-btn${tabMode==='keisha'?' active':''}" id="tab-keisha" aria-selected="${tabMode==='keisha'}" onclick="switchTab('keisha')">傾斜入力</button>
+        </div>
+      </div>
       ${tabHint}
     </div>
-    ${showRatio?'<div id="keisha-mem-panel" class="form-section"></div>':''}
-    ${showRatio?'<div id="ratio-wrap" class="form-section"></div>':''}
+
+    ${showRatio?`<div class="section-title">メンバーのグループ設定</div>
+    <div id="keisha-mem-panel" class="form-section"></div>`:''}
+    ${showRatio?`<div class="section-title">グループ別／1人あたりの負担額の設定</div>
+    <div id="ratio-wrap" class="form-section"></div>`:''}
     <button class="reg-btn" id="reg-btn" onclick="registerPayment()">支払登録をする</button>
     <button class="clr-btn" onclick="clearForm()">クリア</button>`;
   const sel=document.getElementById('payer-sel');
@@ -585,8 +595,7 @@ function renderKeishaMemberPanel(){
     </div>`;
   }).join('');
   wrap.innerHTML=`
-    <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">メンバーのグループ設定</div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">同じ色を選んだメンバーは同じグループ（例：先輩→赤、後輩→青）になり、下の「グループ別・1人あたりの負担額」で一括設定できます。</div>
+    <div class="section-desc">メンバーを属性ごとにグループわけ（例：先輩→赤、後輩→青）</div>
     ${rows}`;
 }
 function toggleChip(mid){
@@ -601,6 +610,45 @@ function toggleChip(mid){
 }
 // Helper: undefined → 1 (default), explicitly set 0 → 0
 function getColRatio(k){ return Object.prototype.hasOwnProperty.call(colorRatios,k)?colorRatios[k]:1; }
+
+/* グループ毎に均等割した金額を割り当て、端数が出ないよう人数の多い順に残りを吸収 */
+function distributeEqual(targetAmt,groupKeys,groupCount){
+  const totalMems=groupKeys.reduce((s,k)=>s+groupCount[k],0);
+  if(totalMems<=0||targetAmt<0) return;
+  const base=Math.floor(targetAmt/totalMems);
+  let residual=targetAmt-base*totalMems;
+  groupKeys.forEach(k=>{
+    colorAmounts[k]=base;
+    colorRatios[k]=base;
+  });
+  // まず割り切れるグループに丸ごと吸収（小さな差は1グループで完結）
+  if(residual>0){
+    for(const k of groupKeys){
+      const cnt=groupCount[k];
+      if(cnt>0&&residual%cnt===0){
+        const extra=residual/cnt;
+        colorAmounts[k]+=extra;
+        colorRatios[k]=colorAmounts[k];
+        residual=0;
+        break;
+      }
+    }
+  }
+  // 残った端数は人数の多いグループから順に1人あたり+1円ずつ吸収（過配分は避ける）
+  if(residual>0){
+    const sorted=[...groupKeys].filter(k=>groupCount[k]>0).sort((a,b)=>groupCount[b]-groupCount[a]);
+    for(const k of sorted){
+      if(residual<=0) break;
+      const cnt=groupCount[k];
+      const extra=Math.floor(residual/cnt);
+      if(extra>0){
+        colorAmounts[k]+=extra;
+        colorRatios[k]=colorAmounts[k];
+        residual-=extra*cnt;
+      }
+    }
+  }
+}
 
 /* 合計金額入力時：選択中の対象者で均等割した金額をグループに反映（固定グループは値を保持） */
 function onAmountChange(){
@@ -619,22 +667,10 @@ function onAmountChange(){
     let lockedTotal=0;
     lockedKeys.forEach(k=>{lockedTotal+=(colorAmounts[k]??0)*groupCount[k];});
     const remaining=amount-lockedTotal;
-    const totalUnlockedMems=unlockedKeys.reduce((s,k)=>s+groupCount[k],0);
-    if(totalUnlockedMems>0&&remaining>=0){
-      const perPerson=Math.round(remaining/totalUnlockedMems);
-      unlockedKeys.forEach(k=>{
-        colorAmounts[k]=perPerson;
-        colorRatios[k]=perPerson;
-      });
+    if(unlockedKeys.length>0&&remaining>=0){
+      distributeEqual(remaining,unlockedKeys,groupCount);
     }else{
-      const totalMems=allKeys.reduce((s,k)=>s+groupCount[k],0);
-      if(totalMems>0){
-        const perPerson=Math.round(amount/totalMems);
-        allKeys.forEach(k=>{
-          colorAmounts[k]=perPerson;
-          colorRatios[k]=perPerson;
-        });
-      }
+      distributeEqual(amount,allKeys,groupCount);
     }
   }
   updateRatioSection();
@@ -653,15 +689,26 @@ function updateRatioSection(){
   const keys=Object.keys(groups);
   if(keys.length===0){wrap.innerHTML='';return;}
 
-  // Initialize colorAmounts for new groups
+  // 新しいグループが現れた場合、固定外グループを均等再配分（端数なし）
   if(amount>0){
-    const totalUnits=keys.reduce((s,k)=>s+groups[k].mems.length*getColRatio(k),0);
-    keys.forEach(k=>{
-      if(!Object.prototype.hasOwnProperty.call(colorAmounts,k)){
-        colorAmounts[k]=totalUnits>0?Math.round(amount*getColRatio(k)/totalUnits):0;
-        colorRatios[k]=colorAmounts[k];
+    const hasNew=keys.some(k=>!Object.prototype.hasOwnProperty.call(colorAmounts,k));
+    if(hasNew){
+      const groupCount={};
+      keys.forEach(k=>{groupCount[k]=groups[k].mems.length;});
+      const unlockedKeys=keys.filter(k=>!lockedGroups.has(k));
+      let lockedTotal=0;
+      keys.filter(k=>lockedGroups.has(k)).forEach(k=>{lockedTotal+=(colorAmounts[k]??0)*groupCount[k];});
+      const remaining=amount-lockedTotal;
+      if(unlockedKeys.length>0&&remaining>=0){
+        distributeEqual(remaining,unlockedKeys,groupCount);
       }
-    });
+      // ロックですべて埋まっている場合は新規グループは0で初期化
+      keys.forEach(k=>{
+        if(!Object.prototype.hasOwnProperty.call(colorAmounts,k)){
+          colorAmounts[k]=0;colorRatios[k]=0;
+        }
+      });
+    }
   }
 
   const cards=keys.map(k=>{
@@ -683,41 +730,42 @@ function updateRatioSection(){
           :'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7-2"/>'}
       </svg>
     </button>`;
-    return `<div style="flex:1;min-width:130px;background:#fff;border:2px solid ${borderCol};border-radius:10px;padding:9px 10px">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:2px">
-        <div style="font-size:10px;font-weight:800;color:${textCol};line-height:1.3">${esc(colLabel)} × ${g.mems.length}人</div>
+    return `<div style="flex:1;min-width:150px;background:#fff;border:2px solid ${borderCol};border-radius:10px;padding:10px 11px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:3px">
+        <div style="font-size:13px;font-weight:800;color:${textCol};line-height:1.3">${esc(colLabel)} × ${g.mems.length}人</div>
         ${lockBtn}
       </div>
-      <div style="font-size:9px;color:var(--muted);margin-bottom:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(mnames)}</div>
-      <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px">
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(mnames)}</div>
+      <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px">
         <button class="amt-step-btn" type="button" onclick="stepAmt('${k}',-100)">&#8722;</button>
         <input id="ramt-${k}" type="text" inputmode="numeric"
           value="${amount>0?pp:''}" placeholder="¥—"
-          style="flex:1;min-width:0;padding:4px 2px;text-align:center;border:1.5px solid var(--border);border-radius:6px;font-size:13px;font-weight:900;color:var(--text);font-family:inherit;background:var(--bg)"
+          style="flex:1;min-width:0;padding:6px 4px;text-align:center;border:1.5px solid var(--border);border-radius:6px;font-size:15px;font-weight:900;color:var(--text);font-family:inherit;background:var(--bg)"
           oninput="syncRatioFromAmt('${k}',this.value)"
         />
         <button class="amt-step-btn" type="button" onclick="stepAmt('${k}',100)">&#43;</button>
       </div>
-      <div style="font-size:10px;color:var(--muted)">小計 <span id="rsubt-${k}" style="font-weight:700">${amount>0?'¥'+Math.round(subtotal).toLocaleString('ja-JP'):'—'}</span></div>
+      <div style="font-size:12px;color:var(--muted)">小計 <span id="rsubt-${k}" style="font-weight:700">${amount>0?'¥'+Math.round(subtotal).toLocaleString('ja-JP'):'—'}</span></div>
     </div>`;
   }).join('');
 
   const dispTotal=amount>0?keys.reduce((s,k)=>s+(colorAmounts[k]??0)*groups[k].mems.length,0):0;
   const matched=amount>0&&Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
   const adjustBtn=`<button type="button" onclick="adjustAmounts()" title="固定/直近編集以外のグループで均等調整"
-    style="flex-shrink:0;padding:5px 10px;border-radius:var(--r-full);border:1.5px solid var(--green);background:var(--card);color:var(--green);font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:4px">
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 4 21 10 15 10"/></svg>
+    style="flex-shrink:0;padding:8px 14px;border-radius:var(--r-full);border:1.5px solid var(--green);background:var(--card);color:var(--green);font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:5px">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 4 21 10 15 10"/></svg>
     調整
   </button>`;
-  const statusHtml=amount?`<div style="display:flex;gap:6px;align-items:stretch">
-    <div id="keisha-status" style="flex:1;min-width:0;font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;display:flex;align-items:center;justify-content:center;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}">${matched?`支払合計 ${fmt(amount)} と一致 ✓`:`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))}`}</div>
-    ${adjustBtn}
-  </div>`:'';
+  const statusHtml=amount?`<div id="keisha-status" style="font-size:13px;text-align:center;padding:7px 10px;border-radius:8px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:10px;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}">${matched?`支払合計 ${fmt(amount)} と一致 ✓`:`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))}`}</div>`:'';
 
   wrap.innerHTML=`
-    <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">グループ別・1人あたりの負担額</div>
-    <div style="font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px">±ボタンで100円単位に調整。鍵で金額を固定、「調整」で固定/直近編集以外を均等に再配分します。</div>
-    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px">${cards}</div>
+    <ul class="section-desc-list">
+      <li>グループごとに傾斜金額を入力</li>
+      <li>調整ボタンを押して、金額を調整</li>
+      <li>鍵ボタンを押せば、調整したくない傾斜金額を固定可能</li>
+    </ul>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">${adjustBtn}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">${cards}</div>
     ${statusHtml}`;
 }
 function _refreshKeishaCards(groups,amount){
@@ -734,7 +782,7 @@ function _refreshKeishaCards(groups,amount){
   const statusEl=document.getElementById('keisha-status');
   if(statusEl&&amount){
     const matched=Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
-    statusEl.style.cssText=`flex:1;min-width:0;font-size:11px;text-align:center;padding:5px 8px;border-radius:7px;font-weight:700;display:flex;align-items:center;justify-content:center;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}`;
+    statusEl.style.cssText=`font-size:13px;text-align:center;padding:7px 10px;border-radius:8px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:10px;${matched?'background:var(--green-lt);border:1.5px solid var(--green);color:var(--green)':'background:#fdeaea;border:1.5px solid #E8453C;color:#E8453C'}`;
     statusEl.textContent=matched
       ?`支払合計 ${fmt(amount)} と一致 ✓`
       :`合計 ${fmt(Math.round(dispTotal))} ／ 差額 ${fmt(Math.round(dispTotal-amount))}`;
