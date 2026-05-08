@@ -112,6 +112,7 @@ function startApp(){
     document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
     const s1=document.getElementById('s1');
     s1.style.display='flex';s1.classList.add('active');
+    window.scrollTo({top:0,behavior:'instant'});
     document.getElementById('group-name').value=groupName;
     renderMembers();
     if(payments.length>0) renderPaymentList_delayed();
@@ -165,6 +166,7 @@ function loadShared(d){
   document.querySelectorAll('.screen').forEach(s=>{s.style.display='none';s.classList.remove('active');});
   const s3 = document.getElementById('s3');
   s3.style.display='flex'; s3.classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
   document.getElementById('s3-back-btn').style.display='none';
   document.getElementById('s3-steps').style.display='none';
   document.getElementById('reset-lnk').style.display='none';
@@ -273,7 +275,7 @@ function goTo(id){
   const el=document.getElementById(id);
   el.style.display='flex';el.classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
-  if(id==='s2'){selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;renderForm();renderPaymentList();}
+  if(id==='s2'){document.getElementById('post-register-choice')?.remove();selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;renderForm();renderPaymentList();}
 }
 function goBackToSetup(){
   if(payments.length===0&&settlements.length===0){
@@ -322,7 +324,7 @@ function goBack(id){
   const el=document.getElementById(id);
   el.style.display='flex';el.classList.add('back');
   window.scrollTo({top:0,behavior:'instant'});
-  if(id==='s2'){renderForm();renderPaymentList();}
+  if(id==='s2'){document.getElementById('post-register-choice')?.remove();renderForm();renderPaymentList();}
 }
 function goToResults(){
   if(payments.length===0){alert('支払を1件以上登録してください');return;}
@@ -485,19 +487,16 @@ function renderForm(){
   const savedPayerId=parseInt(card.dataset.payerId)||members[0]?.id;
   const payerOpts=members.map(m=>`<option value="${m.id}">${esc(m.name||'?')}</option>`).join('');
   const chipsHtml=members.map(m=>{
-    const on=selParts.has(m.id);const bg=m.color||'#7DCDA3';
+    const on=selParts.has(m.id);const bg=m.color||'var(--green)';
     return `<div class="chip${on?' on':''}" style="${on?`background:${bg};border-color:${bg}`:''}" data-id="${m.id}" onclick="toggleChip(${m.id})">
       <div class="chip-av" style="background:${on?'rgba(255,255,255,.25)':bg}">${esc(ini(m.name))}</div>
       ${esc(m.name||'?')}
-      <div class="chip-ck${on?' on':''}">
-        ${on?`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`:''}
-      </div>
     </div>`;
   }).join('');
   const showRatio=tabMode==='keisha';
   const tabHint=showRatio
     ?''
-    :`<div style="font-size:14px;color:var(--muted);padding:10px 13px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-top:12px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は下の「割り勘方法の選択」で「傾斜入力」に切り替えてください。</div>`;
+    :`<div style="font-size:15px;color:var(--muted);padding:11px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-md);margin-top:12px;line-height:1.7">選択した対象者全員で<strong style="color:var(--text)">均等に割り勘</strong>します。傾斜をつけたい場合は下の「割り勘方法の選択」で「傾斜入力」に切り替えてください。</div>`;
   card.innerHTML=`
     <div class="section-title">合計金額を入力</div>
     <div class="form-section">
@@ -519,9 +518,8 @@ function renderForm(){
       </div>
     </div>
 
-    <div class="section-title">参加者を選択</div>
+    <div class="section-title">参加者（タップで選択・解除）</div>
     <div class="form-section">
-      <div class="chips-lbl">対象者（タップで選択・解除）</div>
       <div class="chips-wrap" style="margin-bottom:0">${chipsHtml}</div>
     </div>
 
@@ -536,9 +534,9 @@ function renderForm(){
       ${tabHint}
     </div>
 
-    ${showRatio?`<div class="section-title">メンバーのグループ設定</div>
+    ${showRatio?`<div class="section-title">参加者のグループ設定</div>
     <div id="keisha-mem-panel" class="form-section"></div>`:''}
-    ${showRatio?`<div class="section-title">グループ別／1人あたりの負担額の設定</div>
+    ${showRatio?`<div class="section-title">グループ別の負担額設定</div>
     <div id="ratio-wrap" class="form-section"></div>`:''}
     <button class="reg-btn" id="reg-btn" onclick="registerPayment()">支払登録をする</button>
     <button class="clr-btn" onclick="clearForm()">クリア</button>`;
@@ -552,13 +550,10 @@ function renderChips(){
   const wrap=document.querySelector('#form-card .chips-wrap');
   if(!wrap) return;
   wrap.innerHTML=members.map(m=>{
-    const on=selParts.has(m.id);const bg=m.color||'#7DCDA3';
+    const on=selParts.has(m.id);const bg=m.color||'var(--green)';
     return `<div class="chip${on?' on':''}" style="${on?`background:${bg};border-color:${bg}`:''}" data-id="${m.id}" onclick="toggleChip(${m.id})">
       <div class="chip-av" style="background:${on?'rgba(255,255,255,.25)':bg}">${esc(ini(m.name))}</div>
       ${esc(m.name||'?')}
-      <div class="chip-ck${on?' on':''}">
-        ${on?`<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`:''}
-      </div>
     </div>`;
   }).join('');
 }
@@ -595,7 +590,8 @@ function renderKeishaMemberPanel(){
     </div>`;
   }).join('');
   wrap.innerHTML=`
-    <div class="section-desc">メンバーを属性ごとにグループわけ（例：先輩→赤、後輩→青）</div>
+    <div class="section-desc">参加者を属性ごとにグルーピング（グループごとに傾斜設定が可能）</div>
+    <div class="section-desc" style="margin-top:8px">例：先輩→赤、後輩→青</div>
     ${rows}`;
 }
 function toggleChip(mid){
@@ -752,7 +748,7 @@ function updateRatioSection(){
   const dispTotal=amount>0?keys.reduce((s,k)=>s+(colorAmounts[k]??0)*groups[k].mems.length,0):0;
   const matched=amount>0&&Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
   const adjustBtn=`<button type="button" onclick="adjustAmounts()" title="固定/直近編集以外のグループで均等調整"
-    style="flex-shrink:0;padding:8px 14px;border-radius:var(--r-full);border:1.5px solid var(--green);background:var(--card);color:var(--green);font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:5px">
+    style="width:100%;padding:7px 10px;border-radius:8px;border:1.5px solid var(--green);background:var(--card);color:var(--green);font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 4 21 10 15 10"/></svg>
     調整
   </button>`;
@@ -764,9 +760,9 @@ function updateRatioSection(){
       <li>調整ボタンを押して、金額を調整</li>
       <li>鍵ボタンを押せば、調整したくない傾斜金額を固定可能</li>
     </ul>
-    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">${adjustBtn}</div>
     <div style="display:flex;flex-wrap:wrap;gap:8px">${cards}</div>
-    ${statusHtml}`;
+    ${statusHtml}
+    ${adjustBtn}`;
 }
 function _refreshKeishaCards(groups,amount){
   let dispTotal=0;
@@ -972,6 +968,7 @@ function adjustAmounts(){
 
 function clearForm(){
   editingPaymentId=null;
+  document.getElementById('post-register-choice')?.remove();
   selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;renderForm();renderPaymentList();
 }
 
@@ -1051,6 +1048,30 @@ function registerPayment(){
   selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;
   saveSession();
   renderForm();renderPaymentList();
+  showPostRegisterChoice();
+}
+
+/* 登録後の「別件登録するか」選択パネル */
+function showPostRegisterChoice(){
+  const existing=document.getElementById('post-register-choice');
+  if(existing) existing.remove();
+  const card=document.getElementById('form-card');
+  if(!card) return;
+  const el=document.createElement('div');
+  el.id='post-register-choice';
+  el.style.cssText='background:var(--green-lt);border:1.5px solid var(--green);border-radius:var(--r-lg);padding:18px;margin-bottom:12px;box-shadow:var(--sh-sm)';
+  el.innerHTML=`
+    <div style="font-size:16px;font-weight:900;color:var(--green);text-align:center;margin-bottom:6px">支払を登録しました</div>
+    <div style="font-size:14px;color:var(--text);text-align:center;margin-bottom:14px;line-height:1.6">続けて別件を登録しますか？</div>
+    <button onclick="dismissPostRegisterChoice()" style="display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px;border-radius:var(--r-full);background:var(--green);color:#fff;font-weight:800;font-size:15px;box-shadow:0 3px 12px rgba(59,184,115,.26);border:none;cursor:pointer;font-family:inherit;margin-bottom:8px">別件を登録する</button>
+    <button onclick="dismissPostRegisterChoice()" style="display:flex;align-items:center;justify-content:center;width:100%;padding:13px;border-radius:var(--r-full);background:var(--card);border:1.5px solid var(--border);color:var(--muted);font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">登録しない</button>
+  `;
+  card.parentNode.insertBefore(el, card.nextSibling);
+}
+function dismissPostRegisterChoice(){
+  const el=document.getElementById('post-register-choice');
+  if(el) el.remove();
+  window.scrollTo({top:0,behavior:'instant'});
 }
 
 /* ポップアップアラート（alert()の代替） */
@@ -1072,6 +1093,7 @@ function showAlert(msg,title){
 
 function editPayment(id){
   const p=payments.find(x=>x.id===id);if(!p)return;
+  document.getElementById('post-register-choice')?.remove();
   editingPaymentId=id;
   lockedGroups=new Set();
   lastEditedGroup=null;

@@ -177,8 +177,8 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 /* ── SENTENCE FORM ── */
 .form-card{background:transparent;border:none;padding:0;box-shadow:none;margin-bottom:12px}
 .form-section{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:16px;box-shadow:var(--sh-sm);margin-bottom:12px}
-.section-desc{font-size:13px;color:var(--muted);line-height:1.7;margin:-2px 0 12px}
-.section-desc-list{font-size:13px;color:var(--muted);line-height:1.85;margin:-2px 0 12px;padding-left:1.1em;list-style:disc}
+.section-desc{font-size:15px;color:var(--muted);line-height:1.7;margin:-2px 0 12px}
+.section-desc-list{font-size:15px;color:var(--muted);line-height:1.85;margin:-2px 0 12px;padding-left:1.1em;list-style:disc}
 .section-desc-list li{margin-bottom:2px}
 @media(min-width:600px){.form-section{padding:20px}}
 @media(min-width:900px){.form-section{box-shadow:var(--sh-md)}}
