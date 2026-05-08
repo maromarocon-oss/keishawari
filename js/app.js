@@ -196,7 +196,8 @@ function removeMember(id){
     if(p.ratios) delete p.ratios[id];
   });
   renderMembers();
-  if(document.getElementById('s2').classList.contains('active')) renderForm();
+  const s2=document.getElementById('s2');
+  if(s2&&(s2.classList.contains('active')||s2.classList.contains('back'))) renderForm();
 }
 function updateMemberName(id,val){
   const m=members.find(x=>x.id===id);if(!m)return;
@@ -211,7 +212,8 @@ function updateMemberColor(id,col){
   const av=document.getElementById('av-'+id);
   if(av) av.style.background=m.color||'var(--faint)';
   // s2: refresh chips + keisha panel + ratio cards in place
-  if(document.getElementById('s2')?.classList.contains('active')){
+  const s2=document.getElementById('s2');
+  if(s2&&(s2.classList.contains('active')||s2.classList.contains('back'))){
     renderChips();
     if(tabMode==='keisha'){
       renderKeishaMemberPanel();
@@ -748,7 +750,7 @@ function updateRatioSection(){
   const dispTotal=amount>0?keys.reduce((s,k)=>s+(colorAmounts[k]??0)*groups[k].mems.length,0):0;
   const matched=amount>0&&Math.abs(Math.round(dispTotal)-Math.round(amount))<=1;
   const adjustBtn=`<button type="button" onclick="adjustAmounts()" title="固定/直近編集以外のグループで均等調整"
-    style="width:100%;padding:7px 10px;border-radius:8px;border:1.5px solid var(--green);background:var(--card);color:var(--green);font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px">
+    style="width:100%;padding:7px 10px;border-radius:8px;border:1.5px solid var(--green);background:var(--green);color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 4 21 10 15 10"/></svg>
     調整
   </button>`;
@@ -1063,8 +1065,7 @@ function showPostRegisterChoice(){
   el.innerHTML=`
     <div style="font-size:16px;font-weight:900;color:var(--green);text-align:center;margin-bottom:6px">支払を登録しました</div>
     <div style="font-size:14px;color:var(--text);text-align:center;margin-bottom:14px;line-height:1.6">続けて別件を登録しますか？</div>
-    <button onclick="dismissPostRegisterChoice()" style="display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px;border-radius:var(--r-full);background:var(--green);color:#fff;font-weight:800;font-size:15px;box-shadow:0 3px 12px rgba(59,184,115,.26);border:none;cursor:pointer;font-family:inherit;margin-bottom:8px">別件を登録する</button>
-    <button onclick="dismissPostRegisterChoice()" style="display:flex;align-items:center;justify-content:center;width:100%;padding:13px;border-radius:var(--r-full);background:var(--card);border:1.5px solid var(--border);color:var(--muted);font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">登録しない</button>
+    <button onclick="dismissPostRegisterChoice()" style="display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:14px;border-radius:var(--r-full);background:var(--green);color:#fff;font-weight:800;font-size:15px;box-shadow:0 3px 12px rgba(59,184,115,.26);border:none;cursor:pointer;font-family:inherit">別件を登録する</button>
   `;
   card.parentNode.insertBefore(el, card.nextSibling);
 }
