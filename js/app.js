@@ -149,6 +149,8 @@ function startApp(){
   renderMembers();
 })();
 
+initCookieBanner();
+
 function renderPaymentList_delayed(){
   // payment list only renders when s2 is active, so we defer
   // (no-op here; payments will render when user navigates to s2)
@@ -1559,7 +1561,21 @@ function toggleSettle(id){
   s.settled=!s.settled;renderSettlements();
 }
 
+const COOKIE_CONSENT_KEY='cookie_ok';
+function hasCookieConsent(){
+  try{ if(localStorage.getItem(COOKIE_CONSENT_KEY)==='1') return true; }catch(e){}
+  try{ if(sessionStorage.getItem(COOKIE_CONSENT_KEY)==='1') return true; }catch(e){}
+  return false;
+}
+function initCookieBanner(){
+  const b=document.getElementById('cookie-banner');
+  if(!b) return;
+  if(hasCookieConsent()){ b.style.display='none'; return; }
+  b.style.display='';
+}
 function acceptCookies(){
-  document.getElementById('cookie-banner').style.display='none';
-  try{ sessionStorage.setItem('cookie_ok','1'); }catch(e){}
+  const b=document.getElementById('cookie-banner');
+  if(b) b.style.display='none';
+  try{ localStorage.setItem(COOKIE_CONSENT_KEY,'1'); return; }catch(e){}
+  try{ sessionStorage.setItem(COOKIE_CONSENT_KEY,'1'); }catch(e){}
 }
