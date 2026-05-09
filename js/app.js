@@ -2,9 +2,24 @@
    SECURITY UTILS
 ══════════════════════ */
 const HEX_RE = /^#[0-9A-Fa-f]{6}$/;
+const MAX_MEMBERS = 100;
+const MAX_PAYMENTS = 500;
+const MAX_PARTICIPANTS_PER_PAYMENT = 100;
+const MAX_SETTLEMENTS = 1000;
+const MAX_AMOUNT = 1e10;
+const MAX_SHARED_HASH_LEN = 200000;
 function isValidColor(c){ return typeof c==='string' && HEX_RE.test(c); }
 function sanitizeColor(c){ return isValidColor(c) ? c : null; }
 function sanitizeText(s){ return typeof s==='string' ? s.slice(0,200) : ''; }
+function sanitizeAmount(n){
+  const v = parseFloat(n);
+  if(!isFinite(v) || v<0) return 0;
+  return Math.min(MAX_AMOUNT, v);
+}
+function sanitizeIntId(n){
+  const v = parseInt(n);
+  return (isFinite(v) && v>=0 && v<=1e9) ? v : 0;
+}
 
 /* ══════════════════════
    PALETTE & UTILS
@@ -53,27 +68,35 @@ function loadSession(){
     const d = JSON.parse(raw);
     if(!d||!Array.isArray(d.members)||d.members.length<1) return false;
     groupName = sanitizeText(d.groupName||'');
-    members = d.members.map(m=>({
-      id: parseInt(m.id)||0,
-      name: sanitizeText(m.name),
-      color: sanitizeColor(m.color)
+    members = d.members.slice(0, MAX_MEMBERS).map(m=>({
+      id: sanitizeIntId(m && m.id),
+      name: sanitizeText(m && m.name),
+      color: sanitizeColor(m && m.color)
     }));
-    payments = (d.payments||[]).map(p=>({
-      id: parseInt(p.id)||0,
-      payerId: parseInt(p.payerId)||0,
-      participantIds: (p.participantIds||[]).map(Number),
-      label: sanitizeText(p.label),
-      amount: Math.max(0, parseFloat(p.amount)||0),
-      ratios: Object.fromEntries(Object.entries(p.ratios||{}).map(([k,v])=>[parseInt(k), Math.max(0,parseFloat(v)||0)]))
+    const rawPayments = Array.isArray(d.payments) ? d.payments : [];
+    payments = rawPayments.slice(0, MAX_PAYMENTS).map(p=>({
+      id: sanitizeIntId(p && p.id),
+      payerId: sanitizeIntId(p && p.payerId),
+      participantIds: (Array.isArray(p && p.participantIds) ? p.participantIds : [])
+        .slice(0, MAX_PARTICIPANTS_PER_PAYMENT)
+        .map(sanitizeIntId),
+      label: sanitizeText(p && p.label),
+      amount: sanitizeAmount(p && p.amount),
+      ratios: Object.fromEntries(
+        Object.entries((p && p.ratios) || {})
+          .slice(0, MAX_PARTICIPANTS_PER_PAYMENT)
+          .map(([k,v])=>[sanitizeIntId(k), sanitizeAmount(v)])
+      )
     }));
-    const rawCL = d.colorLabels||{};
+    const rawCL = (d.colorLabels && typeof d.colorLabels==='object') ? d.colorLabels : {};
     colorLabels = Object.fromEntries(
       Object.entries(rawCL)
         .filter(([k])=>isValidColor(k))
+        .slice(0, 50)
         .map(([k,v])=>[k, sanitizeText(v)])
     );
-    mId = Math.max(0, ...members.map(m=>m.id), parseInt(d.mId)||0);
-    pId = Math.max(0, ...payments.map(p=>p.id), parseInt(d.pId)||0);
+    mId = Math.max(0, ...members.map(m=>m.id), sanitizeIntId(d.mId));
+    pId = Math.max(0, ...payments.map(p=>p.id), sanitizeIntId(d.pId));
     return true;
   }catch(e){ return false; }
 }
@@ -101,10 +124,12 @@ function startApp(){
 (function init(){
   // Check for shared link
   const hash = location.hash;
-  if(hash.startsWith('#d=')){
+  if(hash.startsWith('#d=') && hash.length <= MAX_SHARED_HASH_LEN){
     try{
       const dec = JSON.parse(decodeURIComponent(atob(hash.slice(3))));
-      loadShared(dec); return;
+      if(dec && typeof dec === 'object'){
+        loadShared(dec); return;
+      }
     }catch(e){ /* fall through */ }
   }
   // Check for session data (tab refresh)
@@ -132,30 +157,40 @@ function renderPaymentList_delayed(){
 function loadShared(d){
   isSharedView = true;
   groupName = sanitizeText(d.g||'');
-  const rawCL = d.cl||{};
+  const rawCL = (d.cl && typeof d.cl==='object') ? d.cl : {};
   colorLabels = Object.fromEntries(
     Object.entries(rawCL)
       .filter(([k])=>isValidColor(k))
+      .slice(0, 50)
       .map(([k,v])=>[k, sanitizeText(v)])
   );
-  members = (d.m||[]).map(m=>({
-    id: parseInt(m[0])||0,
-    name: sanitizeText(m[1]),
-    color: sanitizeColor(m[2])
+  const rawMembers = Array.isArray(d.m) ? d.m : [];
+  members = rawMembers.slice(0, MAX_MEMBERS).map(m=>({
+    id: sanitizeIntId(Array.isArray(m) ? m[0] : 0),
+    name: sanitizeText(Array.isArray(m) ? m[1] : ''),
+    color: sanitizeColor(Array.isArray(m) ? m[2] : null)
   }));
-  payments = (d.p||[]).map(p=>({
-    id: parseInt(p[0])||0,
-    payerId: parseInt(p[1])||0,
-    participantIds: (p[2]||[]).map(Number),
-    label: sanitizeText(p[3]),
-    amount: Math.max(0, parseFloat(p[4])||0),
-    ratios: Object.fromEntries(Object.entries(p[5]||{}).map(([k,v])=>[parseInt(k), Math.max(0,parseFloat(v)||0)]))
+  const rawPayments = Array.isArray(d.p) ? d.p : [];
+  payments = rawPayments.slice(0, MAX_PAYMENTS).map(p=>({
+    id: sanitizeIntId(Array.isArray(p) ? p[0] : 0),
+    payerId: sanitizeIntId(Array.isArray(p) ? p[1] : 0),
+    participantIds: (Array.isArray(p) && Array.isArray(p[2]) ? p[2] : [])
+      .slice(0, MAX_PARTICIPANTS_PER_PAYMENT)
+      .map(sanitizeIntId),
+    label: sanitizeText(Array.isArray(p) ? p[3] : ''),
+    amount: sanitizeAmount(Array.isArray(p) ? p[4] : 0),
+    ratios: Object.fromEntries(
+      Object.entries((Array.isArray(p) && p[5] && typeof p[5]==='object') ? p[5] : {})
+        .slice(0, MAX_PARTICIPANTS_PER_PAYMENT)
+        .map(([k,v])=>[sanitizeIntId(k), sanitizeAmount(v)])
+    )
   }));
-  settlements = (d.s||[]).map(s=>({
-    id: parseInt(s[0])||0,
-    fromId: parseInt(s[1])||0,
-    toId: parseInt(s[2])||0,
-    amount: Math.max(0, parseInt(s[3])||0),
+  const rawSettlements = Array.isArray(d.s) ? d.s : [];
+  settlements = rawSettlements.slice(0, MAX_SETTLEMENTS).map(s=>({
+    id: sanitizeIntId(Array.isArray(s) ? s[0] : 0),
+    fromId: sanitizeIntId(Array.isArray(s) ? s[1] : 0),
+    toId: sanitizeIntId(Array.isArray(s) ? s[2] : 0),
+    amount: sanitizeAmount(Array.isArray(s) ? s[3] : 0),
     settled: false
   }));
   mId = Math.max(0,...members.map(m=>m.id));
@@ -433,8 +468,8 @@ function showCopyTextModal(txt){
   el.onclick=e=>{if(e.target===el)el.remove();};
   el.innerHTML=`<div class="modal-sheet">
     <div class="modal-ttl" style="text-align:center;margin-bottom:12px">テキストをコピー</div>
-    <textarea style="width:100%;height:160px;padding:10px;border:1.5px solid var(--border);border-radius:var(--r-md);font-size:13px;resize:none;background:var(--bg)"
-      readonly onclick="this.select()">${txt}</textarea>
+    <textarea id="copy-text-area" style="width:100%;height:160px;padding:10px;border:1.5px solid var(--border);border-radius:var(--r-md);font-size:13px;resize:none;background:var(--bg)"
+      readonly onclick="this.select()"></textarea>
     <div style="font-size:12px;color:var(--muted);text-align:center;margin:8px 0 16px">テキストを長押し→全選択→コピーしてください</div>
     <button onclick="this.closest('.modal-bg').remove()"
       style="display:block;width:100%;padding:14px;border-radius:var(--r-full);background:var(--green);color:#fff;font-weight:800;font-size:15px">
@@ -442,6 +477,9 @@ function showCopyTextModal(txt){
     </button>
   </div>`;
   document.body.appendChild(el);
+  // Set textarea content via DOM property to avoid HTML injection (e.g. </textarea> in user input)
+  const ta=el.querySelector('#copy-text-area');
+  if(ta) ta.value=String(txt==null?'':txt);
 }
 function showCopyDoneModal(){
   const existing=document.getElementById('copy-done-modal');if(existing)existing.remove();
