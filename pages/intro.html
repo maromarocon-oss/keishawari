@@ -55,21 +55,27 @@
           <div class="intro-step-num">1</div>
           <div class="intro-step-ttl">グループ設定</div>
         </div>
-        <ul class="intro-step-list">
-          <li>精算したいグループ（例：飲み会等）を作成</li>
-          <li>グループのメンバーを全員分登録</li>
-        </ul>
-        <div class="intro-mock">
-          <div class="intro-mini-ttl">グループ名</div>
-          <div class="intro-mini-card">
-            <div class="intro-mini-input full">花見会2026</div>
+
+        <div class="intro-substep">
+          <div class="intro-substep-ttl">精算したいグループ（例：飲み会等）を作成</div>
+          <div class="intro-mock">
+            <div class="intro-mini-ttl">グループ名</div>
+            <div class="intro-mini-card">
+              <div class="intro-mini-input full">花見会2026</div>
+            </div>
           </div>
-          <div class="intro-mini-ttl">参加メンバー <span class="intro-mini-faint">2人以上</span></div>
-          <div class="intro-mini-card">
-            <div class="intro-mock-member"><div class="intro-mock-av" style="background:#E8453C">太</div>太郎</div>
-            <div class="intro-mock-member"><div class="intro-mock-av" style="background:#3B82F6">花</div>花子</div>
-            <div class="intro-mock-member"><div class="intro-mock-av" style="background:#F5C400">次</div>次郎</div>
-            <div style="margin-top:5px;text-align:center;font-size:10px;font-weight:700;color:var(--green);border:1.5px dashed var(--border);border-radius:7px;padding:5px">＋ メンバーを追加</div>
+        </div>
+
+        <div class="intro-substep">
+          <div class="intro-substep-ttl">グループのメンバーを全員分登録</div>
+          <div class="intro-mock">
+            <div class="intro-mini-ttl">参加メンバー <span class="intro-mini-faint">2人以上</span></div>
+            <div class="intro-mini-card">
+              <div class="intro-mock-member"><div class="intro-mock-av" style="background:#E8453C">太</div>太郎</div>
+              <div class="intro-mock-member"><div class="intro-mock-av" style="background:#3B82F6">花</div>花子</div>
+              <div class="intro-mock-member"><div class="intro-mock-av" style="background:#F5C400">次</div>次郎</div>
+              <div style="margin-top:5px;text-align:center;font-size:10px;font-weight:700;color:var(--green);border:1.5px dashed var(--border);border-radius:7px;padding:5px">＋ メンバーを追加</div>
+            </div>
           </div>
         </div>
       </div>
@@ -82,7 +88,7 @@
         </div>
 
         <div class="intro-substep">
-          <div class="intro-substep-ttl">精算したい支払の名称／金額を入力</div>
+          <div class="intro-substep-ttl">精算したい支払の名称/金額を入力</div>
           <div class="intro-mock">
             <div class="intro-mini-ttl">合計金額を入力</div>
             <div class="intro-mini-card">
@@ -110,7 +116,7 @@
         </div>
 
         <div class="intro-substep">
-          <div class="intro-substep-ttl">支払の精算対象の参加者を選択（タップで選択・解除）</div>
+          <div class="intro-substep-ttl">支払の精算対象の参加者を選択(タップで選択・解除)</div>
           <div class="intro-mock">
             <div class="intro-mini-ttl">参加者（タップで選択・解除）</div>
             <div class="intro-mini-card">
@@ -125,7 +131,7 @@
         </div>
 
         <div class="intro-substep">
-          <div class="intro-substep-ttl">均等／傾斜の入力方法を選択</div>
+          <div class="intro-substep-ttl">参加者全員で均等額で割り勘する場合は、「均等入力」を選択。参加者間で傾斜をつけたい場合は、「傾斜入力」を選択</div>
           <div class="intro-mock">
             <div class="intro-mini-ttl">割り勘方法の選択</div>
             <div class="intro-mini-card">
@@ -133,21 +139,20 @@
                 <span class="intro-mini-tab on">均等入力</span>
                 <span class="intro-mini-tab">傾斜入力</span>
               </div>
-              <div class="intro-mini-hint" style="margin-top:7px">参加者全員で均等額の場合は<strong>「均等入力」</strong>を選択。参加者間で傾斜をつけたい場合は<strong>「傾斜入力」</strong>を選択。</div>
             </div>
           </div>
         </div>
 
         <div class="intro-substep">
-          <div class="intro-substep-ttl">（傾斜割の場合）参加者をグルーピング</div>
+          <div class="intro-substep-ttl">傾斜割の場合：同じ傾斜金額にしたい参加者ごとにグルーピング（例：先輩→赤、後輩→青）</div>
           <div class="intro-mock">
             <div class="intro-mini-ttl">参加者のグループ設定</div>
             <div class="intro-mini-card">
-              <div class="intro-mini-faint" style="margin-bottom:6px">同じ傾斜金額にしたい参加者ごとにグルーピング（例：先輩→赤、後輩→青）</div>
               <div class="intro-mini-color-row">
                 <div class="intro-mock-av" style="background:#E8453C">太</div>
                 <span style="font-weight:700;font-size:11px">太郎</span>
                 <span class="intro-mini-color-dots">
+                  <span class="intro-mini-cdot" style="background:#fff;border:1.2px solid var(--border);position:relative"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:9px;font-weight:900">×</span></span>
                   <span class="intro-mini-cdot sel" style="background:#E8453C"></span>
                   <span class="intro-mini-cdot" style="background:#3B82F6"></span>
                   <span class="intro-mini-cdot" style="background:#F5C400"></span>
@@ -157,6 +162,7 @@
                 <div class="intro-mock-av" style="background:#E8453C">花</div>
                 <span style="font-weight:700;font-size:11px">花子</span>
                 <span class="intro-mini-color-dots">
+                  <span class="intro-mini-cdot" style="background:#fff;border:1.2px solid var(--border);position:relative"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:9px;font-weight:900">×</span></span>
                   <span class="intro-mini-cdot sel" style="background:#E8453C"></span>
                   <span class="intro-mini-cdot" style="background:#3B82F6"></span>
                   <span class="intro-mini-cdot" style="background:#F5C400"></span>
@@ -166,6 +172,7 @@
                 <div class="intro-mock-av" style="background:#3B82F6">次</div>
                 <span style="font-weight:700;font-size:11px">次郎</span>
                 <span class="intro-mini-color-dots">
+                  <span class="intro-mini-cdot" style="background:#fff;border:1.2px solid var(--border);position:relative"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:9px;font-weight:900">×</span></span>
                   <span class="intro-mini-cdot" style="background:#E8453C"></span>
                   <span class="intro-mini-cdot sel" style="background:#3B82F6"></span>
                   <span class="intro-mini-cdot" style="background:#F5C400"></span>
@@ -175,6 +182,7 @@
                 <div class="intro-mock-av" style="background:#3B82F6">三</div>
                 <span style="font-weight:700;font-size:11px">三郎</span>
                 <span class="intro-mini-color-dots">
+                  <span class="intro-mini-cdot" style="background:#fff;border:1.2px solid var(--border);position:relative"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:9px;font-weight:900">×</span></span>
                   <span class="intro-mini-cdot" style="background:#E8453C"></span>
                   <span class="intro-mini-cdot sel" style="background:#3B82F6"></span>
                   <span class="intro-mini-cdot" style="background:#F5C400"></span>
@@ -185,11 +193,10 @@
         </div>
 
         <div class="intro-substep">
-          <div class="intro-substep-ttl">（傾斜割の場合）グループ別に傾斜金額を設定</div>
+          <div class="intro-substep-ttl">傾斜割の場合：グループ別に、傾斜金額を設定。グループごとに傾斜金額を入力。調整ボタンを押して、金額を調整。鍵ボタンを押せば、調整したくない傾斜金額を固定可能</div>
           <div class="intro-mock">
             <div class="intro-mini-ttl">グループ別の負担額設定</div>
             <div class="intro-mini-card">
-              <div class="intro-mini-faint" style="margin-bottom:6px">調整ボタンで自動均等配分・鍵ボタンで固定可能</div>
               <div style="display:flex;gap:5px;margin-bottom:6px">
                 <div class="intro-mini-grp-card" style="border-color:#E8453C">
                   <div class="intro-mini-grp-head">
@@ -198,6 +205,7 @@
                       <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
                     </span>
                   </div>
+                  <div style="font-size:8px;color:var(--muted);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">太郎・花子</div>
                   <div class="intro-mini-grp-stepper">
                     <span class="intro-mini-step-btn">−</span>
                     <div class="intro-mini-grp-amt" style="flex:1">¥4,000</div>
@@ -212,6 +220,7 @@
                       <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7-2"/></svg>
                     </span>
                   </div>
+                  <div style="font-size:8px;color:var(--muted);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">次郎・三郎</div>
                   <div class="intro-mini-grp-stepper">
                     <span class="intro-mini-step-btn">−</span>
                     <div class="intro-mini-grp-amt" style="flex:1">¥2,000</div>
@@ -220,17 +229,17 @@
                   <div class="intro-mini-grp-sub" style="text-align:center;margin-top:3px">小計 ¥4,000</div>
                 </div>
               </div>
-              <div class="intro-mini-match">支払合計 ¥12,000 と一致 ✓</div>
               <div class="intro-mini-adjust-btn">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 4 21 10 15 10"/></svg>
                 調整
               </div>
+              <div class="intro-mini-match" style="margin-top:6px">支払合計 ¥12,000 と一致 ✓</div>
             </div>
           </div>
         </div>
 
         <div class="intro-substep">
-          <div class="intro-substep-ttl">支払登録をすれば完了！同じグループで何件でも登録可能</div>
+          <div class="intro-substep-ttl">支払登録をすれば完了！同一グループ内で、複数の精算がある場合も、何件でも登録可能</div>
           <div class="intro-mock">
             <div class="intro-mini-reg-btn">支払登録をする</div>
             <div class="intro-mini-ttl" style="margin-top:9px">登録済みの支払</div>
