@@ -4,7 +4,7 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://*.googlesyndication.com; font-src 'self' https://*.gstatic.com; script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; connect-src 'self' https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; img-src 'self' data: https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; frame-src https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; worker-src 'none'; manifest-src 'self'; media-src 'none'; upgrade-insecure-requests"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
