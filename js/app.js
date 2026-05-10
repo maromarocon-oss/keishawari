@@ -32,6 +32,21 @@ const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
 const fmt = n => '¥'+Math.round(n).toLocaleString('ja-JP');
 const ini = s => (s||'?').trim()[0]||'?';
 
+function scrollToTop(){
+  try{ window.scrollTo({top:0,left:0,behavior:'instant'}); }
+  catch(e){ try{ window.scrollTo(0,0); }catch(_){} }
+  if(document.documentElement) document.documentElement.scrollTop=0;
+  if(document.body) document.body.scrollTop=0;
+  if(typeof requestAnimationFrame==='function'){
+    requestAnimationFrame(()=>{
+      try{ window.scrollTo({top:0,left:0,behavior:'instant'}); }
+      catch(e){ try{ window.scrollTo(0,0); }catch(_){} }
+      if(document.documentElement) document.documentElement.scrollTop=0;
+      if(document.body) document.body.scrollTop=0;
+    });
+  }
+}
+
 /* ══════════════════════
    STATE
 ══════════════════════ */
@@ -118,7 +133,7 @@ function startApp(){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
   const el=document.getElementById('s1');
   el.style.display='flex';el.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
 }
 
 (function init(){
@@ -137,7 +152,7 @@ function startApp(){
     document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
     const s1=document.getElementById('s1');
     s1.style.display='flex';s1.classList.add('active');
-    window.scrollTo({top:0,behavior:'instant'});
+    scrollToTop();
     document.getElementById('group-name').value=groupName;
     renderMembers();
     if(payments.length>0) renderPaymentList_delayed();
@@ -201,7 +216,7 @@ function loadShared(d){
   document.querySelectorAll('.screen').forEach(s=>{s.style.display='none';s.classList.remove('active');});
   const s3 = document.getElementById('s3');
   s3.style.display='flex'; s3.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
   document.getElementById('s3-back-btn').style.display='none';
   document.getElementById('s3-steps').style.display='none';
   document.getElementById('reset-lnk').style.display='none';
@@ -311,7 +326,7 @@ function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
   const el=document.getElementById(id);
   el.style.display='flex';el.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
   if(id==='s2'){document.getElementById('post-register-choice')?.remove();selParts=new Set(members.map(m=>m.id));colorRatios={};colorAmounts={};lockedGroups=new Set();lastEditedGroup=null;renderForm();renderPaymentList();}
 }
 function goBackToSetup(){
@@ -360,7 +375,7 @@ function goBack(id){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
   const el=document.getElementById(id);
   el.style.display='flex';el.classList.add('back');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
   if(id==='s2'){document.getElementById('post-register-choice')?.remove();renderForm();renderPaymentList();}
 }
 function goToResults(){
@@ -369,7 +384,7 @@ function goToResults(){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
   const el=document.getElementById('s3');
   el.style.display='flex';el.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
   document.getElementById('s3-title').textContent=groupName+'の精算結果';
   renderResults();
 }
@@ -1110,7 +1125,7 @@ function showPostRegisterChoice(){
 function dismissPostRegisterChoice(){
   const el=document.getElementById('post-register-choice');
   if(el) el.remove();
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
 }
 
 /* ポップアップアラート（alert()の代替） */
@@ -1522,13 +1537,13 @@ function showPrivacyPage(){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
   const el=document.getElementById('s_privacy');
   el.style.display='flex';el.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
 }
 function goBackFromPrivacy(){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
   const el=document.getElementById(_privacyReturnId||'s0');
   el.style.display='flex';el.classList.add('back');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
 }
 // Backward-compat: any old showPrivacyModal call routes to the page
 function showPrivacyModal(){ showPrivacyPage(); }
@@ -1541,7 +1556,7 @@ function showFeedbackPage(){
   const el=document.getElementById('s_feedback');
   if(!el) return;
   el.style.display='flex';el.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
   // Reset feedback form state when entering page
   fbReset();
   const t=document.getElementById('fb-type');if(t)t.value='';
@@ -1551,7 +1566,7 @@ function goBackFromFeedback(){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active','back');s.style.display='none';});
   const el=document.getElementById(_feedbackReturnId||'s3');
   el.style.display='flex';el.classList.add('back');
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
 }
 
 function toggleSettle(id){
