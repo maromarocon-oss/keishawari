@@ -3,13 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-<title>けいしゃ割 — 飲み会の傾斜・割り勘計算</title>
-<meta name="description" content="傾斜も割り勘も、丸投げでラク。飲み会の支払計算をかんたん精算。">
+<title>けいしゃ割 — 飲み会の傾斜割り勘・割り勘計算ツール（無料・登録不要）</title>
+<meta name="description" content="けいしゃ割は、飲み会・歓送迎会・接待などの「傾斜割り勘」と「均等割り勘」を、無料・登録不要で一瞬で計算できるWebツールです。先輩・後輩の負担差、誰が誰にいくら払うかの精算フロー、LINE共有・PayPay連携にも対応。">
+<meta name="keywords" content="傾斜割り勘,割り勘,飲み会,精算,計算,幹事,PayPay,LINE,均等割り勘,歓送迎会">
 <meta name="theme-color" content="#2A9055">
-<meta property="og:title" content="けいしゃ割">
-<meta property="og:description" content="傾斜も割り勘も、丸投げでラク。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://keishawari.com/">
+<meta property="og:title" content="けいしゃ割 — 飲み会の傾斜・割り勘計算ツール">
+<meta property="og:description" content="傾斜も均等も、幹事の精算をラクに。無料・登録不要で使える割り勘計算ツール。">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://keishawari.com/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍻</text></svg>">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,12 +23,129 @@
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/static.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "けいしゃ割",
+  "url": "https://keishawari.com/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "description": "飲み会の傾斜割り勘・均等割り勘を無料・登録不要で計算できるWebツール。",
+  "inLanguage": "ja",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "けいしゃ割 運営",
+    "email": "keishawari.tool@gmail.com"
+  }
+}
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8221892297793236"
      crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="page-root"></div>
-<noscript>このアプリを利用するにはJavaScriptを有効にしてください。</noscript>
+<div id="page-root">
+  <!-- crawler-visible fallback content (replaced by SPA on JS load) -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="site-logo" href="/"><span class="site-logo-icon">🍻</span>けいしゃ割</a>
+      <nav class="site-nav" aria-label="サイトナビゲーション">
+        <a href="/guide.html">使い方ガイド</a>
+        <a href="/about.html">運営者情報</a>
+        <a href="/contact.html">お問い合わせ</a>
+        <a href="/privacy.html">プライバシー</a>
+        <a href="/terms.html">利用規約</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="static-main">
+    <h1>けいしゃ割 — 飲み会の「傾斜割り勘」も「均等割り勘」も瞬時に計算</h1>
+    <p class="lead">幹事を任されたあなたへ。先輩・後輩・主賓で負担額を変える「傾斜割り勘」も、誰が誰にいくら払うかの精算フローも、無料・登録不要・端末完結で一瞬で計算できます。</p>
+
+    <div class="card">
+      <p><strong>「けいしゃ割」</strong>は、飲み会・歓送迎会・接待・忘年会など、参加者の立場に応じて負担額を変えたい場面のための割り勘計算ツールです。ブラウザだけで動作し、入力データはお使いの端末から外部に送信されません。</p>
+      <p><a class="cta" href="/guide.html">使い方ガイドを読む →</a></p>
+    </div>
+
+    <h2>こんな悩みを、けいしゃ割が解決します</h2>
+    <ul>
+      <li>「先輩が多めに、後輩は少なめに」を、暗算ではなく正確に計算したい</li>
+      <li>合計金額に小銭まできっちり合わせたい（端数調整に時間がかかる）</li>
+      <li>支払が複数件あり、立替者もバラバラで集計が面倒</li>
+      <li>誰が誰にいくら払えば全員精算できるかを、すぐ共有したい</li>
+      <li>LINE で送りやすい形式の精算結果がほしい</li>
+      <li>個人情報を入力したくない／会員登録もしたくない</li>
+    </ul>
+
+    <h2>けいしゃ割の主な特徴</h2>
+    <h3>1. 均等割り勘 と 傾斜割り勘 の両方に対応</h3>
+    <p>1件ごとに「均等」「傾斜」を切り替えられます。傾斜割り勘では、参加者を色（グループ）で分類し、グループごとの負担額を設定。合計金額に自動でフィットさせる「調整」ボタンと、特定グループの金額を変えたくないときの「固定（ロック）」機能も搭載しています。</p>
+
+    <h3>2. 立替者と参加者を支払ごとに指定</h3>
+    <p>「タクシー代は太郎が立替・3人で割り勘」「二次会は花子が立替・全員で割り勘」など、支払ごとに立替者と精算対象を別々に登録できます。</p>
+
+    <h3>3. 誰が誰にいくら払うかの「精算フロー」を自動生成</h3>
+    <p>全員の貸し借りを集計し、送金回数が最小になるように精算フローを組み立てて表示します。LINE 共有用テキストのコピー、PayPay 起動（インストール済みの端末で送金画面へ遷移）にも対応しています。</p>
+
+    <h3>4. 登録不要・無料・データは端末内のみ</h3>
+    <p>会員登録・ログインは一切不要です。入力したグループ名・メンバー名・金額などのデータは、お使いのブラウザのセッションストレージ内でのみ処理され、外部サーバーへの送信や保存は行いません。タブを閉じればデータは消去されます。</p>
+
+    <h2>使い方は 3 ステップ</h2>
+    <ol>
+      <li><strong>グループ設定</strong>：飲み会の名前と、参加メンバー（2 人以上）を登録します。</li>
+      <li><strong>支払入力</strong>：支払名・合計金額・立替者・精算対象者を入力。均等 or 傾斜を選び、傾斜の場合はメンバーを色グループに分けてグループ別の負担額を入力します。</li>
+      <li><strong>精算結果</strong>：合計、個人別内訳、精算フロー（誰 → 誰、いくら）が自動で表示されます。コピー・LINE 共有・PayPay 起動が可能です。</li>
+    </ol>
+    <p>詳しい操作手順とコツは <a href="/guide.html">使い方ガイド</a> で解説しています。</p>
+
+    <h2>よくある質問（FAQ）</h2>
+    <h3>会員登録は必要ですか？</h3>
+    <p>不要です。メールアドレスや名前の登録なしで、すぐに計算を開始できます。</p>
+
+    <h3>料金はかかりますか？</h3>
+    <p>完全無料でご利用いただけます。広告（Google AdSense）の表示で運営しています。</p>
+
+    <h3>入力したデータはサーバーに保存されますか？</h3>
+    <p>いいえ。入力データはお使いのブラウザ内（セッションストレージ）でのみ処理され、外部に送信・保存されません。タブを閉じれば消去されます。詳しくは <a href="/privacy.html">プライバシーポリシー</a> をご覧ください。</p>
+
+    <h3>スマートフォンでも使えますか？</h3>
+    <p>はい。iOS / Android のモバイルブラウザに最適化されています。デスクトップブラウザでも問題なく動作します。</p>
+
+    <h3>傾斜割り勘の比率はどう決めればよいですか？</h3>
+    <p>明確な決まりはありませんが、目安は <a href="/guide.html">使い方ガイド</a> の「傾斜の比率の決め方」を参考にしてください。一般的には主賓・先輩を多めに、後輩・新人を少なめにします。</p>
+
+    <h2>ご利用にあたって</h2>
+    <p>本サービスは、計算結果の正確性に最善を尽くしていますが、結果はあくまで参考値です。実際の精算は、参加者間で合意のうえ行ってください。詳細は <a href="/terms.html">利用規約</a> をご確認ください。</p>
+    <p>本ページは JavaScript が有効な環境でアプリ画面に切り替わります。読み込みが完了しない場合は、ブラウザの JavaScript 設定をご確認のうえ再読み込みしてください。</p>
+
+    <p style="text-align:center;margin-top:28px">
+      <a class="cta" href="/">アプリを開く（JavaScript 有効時のみ） →</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <nav class="site-footer-nav" aria-label="フッターナビゲーション">
+        <a href="/">ホーム</a>
+        <a href="/guide.html">使い方ガイド</a>
+        <a href="/about.html">運営者情報</a>
+        <a href="/contact.html">お問い合わせ</a>
+        <a href="/privacy.html">プライバシーポリシー</a>
+        <a href="/terms.html">利用規約</a>
+      </nav>
+      <div class="site-footer-copy">© けいしゃ割 運営</div>
+    </div>
+  </footer>
+</div>
+<noscript>
+  <div style="background:#FFF7E6;border:1px solid #F0C674;color:#8A5A00;padding:12px 16px;text-align:center;font-size:14px">
+    JavaScript を有効にすると、ブラウザ上で割り勘計算アプリをご利用いただけます。<br>
+    JavaScript が無効でも、上記の解説・各種情報ページ（<a href="/about.html">運営者情報</a>・<a href="/privacy.html">プライバシー</a>・<a href="/terms.html">利用規約</a>・<a href="/contact.html">お問い合わせ</a>）はご覧いただけます。
+  </div>
+</noscript>
 <script src="./js/loader.js" defer></script>
 </body>
 </html>

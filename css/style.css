@@ -378,6 +378,10 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .intro-mock-section{margin-bottom:7px}
 .intro-mock-section:last-child{margin-bottom:0}
 .intro-cta-note{font-size:13px;font-weight:700;color:var(--muted);text-align:center;margin-bottom:8px;letter-spacing:-.01em}
+.intro-legal-nav{margin:24px auto 8px;padding:16px 12px 4px;display:flex;flex-wrap:wrap;gap:6px 4px;justify-content:center;align-items:center;border-top:1px dashed var(--border)}
+.intro-legal-nav a{font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;padding:4px 6px}
+.intro-legal-nav a:hover{color:var(--green)}
+.intro-legal-sep{font-size:11px;color:var(--faint)}
 /* ── INTRO MINI UI (realistic miniature of the real screens) ── */
 .intro-mini-ttl{font-size:13px;font-weight:900;letter-spacing:-.01em;margin-bottom:5px;color:var(--text)}
 .intro-mini-card{background:#fff;border:1.5px solid var(--border);border-radius:9px;padding:9px 10px;margin-bottom:7px;box-shadow:var(--sh-sm)}
