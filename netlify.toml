@@ -1,6 +1,32 @@
 [build]
   publish = "."
 
+# clean URLs: /privacy → /privacy.html, etc.
+[[redirects]]
+  from = "/privacy"
+  to   = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to   = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to   = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to   = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide"
+  to   = "/guide.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]

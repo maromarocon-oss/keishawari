@@ -1,0 +1,67 @@
+/* ── shared styles for static (crawler-visible) pages ── */
+:root{
+  --green:#2A9055;--green-lt:#E6F6EE;--green-dk:#1F7040;
+  --bg:#F4FCF7;--card:#FFF;--border:#D4EDDB;
+  --text:#2D2218;--muted:#9A8880;--faint:#C8BEB9;
+  --r-md:14px;--r-full:9999px;
+  --sh-sm:0 2px 8px rgba(45,34,24,.07);
+  --font:'Hiragino Sans','Hiragino Kaku Gothic ProN','BIZ UDPGothic','Yu Gothic','Meiryo',system-ui,-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;-webkit-font-smoothing:antialiased}
+body{min-height:100dvh;font-family:var(--font);font-size:16px;line-height:1.8;color:var(--text);background:var(--bg);overflow-x:hidden}
+a{color:var(--green);text-decoration:underline;text-underline-offset:2px}
+a:hover{color:var(--green-dk)}
+
+/* site header (top navigation) */
+.site-header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1.5px solid var(--border);padding:12px 16px}
+.site-header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:880px;margin:0 auto}
+.site-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--green);font-weight:900;font-size:18px;letter-spacing:-.02em}
+.site-logo:hover{color:var(--green-dk)}
+.site-logo-icon{font-size:22px}
+.site-nav{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.site-nav a{font-size:13px;font-weight:700;color:var(--muted);text-decoration:none;padding:6px 4px}
+.site-nav a:hover,.site-nav a[aria-current=page]{color:var(--green)}
+
+/* main content container */
+.static-main{max-width:720px;margin:0 auto;padding:28px 20px 60px}
+.static-main h1{font-size:26px;font-weight:900;color:var(--green-dk);letter-spacing:-.02em;line-height:1.4;margin-bottom:8px}
+.static-main .lead{color:var(--muted);font-size:14px;margin-bottom:24px}
+.static-main h2{font-size:19px;font-weight:800;color:var(--text);margin:32px 0 10px;padding-bottom:6px;border-bottom:1.5px solid var(--border)}
+.static-main h3{font-size:16px;font-weight:800;color:var(--green-dk);margin:22px 0 8px}
+.static-main p{margin-bottom:14px}
+.static-main ul,.static-main ol{margin:8px 0 16px 22px}
+.static-main li{margin-bottom:6px}
+.static-main .meta{font-size:13px;color:var(--muted);margin-top:32px;padding-top:16px;border-top:1px dashed var(--border)}
+.static-main .card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r-md);padding:18px;margin:16px 0;box-shadow:var(--sh-sm)}
+.static-main .cta{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--green);color:#fff;border-radius:var(--r-full);font-weight:700;text-decoration:none;margin-top:8px}
+.static-main .cta:hover{background:var(--green-dk);color:#fff}
+.static-main table{width:100%;border-collapse:collapse;margin:12px 0 18px;font-size:14px}
+.static-main th,.static-main td{padding:8px 10px;border:1px solid var(--border);text-align:left;vertical-align:top}
+.static-main th{background:var(--green-lt);font-weight:700;color:var(--green-dk)}
+
+/* site footer */
+.site-footer{background:#fff;border-top:1.5px solid var(--border);padding:24px 16px;margin-top:40px}
+.site-footer-inner{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.site-footer-nav{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center}
+.site-footer-nav a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}
+.site-footer-nav a:hover{color:var(--green)}
+.site-footer-copy{font-size:12px;color:var(--faint)}
+
+/* contact form (mailto-based) */
+.contact-form label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:12px 0 6px}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--r-md);font-family:inherit;font-size:15px;background:#fff;color:var(--text)}
+.contact-form textarea{min-height:140px;resize:vertical;line-height:1.6}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(42,144,85,.12)}
+.contact-form .submit{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:13px 26px;background:var(--green);color:#fff;border:none;border-radius:var(--r-full);font-weight:700;font-size:15px;cursor:pointer}
+.contact-form .submit:hover{background:var(--green-dk)}
+.contact-form .note{font-size:12px;color:var(--faint);margin-top:10px;line-height:1.7}
+
+/* small screen tweaks */
+@media (max-width:600px){
+  .static-main{padding:20px 16px 48px}
+  .static-main h1{font-size:22px}
+  .static-main h2{font-size:17px}
+  .site-nav{gap:10px}
+  .site-nav a{font-size:12px}
+}

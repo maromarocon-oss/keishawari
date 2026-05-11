@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>お問い合わせ｜けいしゃ割</title>
+<meta name="description" content="けいしゃ割（飲み会の傾斜割り勘・割り勘計算ツール）へのお問い合わせ・不具合報告・ご意見はこちらから。">
+<meta name="theme-color" content="#2A9055">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://keishawari.com/contact.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍻</text></svg>">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://*.googlesyndication.com; font-src 'self' https://*.gstatic.com; script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; connect-src 'self' https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; img-src 'self' data: https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; frame-src https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; worker-src 'none'; manifest-src 'self'; media-src 'none'; upgrade-insecure-requests;">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="stylesheet" href="./css/static.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8221892297793236"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-logo" href="/"><span class="site-logo-icon">🍻</span>けいしゃ割</a>
+    <nav class="site-nav" aria-label="サイトナビゲーション">
+      <a href="/guide.html">使い方ガイド</a>
+      <a href="/about.html">運営者情報</a>
+      <a href="/contact.html" aria-current="page">お問い合わせ</a>
+      <a href="/privacy.html">プライバシー</a>
+      <a href="/terms.html">利用規約</a>
+    </nav>
+  </div>
+</header>
+
+<main class="static-main">
+  <h1>お問い合わせ</h1>
+  <p class="lead">けいしゃ割に関する不具合報告・ご意見・ご要望・取材・お仕事のご相談は、以下のいずれかの方法でご連絡ください。</p>
+
+  <h2>連絡先</h2>
+  <div class="card">
+    <p><strong>メールアドレス</strong></p>
+    <p><a href="mailto:keishawari.tool@gmail.com">keishawari.tool@gmail.com</a></p>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px">原則として土日祝日を除き、3 営業日以内に返信します（内容によりお時間をいただく場合があります）。</p>
+  </div>
+
+  <h2>お問い合わせフォーム</h2>
+  <p>下記フォームに必要事項を入力し、「メールアプリで送信」ボタンを押すと、お使いのメールアプリが起動して送信内容が下書きされます。送信前に内容をご確認のうえ、送信をお願いします。</p>
+
+  <form class="contact-form card" onsubmit="return submitContact(event)">
+    <label for="c-type">お問い合わせ種別 <span style="color:#E8453C">*</span></label>
+    <select id="c-type" required>
+      <option value="">選択してください</option>
+      <option value="bug">不具合・バグ報告</option>
+      <option value="request">ご意見・ご要望</option>
+      <option value="business">取材・お仕事のご相談</option>
+      <option value="privacy">個人情報・プライバシーに関するお問い合わせ</option>
+      <option value="other">その他</option>
+    </select>
+
+    <label for="c-name">お名前（ハンドル名可）</label>
+    <input id="c-name" type="text" maxlength="60" autocomplete="name">
+
+    <label for="c-email">返信用メールアドレス（任意）</label>
+    <input id="c-email" type="email" maxlength="120" autocomplete="email" placeholder="返信が必要な場合のみ">
+
+    <label for="c-message">お問い合わせ内容 <span style="color:#E8453C">*</span></label>
+    <textarea id="c-message" required maxlength="2000" placeholder="できるだけ具体的にお書きください（再現手順・端末・ブラウザ名など）"></textarea>
+
+    <button type="submit" class="submit">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      メールアプリで送信
+    </button>
+    <p class="note">送信ボタンを押すと、お使いの端末のメールアプリが起動し、内容が下書きされます。送信内容がお使いのブラウザを離れて外部サーバーに送信されることはありません。氏名・連絡先など個人を特定する情報は、必要最小限の範囲でご入力ください。</p>
+  </form>
+
+  <h2>よくあるご質問</h2>
+  <h3>計算結果が合いません。どうすればよいですか？</h3>
+  <p>お手数ですが、「グループ名・人数・各支払の金額・傾斜の有無・期待値」を添えてお知らせください。再現できれば修正対応します。</p>
+
+  <h3>特定の支払を削除したい・後から修正したい</h3>
+  <p>登録済みの支払は、支払一覧の各カードから編集・削除できます。詳しくは <a href="/guide.html">使い方ガイド</a> をご参照ください。</p>
+
+  <h3>営業のご連絡について</h3>
+  <p>営業目的のご連絡は、原則として返信を控えさせていただきます。あらかじめご了承ください。</p>
+
+  <div class="meta">
+    最終更新日：2026 年 5 月
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <nav class="site-footer-nav" aria-label="フッターナビゲーション">
+      <a href="/">ホーム</a>
+      <a href="/guide.html">使い方ガイド</a>
+      <a href="/about.html">運営者情報</a>
+      <a href="/contact.html">お問い合わせ</a>
+      <a href="/privacy.html">プライバシーポリシー</a>
+      <a href="/terms.html">利用規約</a>
+    </nav>
+    <div class="site-footer-copy">© けいしゃ割 運営</div>
+  </div>
+</footer>
+<script>
+function submitContact(e){
+  e.preventDefault();
+  var t = document.getElementById('c-type');
+  var n = document.getElementById('c-name');
+  var em = document.getElementById('c-email');
+  var m = document.getElementById('c-message');
+  if(!t.value || !m.value.trim()){
+    alert('種別と内容は必須です。');
+    return false;
+  }
+  var typeLabel = t.options[t.selectedIndex].text;
+  var body =
+    '【お問い合わせ種別】\n' + typeLabel + '\n\n' +
+    '【お名前】\n' + (n.value || '（未入力）') + '\n\n' +
+    '【返信先】\n' + (em.value || '（未入力）') + '\n\n' +
+    '【内容】\n' + m.value + '\n';
+  var subject = '【けいしゃ割】お問い合わせ - ' + typeLabel;
+  var href = 'mailto:keishawari.tool@gmail.com?subject=' +
+    encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  window.location.href = href;
+  return false;
+}
+</script>
+</body>
+</html>
