@@ -3,17 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-<title>けいしゃ割 — 飲み会の傾斜割り勘・割り勘計算ツール（無料・登録不要）</title>
-<meta name="description" content="けいしゃ割は、飲み会・歓送迎会・接待などの「傾斜割り勘」と「均等割り勘」を、無料・登録不要で一瞬で計算できるWebツールです。先輩・後輩の負担差、誰が誰にいくら払うかの精算フロー、LINE共有・PayPay連携にも対応。">
-<meta name="keywords" content="傾斜割り勘,割り勘,飲み会,精算,計算,幹事,PayPay,LINE,均等割り勘,歓送迎会">
+<title>けいしゃ割｜飲み会の傾斜割り勘・割り勘計算・精算アプリ【無料・登録不要】</title>
+<meta name="description" content="けいしゃ割は、飲み会・歓送迎会・接待・忘年会・新年会の「傾斜割り勘」と「均等割り勘」、誰が誰にいくら払うかの精算フローまで、無料・登録不要・インストール不要で一瞬計算できる割り勘アプリ・割り勘計算ツール。幹事の会計・集金・精算の手間を最小化。LINE共有・PayPay送金連携にも対応。">
+<meta name="keywords" content="傾斜割り勘,傾斜,割り勘,割り勘計算,割り勘アプリ,割り勘ツール,飲み会,飲み会幹事,飲み会会計,飲み会精算,精算,精算アプリ,集金,会計,幹事,均等割り勘,歓送迎会,接待,忘年会,新年会,二次会,送別会,歓迎会,主賓,先輩,後輩,新人,上司,端数調整,送金,PayPay,LINE,キャッシュレス,無料,登録不要,インストール不要">
 <meta name="theme-color" content="#2A9055">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://keishawari.com/">
-<meta property="og:title" content="けいしゃ割 — 飲み会の傾斜・割り勘計算ツール">
-<meta property="og:description" content="傾斜も均等も、幹事の精算をラクに。無料・登録不要で使える割り勘計算ツール。">
+<meta property="og:title" content="けいしゃ割｜飲み会の傾斜割り勘・割り勘計算・精算アプリ">
+<meta property="og:description" content="傾斜も均等も、飲み会の幹事の精算をラクに。歓送迎会・接待・忘年会の割り勘・集金・送金まで、無料・登録不要で使える割り勘計算ツール。">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="けいしゃ割">
 <meta property="og:url" content="https://keishawari.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="けいしゃ割｜飲み会の傾斜割り勘・割り勘計算・精算アプリ">
+<meta name="twitter:description" content="傾斜も均等も、飲み会幹事の割り勘・精算を無料・登録不要で。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍻</text></svg>">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,17 +33,116 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "けいしゃ割",
+  "alternateName": ["飲み会 傾斜割り勘 計算ツール", "割り勘アプリ"],
   "url": "https://keishawari.com/",
   "applicationCategory": "FinanceApplication",
+  "applicationSubCategory": "割り勘計算・精算アプリ",
   "operatingSystem": "Web",
-  "description": "飲み会の傾斜割り勘・均等割り勘を無料・登録不要で計算できるWebツール。",
+  "browserRequirements": "Requires JavaScript",
+  "description": "飲み会・歓送迎会・接待・忘年会・新年会の傾斜割り勘・均等割り勘・精算フローを、無料・登録不要で計算できるWebアプリ。幹事の集金・送金（PayPay／LINE共有）まで完結。",
+  "keywords": "傾斜割り勘, 割り勘, 飲み会, 精算, 幹事, 歓送迎会, 接待, 忘年会, PayPay, LINE",
   "inLanguage": "ja",
+  "isAccessibleForFree": true,
   "offers": {"@type": "Offer", "price": "0", "priceCurrency": "JPY"},
   "publisher": {
     "@type": "Organization",
     "name": "けいしゃ割 運営",
-    "email": "keishawari.tool@gmail.com"
+    "email": "keishawari.tool@gmail.com",
+    "url": "https://keishawari.com/about.html"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "飲み会の傾斜割り勘はどうやって計算しますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "けいしゃ割では、参加者を色（グループ）で分け、グループごとの負担額を入力するだけで傾斜割り勘を自動計算します。合計金額に合わせる「調整」機能と、金額を変えたくないグループ用の「固定（ロック）」機能を備え、端数も自動で吸収します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "けいしゃ割の利用に会員登録は必要ですか？料金はかかりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "会員登録もインストールも不要で、完全無料でご利用いただけます。ブラウザを開けばすぐに飲み会の割り勘・精算計算を開始できます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "誰が誰にいくら払うかの精算は自動で計算できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。立替額と各人の負担額を集計し、送金回数が最小になるように精算フロー（誰→誰、いくら）を自動生成します。結果はLINE共有用テキストにコピーでき、PayPayの送金画面起動にも対応しています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "入力したデータはサーバーに保存されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いいえ。グループ名・メンバー名・金額などの入力データは、お使いのブラウザのセッションストレージ内でのみ処理され、外部サーバーへの送信や保存は行いません。タブを閉じればデータは消去されます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "傾斜割り勘の比率はどう決めればよいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "現場では「先輩＝後輩×2」のような2段階、または「上司・先輩・新人」の3段階がよく使われます。差は1.5〜3倍以内、端数は上の立場が吸収、会の前に概算を共有しておくとトラブルを防げます。詳しくは使い方ガイドの『傾斜の比率の決め方』を参照してください。"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "けいしゃ割で飲み会の傾斜割り勘・精算を行う方法",
+  "description": "飲み会の傾斜割り勘・均等割り勘の計算と、誰が誰にいくら払うかの精算フロー作成を、無料・登録不要で行う手順。",
+  "totalTime": "PT3M",
+  "supply": [
+    {"@type": "HowToSupply", "name": "飲み会の合計金額（レシート）"},
+    {"@type": "HowToSupply", "name": "参加メンバーの名前と立場（先輩・後輩など）"}
+  ],
+  "tool": [
+    {"@type": "HowToTool", "name": "けいしゃ割（Webブラウザ）"}
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "グループ設定",
+      "text": "飲み会の名前と、参加メンバー（2人以上）を登録します。"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "支払入力",
+      "text": "支払名・合計金額・立替者・精算対象者を入力。均等または傾斜を選び、傾斜の場合は色グループごとの負担額を設定します。"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "精算結果の共有",
+      "text": "合計・個人別内訳・精算フロー（誰→誰、いくら）が自動表示されます。LINE共有・PayPay起動でその場で精算完了。"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://keishawari.com/"}
+  ]
 }
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8221892297793236"
@@ -66,9 +169,19 @@
     <p class="lead">幹事を任されたあなたへ。先輩・後輩・主賓で負担額を変える「傾斜割り勘」も、誰が誰にいくら払うかの精算フローも、無料・登録不要・端末完結で一瞬で計算できます。</p>
 
     <div class="card">
-      <p><strong>「けいしゃ割」</strong>は、飲み会・歓送迎会・接待・忘年会など、参加者の立場に応じて負担額を変えたい場面のための割り勘計算ツールです。ブラウザだけで動作し、入力データはお使いの端末から外部に送信されません。</p>
+      <p><strong>「けいしゃ割」</strong>は、飲み会・歓送迎会・送別会・歓迎会・接待・忘年会・新年会・二次会など、参加者の立場（上司・先輩・後輩・新人・主賓）に応じて負担額を変えたい場面のための、無料の割り勘計算ツール／割り勘アプリです。ブラウザだけで動作し、入力データはお使いの端末から外部に送信されません。インストール・会員登録は不要です。</p>
       <p><a class="cta" href="/guide.html">使い方ガイドを読む →</a></p>
     </div>
+
+    <h2>こんなシーンで使われています（飲み会・割り勘・精算）</h2>
+    <ul>
+      <li>会社の<strong>歓送迎会</strong>・<strong>送別会</strong>・<strong>歓迎会</strong>で、上司・先輩・後輩で<strong>傾斜割り勘</strong>にしたい</li>
+      <li><strong>忘年会</strong>・<strong>新年会</strong>で人数が多く、暗算では割り勘・精算が回らない</li>
+      <li><strong>接待</strong>・<strong>取引先との会食</strong>で、立場ごとに負担額を分けたい</li>
+      <li><strong>二次会</strong>・<strong>三次会</strong>で参加者が入れ替わり、支払ごとに対象者が違う</li>
+      <li><strong>サークル・ゼミ・部活</strong>の飲み会で、先輩は多め・新入生は少なめにしたい</li>
+      <li>幹事として<strong>集金</strong>・<strong>会計</strong>・<strong>送金</strong>までを一気に終わらせたい</li>
+    </ul>
 
     <h2>こんな悩みを、けいしゃ割が解決します</h2>
     <ul>
