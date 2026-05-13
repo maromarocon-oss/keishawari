@@ -23,6 +23,7 @@
       );
 
       root.innerHTML = htmlList.join('\n');
+      document.documentElement.classList.remove('js-loading');
 
       const app = document.createElement('script');
       app.src = './js/app.js';
@@ -30,6 +31,7 @@
       document.body.appendChild(app);
     } catch (err) {
       console.error(err);
+      document.documentElement.classList.remove('js-loading');
       root.innerHTML = `
         <div style="max-width:480px;margin:40px auto;padding:20px;font-family:system-ui,sans-serif;line-height:1.7">
           <h1 style="font-size:20px;margin-bottom:8px">読み込みに失敗しました</h1>
