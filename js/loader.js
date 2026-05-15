@@ -23,11 +23,13 @@
       );
 
       root.innerHTML = htmlList.join('\n');
-      document.documentElement.classList.remove('js-loading');
 
       const app = document.createElement('script');
       app.src = './js/app.js';
-      app.defer = false;
+      app.async = false;
+      const reveal = () => document.documentElement.classList.remove('js-loading');
+      app.onload = reveal;
+      app.onerror = reveal;
       document.body.appendChild(app);
     } catch (err) {
       console.error(err);
