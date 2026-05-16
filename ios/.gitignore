@@ -1,0 +1,20 @@
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+xcuserdata/
+
+# XcodeGen output (regenerate with `xcodegen generate`)
+KeishawariApp.xcodeproj/
+
+# CocoaPods / SPM
+Pods/
+.build/
+.swiftpm/
+
+# macOS
+.DS_Store
