@@ -26,18 +26,9 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://*.googlesyndication.com; font-src 'self' https://*.gstatic.com; script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; connect-src 'self' https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; img-src 'self' data: https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; frame-src https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; worker-src 'none'; manifest-src 'self'; media-src 'none'; upgrade-insecure-requests;">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<script>
-// Backward-compat: legacy shared links lived at https://keishawari.com/#d=...
-// They now belong to the SPA at /app/. Redirect transparently.
-(function(){
-  try{
-    var h = location.hash || '';
-    if(h.indexOf('#d=') === 0){
-      location.replace('/app/' + h);
-    }
-  }catch(e){}
-})();
-</script>
+<script>(function(){var d=document.documentElement;d.className+=' js-loading';setTimeout(function(){d.classList.remove('js-loading');},5000);})();</script>
+<style>html.js-loading #page-root{visibility:hidden}html.js-loading body{background:#F4FCF7}</style>
+<link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/static.css">
 <script type="application/ld+json">
 {
@@ -66,99 +57,6 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "飲み会の傾斜割り勘はどうやって計算しますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "けいしゃ割では、参加者を色（グループ）で分け、グループごとの負担額を入力するだけで傾斜割り勘を自動計算します。合計金額に合わせる「調整」機能と、金額を変えたくないグループ用の「固定（ロック）」機能を備え、端数も自動で吸収します。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "けいしゃ割の利用に会員登録は必要ですか？料金はかかりますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "会員登録もインストールも不要で、完全無料でご利用いただけます。ブラウザを開けばすぐに飲み会の割り勘・精算計算を開始できます。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "誰が誰にいくら払うかの精算は自動で計算できますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "はい。立替額と各人の負担額を集計し、送金回数が最小になるように精算フロー（誰→誰、いくら）を自動生成します。結果はLINE共有用テキストにコピーでき、PayPayの送金画面起動にも対応しています。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "入力したデータはサーバーに保存されますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "いいえ。グループ名・メンバー名・金額などの入力データは、お使いのブラウザのセッションストレージ内でのみ処理され、外部サーバーへの送信や保存は行いません。タブを閉じればデータは消去されます。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "傾斜割り勘の比率はどう決めればよいですか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "現場では「先輩＝後輩×2」のような2段階、または「上司・先輩・新人」の3段階がよく使われます。差は1.5〜3倍以内、端数は上の立場が吸収、会の前に概算を共有しておくとトラブルを防げます。詳しくは使い方ガイドの『傾斜の比率の決め方』を参照してください。"
-      }
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "けいしゃ割で飲み会の傾斜割り勘・精算を行う方法",
-  "description": "飲み会の傾斜割り勘・均等割り勘の計算と、誰が誰にいくら払うかの精算フロー作成を、無料・登録不要で行う手順。",
-  "totalTime": "PT3M",
-  "supply": [
-    {"@type": "HowToSupply", "name": "飲み会の合計金額（レシート）"},
-    {"@type": "HowToSupply", "name": "参加メンバーの名前と立場（先輩・後輩など）"}
-  ],
-  "tool": [
-    {"@type": "HowToTool", "name": "けいしゃ割（Webブラウザ）"}
-  ],
-  "step": [
-    {
-      "@type": "HowToStep",
-      "position": 1,
-      "name": "グループ設定",
-      "text": "飲み会の名前と、参加メンバー（2人以上）を登録します。"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 2,
-      "name": "支払入力",
-      "text": "支払名・合計金額・立替者・精算対象者を入力。均等または傾斜を選び、傾斜の場合は色グループごとの負担額を設定します。"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 3,
-      "name": "精算結果の共有",
-      "text": "合計・個人別内訳・精算フロー（誰→誰、いくら）が自動表示されます。LINE共有・PayPay起動でその場で精算完了。"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://keishawari.com/"}
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
   "@type": "Organization",
   "name": "けいしゃ割 運営",
   "url": "https://keishawari.com/",
@@ -167,140 +65,18 @@
   "sameAs": ["https://keishawari.com/about.html"]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "けいしゃ割の使い方ガイド・ノウハウ記事一覧",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "url": "https://keishawari.com/guide.html", "name": "使い方ガイド（全体）"},
-    {"@type": "ListItem", "position": 2, "url": "https://keishawari.com/guide/keisha-hiritsu.html", "name": "傾斜割り勘の比率の決め方"},
-    {"@type": "ListItem", "position": 3, "url": "https://keishawari.com/guide/kansougeikai.html", "name": "歓送迎会の会費・幹事マニュアル"},
-    {"@type": "ListItem", "position": 4, "url": "https://keishawari.com/guide/bonenkai.html", "name": "忘年会・新年会の会費相場と傾斜割り"},
-    {"@type": "ListItem", "position": 5, "url": "https://keishawari.com/guide/warikan-hasuu.html", "name": "割り勘の端数（小銭）調整のコツ"},
-    {"@type": "ListItem", "position": 6, "url": "https://keishawari.com/guide/paypay-line-soukin.html", "name": "PayPay・LINEで割り勘を送金する"}
-  ]
-}
-</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8221892297793236"
      crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="page-root">
-  <header class="site-header">
-    <div class="site-header-inner">
-      <a class="site-logo" href="/"><span class="site-logo-icon">🍻</span>けいしゃ割</a>
-      <nav class="site-nav" aria-label="サイトナビゲーション">
-        <a href="/app/">アプリを開く</a>
-        <a href="/guide.html">使い方ガイド</a>
-        <a href="/about.html">運営者情報</a>
-        <a href="/contact.html">お問い合わせ</a>
-        <a href="/privacy.html">プライバシー</a>
-        <a href="/terms.html">利用規約</a>
-      </nav>
+  <noscript>
+    <div style="background:#FFF7E6;border:1px solid #F0C674;color:#8A5A00;padding:12px 16px;text-align:center;font-size:14px">
+      JavaScript を有効にすると、ブラウザ上で割り勘計算アプリをご利用いただけます。<br>
+      アプリの解説は <a href="/guide.html">使い方ガイド</a> をご覧ください。
     </div>
-  </header>
-
-  <main class="static-main">
-    <h1>けいしゃ割 — 飲み会の「傾斜割り勘」も「均等割り勘」も瞬時に計算</h1>
-    <p class="lead">幹事を任されたあなたへ。先輩・後輩・主賓で負担額を変える「傾斜割り勘」も、誰が誰にいくら払うかの精算フローも、無料・登録不要・端末完結で一瞬で計算できます。</p>
-
-    <div class="card">
-      <p><strong>「けいしゃ割」</strong>は、飲み会・歓送迎会・送別会・歓迎会・接待・忘年会・新年会・二次会など、参加者の立場（上司・先輩・後輩・新人・主賓）に応じて負担額を変えたい場面のための、無料の割り勘計算ツール／割り勘アプリです。ブラウザだけで動作し、入力データはお使いの端末から外部に送信されません。インストール・会員登録は不要です。</p>
-      <p style="text-align:center;margin-top:18px">
-        <a class="cta" href="/app/">▶ アプリを開いて計算する</a>
-      </p>
-      <p style="text-align:center;margin-top:8px"><a href="/guide.html">使い方ガイドを読む →</a></p>
-    </div>
-
-    <h2>こんなシーンで使われています（飲み会・割り勘・精算）</h2>
-    <ul>
-      <li>会社の<strong>歓送迎会</strong>・<strong>送別会</strong>・<strong>歓迎会</strong>で、上司・先輩・後輩で<strong>傾斜割り勘</strong>にしたい</li>
-      <li><strong>忘年会</strong>・<strong>新年会</strong>で人数が多く、暗算では割り勘・精算が回らない</li>
-      <li><strong>接待</strong>・<strong>取引先との会食</strong>で、立場ごとに負担額を分けたい</li>
-      <li><strong>二次会</strong>・<strong>三次会</strong>で参加者が入れ替わり、支払ごとに対象者が違う</li>
-      <li><strong>サークル・ゼミ・部活</strong>の飲み会で、先輩は多め・新入生は少なめにしたい</li>
-      <li>幹事として<strong>集金</strong>・<strong>会計</strong>・<strong>送金</strong>までを一気に終わらせたい</li>
-    </ul>
-
-    <h2>こんな悩みを、けいしゃ割が解決します</h2>
-    <ul>
-      <li>「先輩が多めに、後輩は少なめに」を、暗算ではなく正確に計算したい</li>
-      <li>合計金額に小銭まできっちり合わせたい（端数調整に時間がかかる）</li>
-      <li>支払が複数件あり、立替者もバラバラで集計が面倒</li>
-      <li>誰が誰にいくら払えば全員精算できるかを、すぐ共有したい</li>
-      <li>LINE で送りやすい形式の精算結果がほしい</li>
-      <li>個人情報を入力したくない／会員登録もしたくない</li>
-    </ul>
-
-    <h2>けいしゃ割の主な特徴</h2>
-    <h3>1. 均等割り勘 と 傾斜割り勘 の両方に対応</h3>
-    <p>1件ごとに「均等」「傾斜」を切り替えられます。傾斜割り勘では、参加者を色（グループ）で分類し、グループごとの負担額を設定。合計金額に自動でフィットさせる「調整」ボタンと、特定グループの金額を変えたくないときの「固定（ロック）」機能も搭載しています。</p>
-
-    <h3>2. 立替者と参加者を支払ごとに指定</h3>
-    <p>「タクシー代は太郎が立替・3人で割り勘」「二次会は花子が立替・全員で割り勘」など、支払ごとに立替者と精算対象を別々に登録できます。</p>
-
-    <h3>3. 誰が誰にいくら払うかの「精算フロー」を自動生成</h3>
-    <p>全員の貸し借りを集計し、送金回数が最小になるように精算フローを組み立てて表示します。LINE 共有用テキストのコピー、PayPay 起動（インストール済みの端末で送金画面へ遷移）にも対応しています。</p>
-
-    <h3>4. 登録不要・無料・データは端末内のみ</h3>
-    <p>会員登録・ログインは一切不要です。入力したグループ名・メンバー名・金額などのデータは、お使いのブラウザのセッションストレージ内でのみ処理され、外部サーバーへの送信や保存は行いません。タブを閉じればデータは消去されます。</p>
-
-    <h2>使い方は 3 ステップ</h2>
-    <ol>
-      <li><strong>グループ設定</strong>：飲み会の名前と、参加メンバー（2 人以上）を登録します。</li>
-      <li><strong>支払入力</strong>：支払名・合計金額・立替者・精算対象者を入力。均等 or 傾斜を選び、傾斜の場合はメンバーを色グループに分けてグループ別の負担額を入力します。</li>
-      <li><strong>精算結果</strong>：合計、個人別内訳、精算フロー（誰 → 誰、いくら）が自動で表示されます。コピー・LINE 共有・PayPay 起動が可能です。</li>
-    </ol>
-    <p>詳しい操作手順とコツは <a href="/guide.html">使い方ガイド</a> で解説しています。</p>
-
-    <h2>よくある質問（FAQ）</h2>
-    <h3>会員登録は必要ですか？</h3>
-    <p>不要です。メールアドレスや名前の登録なしで、すぐに計算を開始できます。</p>
-
-    <h3>料金はかかりますか？</h3>
-    <p>完全無料でご利用いただけます。広告（Google AdSense）の表示で運営しています。</p>
-
-    <h3>入力したデータはサーバーに保存されますか？</h3>
-    <p>いいえ。入力データはお使いのブラウザ内（セッションストレージ）でのみ処理され、外部に送信・保存されません。タブを閉じれば消去されます。詳しくは <a href="/privacy.html">プライバシーポリシー</a> をご覧ください。</p>
-
-    <h3>スマートフォンでも使えますか？</h3>
-    <p>はい。iOS / Android のモバイルブラウザに最適化されています。デスクトップブラウザでも問題なく動作します。</p>
-
-    <h3>傾斜割り勘の比率はどう決めればよいですか？</h3>
-    <p>明確な決まりはありませんが、目安は <a href="/guide.html">使い方ガイド</a> の「傾斜の比率の決め方」を参考にしてください。一般的には主賓・先輩を多めに、後輩・新人を少なめにします。</p>
-
-    <h2>もっと詳しく：シーン別・テーマ別ガイド</h2>
-    <ul>
-      <li><a href="/guide/keisha-hiritsu.html">傾斜割り勘の比率の決め方（2倍・3倍ルール、職場別の目安）</a></li>
-      <li><a href="/guide/kansougeikai.html">歓送迎会の会費・幹事マニュアル（主賓無料の作法）</a></li>
-      <li><a href="/guide/bonenkai.html">忘年会・新年会の会費相場と役職別の傾斜割り</a></li>
-      <li><a href="/guide/warikan-hasuu.html">割り勘の端数（小銭）調整のコツ・100円丸めの考え方</a></li>
-      <li><a href="/guide/paypay-line-soukin.html">PayPay・LINEで割り勘を送金する：幹事のキャッシュレス活用</a></li>
-    </ul>
-
-    <h2>ご利用にあたって</h2>
-    <p>本サービスは、計算結果の正確性に最善を尽くしていますが、結果はあくまで参考値です。実際の精算は、参加者間で合意のうえ行ってください。詳細は <a href="/terms.html">利用規約</a> をご確認ください。</p>
-
-    <p style="text-align:center;margin-top:28px">
-      <a class="cta" href="/app/">▶ アプリを開いて計算する</a>
-    </p>
-  </main>
-
-  <footer class="site-footer">
-    <div class="site-footer-inner">
-      <nav class="site-footer-nav" aria-label="フッターナビゲーション">
-        <a href="/">ホーム</a>
-        <a href="/app/">アプリ</a>
-        <a href="/guide.html">使い方ガイド</a>
-        <a href="/about.html">運営者情報</a>
-        <a href="/contact.html">お問い合わせ</a>
-        <a href="/privacy.html">プライバシーポリシー</a>
-        <a href="/terms.html">利用規約</a>
-      </nav>
-      <div class="site-footer-copy">© けいしゃ割 運営</div>
-    </div>
-  </footer>
+  </noscript>
 </div>
+<script src="/js/loader.js" defer></script>
 </body>
 </html>
