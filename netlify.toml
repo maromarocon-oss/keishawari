@@ -27,6 +27,36 @@
   to   = "/guide.html"
   status = 200
 
+[[redirects]]
+  from = "/app"
+  to   = "/app/"
+  status = 301
+
+[[redirects]]
+  from = "/guide/keisha-hiritsu"
+  to   = "/guide/keisha-hiritsu.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide/kansougeikai"
+  to   = "/guide/kansougeikai.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide/bonenkai"
+  to   = "/guide/bonenkai.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide/warikan-hasuu"
+  to   = "/guide/warikan-hasuu.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide/paypay-line-soukin"
+  to   = "/guide/paypay-line-soukin.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]

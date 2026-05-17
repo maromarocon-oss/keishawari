@@ -26,10 +26,19 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://*.googlesyndication.com; font-src 'self' https://*.gstatic.com; script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; connect-src 'self' https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; img-src 'self' data: https://*.googlesyndication.com https://*.google.com https://*.gstatic.com https://*.doubleclick.net; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; frame-src https://*.googlesyndication.com https://*.google.com https://*.doubleclick.net; worker-src 'none'; manifest-src 'self'; media-src 'none'; upgrade-insecure-requests;">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<script>(function(){var d=document.documentElement;d.className+=' js-loading';setTimeout(function(){d.classList.remove('js-loading');},5000);})();</script>
-<style>html.js-loading #page-root{visibility:hidden}html.js-loading body{background:#F4FCF7}</style>
-<link rel="stylesheet" href="./css/style.css">
-<link rel="stylesheet" href="./css/static.css">
+<script>
+// Backward-compat: legacy shared links lived at https://keishawari.com/#d=...
+// They now belong to the SPA at /app/. Redirect transparently.
+(function(){
+  try{
+    var h = location.hash || '';
+    if(h.indexOf('#d=') === 0){
+      location.replace('/app/' + h);
+    }
+  }catch(e){}
+})();
+</script>
+<link rel="stylesheet" href="/css/static.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -147,16 +156,42 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "けいしゃ割 運営",
+  "url": "https://keishawari.com/",
+  "logo": "https://keishawari.com/",
+  "email": "keishawari.tool@gmail.com",
+  "sameAs": ["https://keishawari.com/about.html"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "けいしゃ割の使い方ガイド・ノウハウ記事一覧",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "url": "https://keishawari.com/guide.html", "name": "使い方ガイド（全体）"},
+    {"@type": "ListItem", "position": 2, "url": "https://keishawari.com/guide/keisha-hiritsu.html", "name": "傾斜割り勘の比率の決め方"},
+    {"@type": "ListItem", "position": 3, "url": "https://keishawari.com/guide/kansougeikai.html", "name": "歓送迎会の会費・幹事マニュアル"},
+    {"@type": "ListItem", "position": 4, "url": "https://keishawari.com/guide/bonenkai.html", "name": "忘年会・新年会の会費相場と傾斜割り"},
+    {"@type": "ListItem", "position": 5, "url": "https://keishawari.com/guide/warikan-hasuu.html", "name": "割り勘の端数（小銭）調整のコツ"},
+    {"@type": "ListItem", "position": 6, "url": "https://keishawari.com/guide/paypay-line-soukin.html", "name": "PayPay・LINEで割り勘を送金する"}
+  ]
+}
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8221892297793236"
      crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="page-root">
-  <!-- crawler-visible fallback content (replaced by SPA on JS load) -->
   <header class="site-header">
     <div class="site-header-inner">
       <a class="site-logo" href="/"><span class="site-logo-icon">🍻</span>けいしゃ割</a>
       <nav class="site-nav" aria-label="サイトナビゲーション">
+        <a href="/app/">アプリを開く</a>
         <a href="/guide.html">使い方ガイド</a>
         <a href="/about.html">運営者情報</a>
         <a href="/contact.html">お問い合わせ</a>
@@ -172,7 +207,10 @@
 
     <div class="card">
       <p><strong>「けいしゃ割」</strong>は、飲み会・歓送迎会・送別会・歓迎会・接待・忘年会・新年会・二次会など、参加者の立場（上司・先輩・後輩・新人・主賓）に応じて負担額を変えたい場面のための、無料の割り勘計算ツール／割り勘アプリです。ブラウザだけで動作し、入力データはお使いの端末から外部に送信されません。インストール・会員登録は不要です。</p>
-      <p><a class="cta" href="/guide.html">使い方ガイドを読む →</a></p>
+      <p style="text-align:center;margin-top:18px">
+        <a class="cta" href="/app/">▶ アプリを開いて計算する</a>
+      </p>
+      <p style="text-align:center;margin-top:8px"><a href="/guide.html">使い方ガイドを読む →</a></p>
     </div>
 
     <h2>こんなシーンで使われています（飲み会・割り勘・精算）</h2>
@@ -232,12 +270,20 @@
     <h3>傾斜割り勘の比率はどう決めればよいですか？</h3>
     <p>明確な決まりはありませんが、目安は <a href="/guide.html">使い方ガイド</a> の「傾斜の比率の決め方」を参考にしてください。一般的には主賓・先輩を多めに、後輩・新人を少なめにします。</p>
 
+    <h2>もっと詳しく：シーン別・テーマ別ガイド</h2>
+    <ul>
+      <li><a href="/guide/keisha-hiritsu.html">傾斜割り勘の比率の決め方（2倍・3倍ルール、職場別の目安）</a></li>
+      <li><a href="/guide/kansougeikai.html">歓送迎会の会費・幹事マニュアル（主賓無料の作法）</a></li>
+      <li><a href="/guide/bonenkai.html">忘年会・新年会の会費相場と役職別の傾斜割り</a></li>
+      <li><a href="/guide/warikan-hasuu.html">割り勘の端数（小銭）調整のコツ・100円丸めの考え方</a></li>
+      <li><a href="/guide/paypay-line-soukin.html">PayPay・LINEで割り勘を送金する：幹事のキャッシュレス活用</a></li>
+    </ul>
+
     <h2>ご利用にあたって</h2>
     <p>本サービスは、計算結果の正確性に最善を尽くしていますが、結果はあくまで参考値です。実際の精算は、参加者間で合意のうえ行ってください。詳細は <a href="/terms.html">利用規約</a> をご確認ください。</p>
-    <p>本ページは JavaScript が有効な環境でアプリ画面に切り替わります。読み込みが完了しない場合は、ブラウザの JavaScript 設定をご確認のうえ再読み込みしてください。</p>
 
     <p style="text-align:center;margin-top:28px">
-      <a class="cta" href="/">アプリを開く（JavaScript 有効時のみ） →</a>
+      <a class="cta" href="/app/">▶ アプリを開いて計算する</a>
     </p>
   </main>
 
@@ -245,6 +291,7 @@
     <div class="site-footer-inner">
       <nav class="site-footer-nav" aria-label="フッターナビゲーション">
         <a href="/">ホーム</a>
+        <a href="/app/">アプリ</a>
         <a href="/guide.html">使い方ガイド</a>
         <a href="/about.html">運営者情報</a>
         <a href="/contact.html">お問い合わせ</a>
@@ -255,12 +302,5 @@
     </div>
   </footer>
 </div>
-<noscript>
-  <div style="background:#FFF7E6;border:1px solid #F0C674;color:#8A5A00;padding:12px 16px;text-align:center;font-size:14px">
-    JavaScript を有効にすると、ブラウザ上で割り勘計算アプリをご利用いただけます。<br>
-    JavaScript が無効でも、上記の解説・各種情報ページ（<a href="/about.html">運営者情報</a>・<a href="/privacy.html">プライバシー</a>・<a href="/terms.html">利用規約</a>・<a href="/contact.html">お問い合わせ</a>）はご覧いただけます。
-  </div>
-</noscript>
-<script src="./js/loader.js" defer></script>
 </body>
 </html>

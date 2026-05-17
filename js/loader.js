@@ -1,12 +1,12 @@
 (() => {
   const partials = [
-    './pages/intro.html',
-    './pages/group.html',
-    './pages/payments.html',
-    './pages/results.html',
-    './pages/privacy.html',
-    './pages/feedback.html',
-    './components/cookie-banner.html'
+    '/pages/intro.html',
+    '/pages/group.html',
+    '/pages/payments.html',
+    '/pages/results.html',
+    '/pages/privacy.html',
+    '/pages/feedback.html',
+    '/components/cookie-banner.html'
   ];
 
   async function loadPartials() {
@@ -25,7 +25,7 @@
       root.innerHTML = htmlList.join('\n');
 
       const app = document.createElement('script');
-      app.src = './js/app.js';
+      app.src = '/js/app.js';
       app.async = false;
       const reveal = () => document.documentElement.classList.remove('js-loading');
       app.onload = reveal;
