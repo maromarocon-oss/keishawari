@@ -49,6 +49,48 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://keishawari.com/column/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://keishawari.com/column/iketara-ikimasu-ichiban-komaru.html</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://keishawari.com/column/warikan-line-kidokusuru.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://keishawari.com/column/keisha-shiharai-kokoroe.html</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://keishawari.com/column/kanji-kaishi-mae-30pun.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://keishawari.com/column/shinjin-kanji-saisho-no-kiji.html</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://keishawari.com/column/kanji-keishawari-tsukatte-mita.html</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://keishawari.com/about.html</loc>
     <lastmod>2026-05-17</lastmod>
     <changefreq>monthly</changefreq>
