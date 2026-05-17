@@ -55,6 +55,15 @@
 - [割り勘の端数（小銭）調整のコツ](https://keishawari.com/guide/warikan-hasuu.html): 100円・1,000円丸めの考え方
 - [PayPay・LINEで割り勘を送金する](https://keishawari.com/guide/paypay-line-soukin.html): キャッシュレス精算の段取り
 
+### コラム（飲み会幹事のリアル）
+- [コラム一覧](https://keishawari.com/column/): 飲み会幹事・傾斜割り勘・LINE/PayPay 精算の実践ノウハウを扱うコラム集
+- [「行けたら行きます」が一番困る](https://keishawari.com/column/iketara-ikimasu-ichiban-komaru.html): 出欠を確定させるコミュニケーションのコツ（2026-05-17）
+- [飲み会の割り勘LINEで既読スルーされる問題、原因は"分かりにくさ"だった](https://keishawari.com/column/warikan-line-kidokusuru.html): 送金率を上げるLINEテンプレート（2026-05-16）
+- [【社会人必読】「けいしゃ支払い」で失敗しないための心得](https://keishawari.com/column/keisha-shiharai-kokoroe.html): 傾斜割り勘の落とし穴と回避法を図解で解説（2026-05-16）
+- [飲み会幹事で一番しんどいの、開始前30分](https://keishawari.com/column/kanji-kaishi-mae-30pun.html): 集合・席決め・遅刻者対応の立ち回り方（2026-05-15）
+- [新人会社員が飲み会幹事を任された時に最初に読む記事](https://keishawari.com/column/shinjin-kanji-saisho-no-kiji.html): 店選び・会計・当日動き方の基本（2026-05-14）
+- [飲み会幹事の「先輩多め、後輩少なめ」をワンタップで。傾斜割り勘アプリ「けいしゃ割」を使ってみた](https://keishawari.com/column/kanji-keishawari-tsukatte-mita.html): 実使用レビュー（2026-05-13）
+
 ### 規約・ポリシー
 - [プライバシーポリシー](https://keishawari.com/privacy.html): データの取扱い方針
 - [利用規約](https://keishawari.com/terms.html): サービス利用条件
