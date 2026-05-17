@@ -28,6 +28,16 @@
   status = 200
 
 [[redirects]]
+  from = "/column"
+  to   = "/column.html"
+  status = 200
+
+[[redirects]]
+  from = "/column/keishawari-review"
+  to   = "/column/keishawari-review.html"
+  status = 200
+
+[[redirects]]
   from = "/app"
   to   = "/app/"
   status = 301
