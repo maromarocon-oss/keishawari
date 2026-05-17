@@ -45,6 +45,7 @@
 - [トップページ](https://keishawari.com/): サービスの概要と特徴
 - [けいしゃ割アプリ](https://keishawari.com/app/): 計算アプリ本体
 - [使い方ガイド](https://keishawari.com/guide.html): 幹事のノウハウと使い方の総合解説
+- [コラム一覧](https://keishawari.com/column.html): 実体験ベースの連載コラム（noteと同内容）
 - [運営者情報](https://keishawari.com/about.html): 運営者プロフィール・E-E-A-T情報
 - [お問い合わせ](https://keishawari.com/contact.html): フィードバック窓口
 
@@ -54,6 +55,9 @@
 - [忘年会・新年会の会費相場](https://keishawari.com/guide/bonenkai.html): 2026年版・役職別の傾斜割り
 - [割り勘の端数（小銭）調整のコツ](https://keishawari.com/guide/warikan-hasuu.html): 100円・1,000円丸めの考え方
 - [PayPay・LINEで割り勘を送金する](https://keishawari.com/guide/paypay-line-soukin.html): キャッシュレス精算の段取り
+
+### コラム記事（note連載と同内容）
+- [けいしゃ割を使ってみた](https://keishawari.com/column/keishawari-review.html): 飲み会幹事の精算ストレスを「無料・登録不要」で解決する実体験レビュー
 
 ### 規約・ポリシー
 - [プライバシーポリシー](https://keishawari.com/privacy.html): データの取扱い方針
