@@ -412,7 +412,9 @@ function buildResultText(){
   let txt=`【${groupName}の精算結果】\n`;
   txt+=`合計：${fmt(total)}\n`;
   payments.forEach(p=>{
-    txt+=`　・${p.label}・${p.participantIds.length}人：${fmt(p.amount)}\n`;
+    const payer=getMember(p.payerId);
+    const payerName=payer?.name||'';
+    txt+=`　・${p.label}/${p.participantIds.length}人/${payerName}：${fmt(p.amount)}\n`;
   });
   // Settlement flow
   txt+='\n【精算フロー】\n';
@@ -422,7 +424,7 @@ function buildResultText(){
     settlements.forEach(s=>{
       const fr=getMember(s.fromId),to=getMember(s.toId);
       if(!fr||!to)return;
-      txt+=`${fr.name} → ${to.name}：${fmt(s.amount)}\n`;
+      txt+=`・${fr.name} → ${to.name}：${fmt(s.amount)}\n`;
     });
   }
   // Per-person breakdown
