@@ -1381,7 +1381,8 @@ function renderResults(){
 
 function shareToLine(){
   computeSettlements();
-  const text=buildResultText();
+  const credit='「けいしゃ割で計算」https://keishawari.com\n\n';
+  const text=credit+buildResultText();
   const url='https://line.me/R/msg/text/?'+encodeURIComponent(text);
   // Mobile devices launch the LINE app; desktop opens the web share UI.
   window.open(url,'_blank','noopener,noreferrer');
