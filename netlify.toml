@@ -73,3 +73,15 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "no-cache, must-revalidate"
+
+# JSが読み込む分割HTML断片。レンダリングのための取得は許可したいので
+# robots.txt では Disallow せず、単体ページとしての索引だけを抑止する。
+[[headers]]
+  for = "/pages/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/components/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

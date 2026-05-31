@@ -11,6 +11,34 @@
 
   const reveal = () => document.documentElement.classList.remove('js-loading');
 
+  // 分割HTMLの取得は、ネットワークの一時的な不調やcrawlerのタイムアウトで
+  // 1本でも失敗すると本文が空のエラー画面になってしまう。指数バックオフで
+  // 数回リトライし、トップページが「コンテンツなし」になるのを防ぐ。
+  const FETCH_RETRIES = 3;        // 初回に加えて最大3回まで再試行
+  const RETRY_BASE_DELAY = 300;   // ms。バックオフの基準値（300 → 600 → 1200ms）
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function fetchWithRetry(path, retries = FETCH_RETRIES) {
+    let lastErr;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) {
+          throw new Error(`${path} の読み込みに失敗しました: ${res.status}`);
+        }
+        return await res.text();
+      } catch (err) {
+        lastErr = err;
+        if (attempt === retries) break;
+        // 指数バックオフ＋ジッター（同時リトライの集中を避ける）
+        const backoff = RETRY_BASE_DELAY * Math.pow(2, attempt);
+        await delay(backoff + Math.random() * RETRY_BASE_DELAY);
+      }
+    }
+    throw lastErr;
+  }
+
   function hasInitialRoute() {
     try {
       if (location.hash && location.hash.startsWith('#d=')) return true;
@@ -23,13 +51,7 @@
     const root = document.getElementById('page-root');
     try {
       const htmlList = await Promise.all(
-        partials.map(async (path) => {
-          const res = await fetch(path);
-          if (!res.ok) {
-            throw new Error(`${path} の読み込みに失敗しました: ${res.status}`);
-          }
-          return res.text();
-        })
+        partials.map((path) => fetchWithRetry(path))
       );
 
       root.innerHTML = htmlList.join('\n');

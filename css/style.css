@@ -479,3 +479,16 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .privacy-section ul{padding-left:20px;margin-top:6px}
 .privacy-section a{color:var(--green);word-break:break-all}
 .privacy-meta{font-size:11px;color:var(--faint);margin-top:18px;padding:12px 14px;background:var(--bg);border-radius:var(--r-md);line-height:1.8}
+
+    /* ホーム（intro画面）内の解説記事ブロック — 傾斜割り勘の定義・FAQ等の静的コンテンツ */
+    .intro-article{margin:22px 0 0;padding:20px 16px 0;border-top:1px solid var(--border)}
+    .intro-article h2{font-size:17px;font-weight:800;color:var(--text);margin:18px 0 8px;letter-spacing:.01em}
+    .intro-article h2:first-child{margin-top:0}
+    .intro-article h3{font-size:13.5px;font-weight:800;color:var(--text);margin:16px 0 4px}
+    .intro-article p{font-size:13px;line-height:1.85;color:var(--text);margin:0 0 10px}
+    .intro-article ul{margin:0 0 12px;padding-left:1.15em}
+    .intro-article li{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:5px}
+    .intro-article a{color:var(--green);font-weight:700;text-decoration:none}
+    .intro-article a:hover{text-decoration:underline}
+    .intro-article strong{color:var(--text);font-weight:800}
+    .intro-article-guides{font-size:12.5px;color:var(--muted)}
