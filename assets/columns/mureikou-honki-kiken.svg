@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="「無礼講」を真に受けると危険のイラスト">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF6E6"/><stop offset="1" stop-color="#F4FCF7"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg2)"/>
+  <rect x="0" y="0" width="640" height="64" fill="#2A9055"/>
+  <text x="32" y="42" font-family="'Hiragino Sans',sans-serif" font-size="26" font-weight="900" fill="#fff">「無礼講」を真に受けるな</text>
+  <text x="32" y="100" font-family="'Hiragino Sans',sans-serif" font-size="18" font-weight="700" fill="#1F7040">その一言、信じすぎると危険。</text>
+  <!-- warning sign -->
+  <g transform="translate(80,135)">
+    <path d="M85 0 L170 150 L0 150 Z" fill="#FFE08A" stroke="#E0A52E" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="78" y="48" width="14" height="60" rx="6" fill="#0E5C32"/>
+    <circle cx="85" cy="126" r="9" fill="#0E5C32"/>
+  </g>
+  <!-- boss speech -->
+  <g transform="translate(300,130)">
+    <rect x="0" y="0" width="300" height="64" rx="16" fill="#fff" stroke="#2A9055" stroke-width="3"/>
+    <path d="M30 64 l0 24 l24 -24 z" fill="#fff" stroke="#2A9055" stroke-width="3"/>
+    <text x="150" y="40" text-anchor="middle" font-family="'Hiragino Sans',sans-serif" font-size="20" font-weight="900" fill="#1F7040">今日は無礼講だ！</text>
+  </g>
+  <g transform="translate(300,225)">
+    <rect x="0" y="0" width="300" height="58" rx="16" fill="#FFEFEF" stroke="#D9534F" stroke-width="3"/>
+    <text x="150" y="36" text-anchor="middle" font-family="'Hiragino Sans',sans-serif" font-size="17" font-weight="800" fill="#B5403C">…でも本音は別、かも？</text>
+  </g>
+</svg>

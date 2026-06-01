@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="飲み会の席順・上座下座のイラスト">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#EAFAF1"/><stop offset="1" stop-color="#F4FCF7"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg4)"/>
+  <rect x="0" y="0" width="640" height="64" fill="#2A9055"/>
+  <text x="32" y="42" font-family="'Hiragino Sans',sans-serif" font-size="26" font-weight="900" fill="#fff">飲み会の席順、どこ座る？</text>
+  <text x="32" y="100" font-family="'Hiragino Sans',sans-serif" font-size="18" font-weight="700" fill="#1F7040">上座・下座を図解でマスター。</text>
+  <!-- table -->
+  <rect x="220" y="150" width="200" height="120" rx="14" fill="#E6D2B5" stroke="#0E5C32" stroke-width="3"/>
+  <text x="320" y="218" text-anchor="middle" font-family="'Hiragino Sans',sans-serif" font-size="16" font-weight="800" fill="#7a5b2e">テーブル</text>
+  <!-- seats kamiza (top, near wall) -->
+  <g font-family="'Hiragino Sans',sans-serif" font-weight="900" text-anchor="middle">
+    <circle cx="270" cy="125" r="22" fill="#2A9055" stroke="#0E5C32" stroke-width="3"/><text x="270" y="132" font-size="15" fill="#fff">上</text>
+    <circle cx="370" cy="125" r="22" fill="#2A9055" stroke="#0E5C32" stroke-width="3"/><text x="370" y="132" font-size="15" fill="#fff">上</text>
+    <circle cx="270" cy="295" r="22" fill="#FFD24D" stroke="#0E5C32" stroke-width="3"/><text x="270" y="302" font-size="15" fill="#7a5b2e">下</text>
+    <circle cx="370" cy="295" r="22" fill="#FFD24D" stroke="#0E5C32" stroke-width="3"/><text x="370" y="302" font-size="15" fill="#7a5b2e">下</text>
+  </g>
+  <text x="320" y="100" text-anchor="middle" font-family="'Hiragino Sans',sans-serif" font-size="13" font-weight="700" fill="#1F7040">↑ 入口から遠い＝上座</text>
+  <text x="500" y="305" text-anchor="middle" font-family="'Hiragino Sans',sans-serif" font-size="13" font-weight="700" fill="#9A8880">入口に近い＝下座（幹事）</text>
+  <!-- door -->
+  <rect x="470" y="150" width="30" height="120" rx="4" fill="#fff" stroke="#9A8880" stroke-width="3"/>
+  <text x="485" y="138" text-anchor="middle" font-family="'Hiragino Sans',sans-serif" font-size="12" font-weight="700" fill="#9A8880">入口</text>
+</svg>

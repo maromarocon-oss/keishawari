@@ -57,6 +57,11 @@
 
 ### コラム（飲み会幹事のリアル）
 - [コラム一覧](https://keishawari.com/column/): 飲み会幹事・傾斜割り勘・LINE/PayPay 精算の実践ノウハウを扱うコラム集
+- [飲みすぎ注意報 — 記憶をなくす前に守りたい5つのルール](https://keishawari.com/column/nomisugi-chuui.html): 飲みすぎを防ぐ注意点。ペース配分・水を挟む・帰宅と精算の段取り（2026-06-01）
+- [飲み会の席順、結局どこに座ればいい？](https://keishawari.com/column/sekijun-kamiza-shimoza.html): 上座・下座を図解でマスター。新人幹事の定位置と会計への影響（2026-05-31）
+- [二次会「行く人ー？」で空気が凍る問題](https://keishawari.com/column/nijikai-ikuhito-kuuki.html): 誘い方・解散の切り方・一次会と二次会を分ける会計術（2026-05-30）
+- [「無礼講」を真に受けると危険](https://keishawari.com/column/mureikou-honki-kiken.html): 会社の飲み会でやりがちなNG行動と身を守る注意点（2026-05-29）
+- [「とりあえず生」問題、実は奥が深い](https://keishawari.com/column/toriaezu-nama-mondai.html): 最初の注文あるあると乾杯を最速にする3ステップ注文術（2026-05-28）
 - [「行けたら行きます」が一番困る](https://keishawari.com/column/iketara-ikimasu-ichiban-komaru.html): 出欠を確定させるコミュニケーションのコツ（2026-05-17）
 - [飲み会の割り勘LINEで既読スルーされる問題、原因は"分かりにくさ"だった](https://keishawari.com/column/warikan-line-kidokusuru.html): 送金率を上げるLINEテンプレート（2026-05-16）
 - [【社会人必読】「けいしゃ支払い」で失敗しないための心得](https://keishawari.com/column/keisha-shiharai-kokoroe.html): 傾斜割り勘の落とし穴と回避法を図解で解説（2026-05-16）
