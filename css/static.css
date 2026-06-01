@@ -209,3 +209,8 @@ a:hover{color:var(--green-dk)}
   .guide-feature-grid{grid-template-columns:1fr}
   .guide-detail-grid{grid-template-columns:1fr}
 }
+
+/* ===== 記事内 広告ユニット ===== */
+.adunit{margin:28px 0;text-align:center;min-height:0;overflow:hidden}
+.adunit-label{display:block;font-size:11px;color:var(--faint);letter-spacing:.08em;margin-bottom:4px}
+.adunit ins{display:block}

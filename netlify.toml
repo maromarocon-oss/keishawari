@@ -57,6 +57,16 @@
   to   = "/guide/paypay-line-soukin.html"
   status = 200
 
+[[redirects]]
+  from = "/guide/kanji-manual"
+  to   = "/guide/kanji-manual.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide/warikan-houhou"
+  to   = "/guide/warikan-houhou.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
