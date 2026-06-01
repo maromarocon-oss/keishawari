@@ -74,10 +74,53 @@
 <div id="page-root">
   <noscript>
     <div style="background:#FFF7E6;border:1px solid #F0C674;color:#8A5A00;padding:12px 16px;text-align:center;font-size:14px">
-      JavaScript を有効にすると、ブラウザ上で割り勘計算アプリをご利用いただけます。<br>
-      アプリの解説は <a href="/guide.html">使い方ガイド</a> をご覧ください。
+      JavaScript を有効にすると、ブラウザ上で割り勘計算アプリをご利用いただけます。
     </div>
   </noscript>
+  <article class="static-main seo-fallback" itemscope itemtype="https://schema.org/WebApplication">
+    <header>
+      <h1 itemprop="name">けいしゃ割アプリ ― 傾斜割り勘・傾斜精算の計算ツール</h1>
+      <p class="lead" itemprop="description">
+        <strong>けいしゃ割アプリ</strong>は、飲み会・歓送迎会・接待・忘年会の<strong>傾斜割り勘（傾斜精算）</strong>と<strong>精算フロー</strong>を、<strong>無料・登録不要・インストール不要</strong>で計算できる日本語のWebアプリです。役職・年齢・飲酒量に応じて支払額に差をつけ、「誰が・誰に・いくら払うか」を最少回数の送金で自動算出します。
+      </p>
+      <p style="text-align:center;margin:18px 0">
+        <a class="cta" href="/app/" itemprop="url">▶ アプリを起動する（JavaScriptを有効にしてください）</a>
+      </p>
+    </header>
+
+    <section aria-labelledby="howto-heading">
+      <h2 id="howto-heading">使い方は3ステップ</h2>
+      <ol>
+        <li><strong>グループ設定</strong>：飲み会の名前と参加メンバー（2人以上）を登録します。</li>
+        <li><strong>支払入力</strong>：支払名・合計金額・立替者・精算対象を入力し、「均等」か「傾斜」を選びます。傾斜の場合はグループごとに負担額を設定します。</li>
+        <li><strong>精算結果</strong>：合計・個人別内訳・精算フロー（誰→誰、いくら）が自動表示されます。コピー／LINE共有／PayPay起動で精算が完了します。</li>
+      </ol>
+      <p>詳しい手順は <a href="/guide.html">使い方ガイド</a> をご覧ください。</p>
+    </section>
+
+    <section aria-labelledby="feat-heading">
+      <h2 id="feat-heading">けいしゃ割アプリの特徴</h2>
+      <ul>
+        <li><strong>均等／傾斜の両対応</strong>：支払い1件ごとに切り替え可能</li>
+        <li><strong>自動の端数調整</strong>：「調整」ボタンで合計にフィット、固定したいグループは「ロック」</li>
+        <li><strong>最少回数の精算フロー</strong>：送金回数が最少になるよう自動算出</li>
+        <li><strong>LINE共有・PayPay起動</strong>：結果をその場で共有・送金</li>
+        <li><strong>データは端末内のみ</strong>：入力情報を外部サーバーに送信しません</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="link-heading">
+      <h2 id="link-heading">関連ページ</h2>
+      <ul>
+        <li><a href="/">けいしゃ割トップ（傾斜割り勘とは）</a></li>
+        <li><a href="/guide/keisha-hiritsu.html">傾斜割り勘の比率の決め方</a></li>
+        <li><a href="/guide/warikan-hasuu.html">割り勘の端数（小銭）調整のコツ</a></li>
+        <li><a href="/guide/paypay-line-soukin.html">PayPay・LINEで割り勘を送金する</a></li>
+        <li><a href="/column/">コラム（飲み会幹事のノウハウ）</a></li>
+        <li><a href="/about.html">運営者情報</a> ・ <a href="/contact.html">お問い合わせ</a> ・ <a href="/privacy.html">プライバシーポリシー</a> ・ <a href="/terms.html">利用規約</a></li>
+      </ul>
+    </section>
+  </article>
 </div>
 <script src="/js/loader.js" defer></script>
 </body>
